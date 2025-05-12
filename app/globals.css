@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
   /* Base colors */
   --color-base-100: oklch(0% 0 0);
   --color-base-200: oklch(19% 0 0);
@@ -48,7 +48,7 @@
 body {
   background: var(--color-base-100);
   color: var(--color-base-content);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
 /* Utility classes */
@@ -173,6 +173,19 @@ body {
     }
     100% {
       transform: translateY(-50%);
+    }
+  }
+}
+
+@theme inline {
+  --animate-move: move 5s linear infinite;
+ 
+  @keyframes move {
+    0% {
+      transform: translateX(-200px);
+    }
+    100% {
+      transform: translateX(200px);
     }
   }
 }
