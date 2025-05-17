@@ -9,7 +9,7 @@ import {
 } from "motion/react";
 
 import React, { useRef, useState } from "react";
-import { MovingBorder } from "../ui/moving-border";
+import Image from "next/image";
 
 
 interface NavbarProps {
@@ -47,7 +47,6 @@ interface MobileNavMenuProps {
   children: React.ReactNode;
   className?: string;
   isOpen: boolean;
-  onClose: () => void;
 }
 
 export const Navbar = ({ children, className }: NavbarProps) => {
@@ -196,7 +195,6 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>
@@ -209,7 +207,7 @@ export const MobileNavMenu = ({
             backgroundColor: "rgba(255, 255, 255, 1)",
           }}
           className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-ghostwhite/30 backdrop-blur-3xl px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] border border-[#6966665a] text-black",
+            "absolute inset-x-0 mt-[12px] top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-ghostwhite/30 backdrop-blur-3xl px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] border border-[#6966665a] text-black",
             className,
           )}
         >
@@ -240,11 +238,12 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-base font-normal text-black"
     >
-      <img
+      <Image
         src="https://www.placehold.co/30x30"
         alt="logo"
         width={30}
         height={30}
+        className="rounded-full"
       />
       <span className="font-medium text-black"> DevOps Career </span>
     </a>

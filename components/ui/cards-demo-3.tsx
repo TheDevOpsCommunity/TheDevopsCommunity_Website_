@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { animate, motion } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { SiDocker, SiKubernetes, SiJenkins, SiAmazon, SiTerraform } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";

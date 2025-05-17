@@ -1,12 +1,8 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
+import { motion } from "motion/react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { Card, CardTitle, CardDescription, CardSkeletonContainer, Skeleton1, Skeleton2, Skeleton3 } from "../ui/cards-demo-3";
-import CourseDetails from "../CourseDetails/CourseDetails";
-import CoursesLamp from "../CoursesLamp/CoursesLamp";
-import { Spotlight } from "../ui/spotlight";
-import { cn } from "@/lib/utils";
 
 export function HeroSectionOne() {
   return (
