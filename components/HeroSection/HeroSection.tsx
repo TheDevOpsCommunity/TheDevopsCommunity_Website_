@@ -2,46 +2,67 @@
 
 import { motion, useInView } from "motion/react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
-import { Card, CardTitle, CardDescription, CardSkeletonContainer, Skeleton } from "../ui/cards-demo-3";
+import { Card, CardTitle, CardDescription, CardSkeletonContainer, Skeleton1, Skeleton2, Skeleton3 } from "../ui/cards-demo-3";
+import CourseDetails from "../CourseDetails/CourseDetails";
+import CoursesLamp from "../CoursesLamp/CoursesLamp";
+import { Spotlight } from "../ui/spotlight";
+import { cn } from "@/lib/utils";
 
 export function HeroSectionOne() {
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center">
       <div className="w-full flex-1 relative">
+      {/* <div
+        className={cn(
+          "absolute inset-0",
+          "[background-size:20px_20px]",
+          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
+          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
+        )}
+      /> */}
+      {/* Radial gradient for the container to give a faded look */}
+      {/* <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-white"></div> */}
+
+      {/* <Spotlight
+        className="-top-40 left-0 md:-top-20 md:left-60"
+        fill="black"
+      /> */}
         <BackgroundGradientAnimation 
-          gradientBackgroundStart="rgb(0, 0, 0)"
-          gradientBackgroundEnd="rgb(0, 0, 0)"
-          firstColor="237, 0, 213"
-          secondColor="255, 0, 61"
-          thirdColor="111, 0, 221"
-          fourthColor="237, 0, 213"
-          fifthColor="255, 0, 61"
-          pointerColor="111, 0, 221"
-          size="50%"
+          gradientBackgroundStart="rgb(255, 255, 255)"
+          gradientBackgroundEnd="rgb(255, 255, 255)"
+          firstColor="255, 108, 223"
+          secondColor="135, 15, 255"
+          thirdColor="255, 255, 255"
+          fourthColor="255, 108, 223"
+          fifthColor="135, 15, 255"
+          size="160%"
           blendingValue="soft-light"
           className="absolute inset-0"
+          interactive={false}
         >
           <div className="w-full px-4 md:px-6 lg:px-8 py-20 md:py-10 min-h-screen flex items-center justify-center">
             <div className="flex flex-col items-center justify-center">
-              <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-white md:text-4xl lg:text-7xl drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
-                {"Master Your DevOps Career."
-                  .split(" ")
-                  .map((word, index) => (
-                    <motion.span
-                      key={index}
-                      initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: index * 0.1,
-                        ease: "easeInOut",
-                      }}
-                      className="mr-2 inline-block"
-                    >
-                      {word}
-                    </motion.span>
-                  ))}
-              </h1>
+              <div className="relative">
+                <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-semibold text-black md:text-4xl lg:text-7xl">
+                  {"Master Your DevOps Career."
+                    .split(" ")
+                    .map((word, index) => (
+                      <motion.span
+                        key={index}
+                        initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+                        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: index * 0.1,
+                          ease: "easeInOut",
+                        }}
+                        className="mr-2 inline-block relative after:absolute after:inset-0 after:blur-[20px] after:bg-white/40 after:-z-10"
+                      >
+                        {word}
+                      </motion.span>
+                    ))}
+                </h1>
+              </div>
               <motion.p
                 initial={{
                   opacity: 0,
@@ -53,7 +74,7 @@ export function HeroSectionOne() {
                   duration: 0.3,
                   delay: 0.8,
                 }}
-                className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-white/90"
+                className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-black/90"
               >
                 Build a Roadmap. Build Your Resume. Build Your Future
               </motion.p>
@@ -94,12 +115,13 @@ export function HeroSectionOne() {
                   </div>
                   <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
                 </button>
-                <button className="px-4 py-2 rounded-xl border border-neutral-600 text-white bg-transparent hover:bg-white/10 transition duration-200 w-60">
+                <button className="px-4 py-2 rounded-xl border border-neutral-600 text-black bg-transparent hover:bg-white/10 hover:cursor-pointer transition duration-200 w-60">
                   View Courses
                 </button>
               </motion.div>
             </div>
           </div>
+          {/* <Spotlight/> */}
         </BackgroundGradientAnimation>
       </div>
 
@@ -114,11 +136,11 @@ export function HeroSectionOne() {
             >
               <Card>
                 <CardSkeletonContainer>
-                  <Skeleton />
+                  <Skeleton1 />
                 </CardSkeletonContainer>
-                <CardTitle>DevOps Roadmap</CardTitle>
+                <CardTitle>Container Orchestration</CardTitle>
                 <CardDescription>
-                  A comprehensive guide to mastering DevOps skills and tools.
+                  Master Docker and Kubernetes for efficient container management and orchestration.
                 </CardDescription>
               </Card>
             </motion.div>
@@ -130,11 +152,11 @@ export function HeroSectionOne() {
             >
               <Card>
                 <CardSkeletonContainer>
-                  <Skeleton />
+                  <Skeleton2 />
                 </CardSkeletonContainer>
-                <CardTitle>Resume Building</CardTitle>
+                <CardTitle>CI/CD Pipeline</CardTitle>
                 <CardDescription>
-                  Learn how to create a standout DevOps resume that gets noticed.
+                  Build robust CI/CD pipelines with GitHub, Jenkins, and Docker for seamless deployments.
                 </CardDescription>
               </Card>
             </motion.div>
@@ -146,11 +168,11 @@ export function HeroSectionOne() {
             >
               <Card>
                 <CardSkeletonContainer>
-                  <Skeleton />
+                  <Skeleton3 />
                 </CardSkeletonContainer>
-                <CardTitle>Career Growth</CardTitle>
+                <CardTitle>Infrastructure as Code</CardTitle>
                 <CardDescription>
-                  Strategies and insights for advancing your DevOps career.
+                  Automate infrastructure management with Terraform and Kubernetes for scalable solutions.
                 </CardDescription>
               </Card>
             </motion.div>
@@ -158,7 +180,6 @@ export function HeroSectionOne() {
         </div>
       </div>
 
-      
     </div>
   );
 }

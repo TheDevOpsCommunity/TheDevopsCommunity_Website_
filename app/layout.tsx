@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${geist.variable} ${geistMono.variable} min-h-screen`}>
+    <html lang="en" className="">
+      <body className={`${geist.variable} ${geistMono.variable} min-h-screen bg-white`}>
         <div className="fixed top-4 left-0 right-0 z-50">
           <NavbarTop />
         </div>
