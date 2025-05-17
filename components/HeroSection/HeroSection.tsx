@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { Card, CardTitle, CardDescription, CardSkeletonContainer, Skeleton1, Skeleton2, Skeleton3 } from "../ui/cards-demo-3";
+import { FeaturesSection } from "../Features/Features";
 
 export function HeroSectionOne() {
   return (
@@ -175,7 +176,15 @@ export function HeroSectionOne() {
           </div>
         </div>
       </div>
-
+      
+      {/* Features Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+      >
+        <FeaturesSection />
+      </motion.div>
     </div>
   );
 }
