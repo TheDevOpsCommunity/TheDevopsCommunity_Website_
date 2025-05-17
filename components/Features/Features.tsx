@@ -1,6 +1,4 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
 import { Rocket, Zap, Globe, Lightbulb } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
@@ -13,7 +11,7 @@ export function FeaturesSection() {
         </h4>
 
         <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal">
-          DevOps is no longer optional-it's the backbone of modern software delivery, powering innovation, speed, and career growth in the digital age.
+          DevOps is no longer optional - it&apos;s the backbone of modern software delivery, powering innovation, speed, and career growth in the digital age.
         </p>
       </div>
 

@@ -36,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="">
-      <body className={`${geist.variable} ${geistMono.variable} ${poppins.className} min-h-screen bg-white`}>
+      <body className={`${geist.variable} ${geistMono.variable} ${poppins.className} min-h-screen bg-[white/80]`}>
         <div className="fixed top-4 left-0 right-0 z-50">
           <NavbarTop />
         </div>
