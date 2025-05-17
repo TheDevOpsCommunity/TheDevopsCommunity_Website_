@@ -39,7 +39,7 @@ export function HeroSectionOne() {
           <div className="w-full px-4 md:px-6 lg:px-8 py-20 md:py-10 min-h-screen flex items-center justify-center">
             <div className="flex flex-col items-center justify-center">
               <div className="relative">
-                <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-semibold text-black md:text-4xl lg:text-7xl">
+                <h1 className="relative z-10 mx-auto max-w-4xl text-center text-5xl font-semibold text-black md:text-6xl lg:text-8xl">
                   {"Master Your DevOps Career."
                     .split(" ")
                     .map((word, index) => (

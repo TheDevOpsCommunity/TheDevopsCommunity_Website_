@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { NavbarTop } from "@/components/Navbar/Navbar";
 
@@ -13,6 +13,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-geist-mono",
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -30,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="">
-      <body className={`${geist.variable} ${geistMono.variable} min-h-screen bg-white`}>
+      <body className={`${geist.variable} ${geistMono.variable} ${poppins.className} min-h-screen bg-white`}>
         <div className="fixed top-4 left-0 right-0 z-50">
           <NavbarTop />
         </div>
