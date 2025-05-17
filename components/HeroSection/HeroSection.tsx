@@ -138,9 +138,9 @@ export function HeroSectionOne() {
                 <CardSkeletonContainer>
                   <Skeleton1 />
                 </CardSkeletonContainer>
-                <CardTitle>Container Orchestration</CardTitle>
+                <CardTitle>🚀 Master In-Demand DevOps Tools</CardTitle>
                 <CardDescription>
-                  Master Docker and Kubernetes for efficient container management and orchestration.
+                  Get hands-on with Docker, Kubernetes, Jenkins, and more-exactly what top employers require in 2025 and beyond.
                 </CardDescription>
               </Card>
             </motion.div>
@@ -154,9 +154,9 @@ export function HeroSectionOne() {
                 <CardSkeletonContainer>
                   <Skeleton2 />
                 </CardSkeletonContainer>
-                <CardTitle>CI/CD Pipeline</CardTitle>
+                <CardTitle>⚡ Real Cloud Skills, Not Just Theory</CardTitle>
                 <CardDescription>
-                  Build robust CI/CD pipelines with GitHub, Jenkins, and Docker for seamless deployments.
+                  Work directly with AWS and Azure, building and automating real-world cloud environments the way professionals do.
                 </CardDescription>
               </Card>
             </motion.div>
@@ -170,9 +170,9 @@ export function HeroSectionOne() {
                 <CardSkeletonContainer>
                   <Skeleton3 />
                 </CardSkeletonContainer>
-                <CardTitle>Infrastructure as Code</CardTitle>
+                <CardTitle>🎯 Career-Focused, Job-Ready Training</CardTitle>
                 <CardDescription>
-                  Automate infrastructure management with Terraform and Kubernetes for scalable solutions.
+                  Every module is mapped to real DevOps interview questions, resume prep, and the skills recruiters actually test for.
                 </CardDescription>
               </Card>
             </motion.div>
