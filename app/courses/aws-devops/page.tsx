@@ -3,20 +3,8 @@ import { FaLinux, FaGitAlt, FaAws, FaDocker, FaJenkins, FaLinkedin, FaCloud } fr
 import { SiApachemaven, SiKubernetes, SiTerraform, SiAnsible } from "react-icons/si";
 import { MdOutlineDescription } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { motion } from "motion/react";
 import { GradientBadge } from "@/components/ui/gradient-badge";
 
-// Lamp effect for card (top left)
-function CardLamp() {
-  return (
-    <motion.div
-      initial={{ opacity: 0.5, scale: 0.8 }}
-      whileInView={{ opacity: 0.7, scale: 1 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="absolute -top-3 left-4 w-16 h-4 bg-cyan-300 blur-xl opacity-60 rounded-full pointer-events-none z-10"
-    />
-  );
-}
 
 const modules = [
   {

@@ -1,13 +1,12 @@
 // File: app/courses/azure-devops/page.tsx
 
 "use client";
-import { FaCloud, FaLock, FaDatabase, FaServer, FaUserShield, FaClipboardList, FaCogs, FaKey, FaSearch, FaTools, FaUserTie } from "react-icons/fa";
-import { SiRedis, SiTerraform, SiAnsible, SiApachespark } from "react-icons/si";
+import { FaCloud, FaLock, FaDatabase, FaServer, FaUserShield, FaClipboardList, FaCogs, FaKey, FaTools, FaUserTie } from "react-icons/fa";
+import { SiTerraform, SiApachespark } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";
-import { MdStorage, MdBackup, MdDns, MdOutlineMonitor, MdOutlineApi, MdOutlineWeb, MdOutlineSecurity } from "react-icons/md";
+import { MdStorage, MdBackup, MdDns, MdOutlineMonitor, MdOutlineApi, MdOutlineWeb } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { GradientBadge } from "@/components/ui/gradient-badge";
-import { motion } from "motion/react";
 
 // You can adjust these icons as you see fit for each topic.
 const modules = [

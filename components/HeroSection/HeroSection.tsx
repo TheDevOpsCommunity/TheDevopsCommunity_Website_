@@ -26,15 +26,15 @@ export function HeroSectionOne() {
         fill="black"
       /> */}
         <BackgroundGradientAnimation 
-          gradientBackgroundStart="rgb(255, 255, 255)"
-          gradientBackgroundEnd="rgb(255, 255, 255)"
-          firstColor="255, 108, 223"
-          secondColor="135, 15, 255"
-          thirdColor="255, 255, 255"
-          fourthColor="255, 108, 223"
-          fifthColor="135, 15, 255"
-          size="160%"
-          blendingValue="soft-light"
+          gradientBackgroundStart="rgb(230, 245, 255)"      // Very light blue
+          gradientBackgroundEnd="rgb(230, 245, 255)"        // Very light blue
+          firstColor="255, 0, 128"                          // Strong pink (#ff0080)
+          secondColor="56, 189, 248"                         // Strong pink (#ff0080)
+          thirdColor="255, 0, 128"                          // Strong pink (#ff0080)
+          fourthColor="56, 189, 248"                         // Strong pink (#ff0080)
+          fifthColor="255, 0, 128"                        // Strong pink (#ff0080)
+          size="150%"
+          blendingValue="hard-light"
           className="absolute inset-0"
           interactive={false}
         >
