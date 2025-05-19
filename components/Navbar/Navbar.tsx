@@ -11,20 +11,36 @@ import {
   MobileNavMenu,
 } from "./resizable-navbar";
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function NavbarTop() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
+  const handleCoursesClick = (e: React.MouseEvent) => {
+    if (isHomePage) {
+      e.preventDefault();
+      const coursesSection = document.querySelector('section[id="courses"]');
+      if (coursesSection) {
+        coursesSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   const navItems = [
     {
       name: "About Us",
-      link: "#about-us",
+      link: "/",
     },
     {
       name: "Courses",
-      link: "#courses",
+      link: isHomePage ? "#courses" : "/#courses",
+      onClick: handleCoursesClick,
     },
     {
       name: "Blog",
-      link: "#blog",
+      link: "/",
     },
   ];
 
@@ -82,8 +98,13 @@ export function NavbarTop() {
               <a
                 key={`mobile-link-${idx}`}
                 href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 "
+                onClick={(e) => {
+                  if (item.onClick) {
+                    item.onClick(e);
+                  }
+                  setIsMobileMenuOpen(false);
+                }}
+                className="relative text-neutral-600"
               >
                 <span className="block">{item.name}</span>
               </a>

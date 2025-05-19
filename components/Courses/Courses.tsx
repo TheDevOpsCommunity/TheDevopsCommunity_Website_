@@ -63,7 +63,7 @@ export default function Courses() {
                   </div>
                 </div>
                 <Link 
-                  href="/courses/aws-devops"
+                  href="/courses/aws-devops/"
                   className="inline-block mt-4 px-4 py-2 rounded-md border border-black bg-white text-black text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200"
                 >
                   View Details
@@ -145,7 +145,7 @@ export default function Courses() {
                   </div>
                 </div>
                 <Link 
-                  href="/courses/azure-devops"
+                  href="/courses/azure-devops/"
                   className="inline-block mt-4 px-4 py-2 rounded-md border border-black bg-white text-black text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200"
                 >
                   View Details
@@ -197,8 +197,8 @@ export default function Courses() {
   ];
 
   return (
-    <div className="relative w-full overflow-clip">
+    <section id="courses" className="relative w-full overflow-clip">
       <Timeline data={timelineData} />
-    </div>
+    </section>
   );
 }
