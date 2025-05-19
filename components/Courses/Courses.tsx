@@ -62,12 +62,14 @@ export default function Courses() {
                     </ul>
                   </div>
                 </div>
-                <Link 
-                  href="/courses/aws-devops/"
-                  className="inline-block mt-4 px-4 py-2 rounded-md border border-black bg-white text-black text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200"
-                >
-                  View Details
-                </Link>
+                <button className="p-[3px] relative mt-4 cursor-pointer">
+                  <div className="absolute inset-0 bg-black rounded-lg" />
+                  <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-white hover:text-black">
+                    <Link href="/courses/aws-devops/" className="block">
+                      View Details
+                    </Link>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -144,12 +146,14 @@ export default function Courses() {
                     </ul>
                   </div>
                 </div>
-                <Link 
-                  href="/courses/azure-devops/"
-                  className="inline-block mt-4 px-4 py-2 rounded-md border border-black bg-white text-black text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200"
-                >
-                  View Details
-                </Link>
+                <button className="p-[3px] relative mt-4">
+                  <div className="absolute inset-0 bg-black rounded-lg" />
+                  <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-white hover:text-black">
+                    <Link href="/courses/azure-devops/" className="block">
+                      View Details
+                    </Link>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
