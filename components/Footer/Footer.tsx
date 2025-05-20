@@ -51,8 +51,6 @@ export default function Footer() {
           <Link href="/#courses">Courses</Link>
           <Link href="/blog">Blog</Link>
           <Link href="/about">About</Link>
-          <Link href="/showcase">Showcase</Link>
-          <Link href="/playground">Playground</Link>
         </div>
         <div className="flex flex-wrap gap-4 text-neutral-500">
           <span className="font-medium text-black">Courses:</span>
@@ -61,7 +59,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap gap-4 text-neutral-500">
           <span className="font-medium text-black">Webinar:</span>
-          <a href="/webinar" className="hover:text-black">Register</a>
+          <a href="/webinars" className="hover:text-black">Register</a>
         </div>
       </div>
     </footer>
