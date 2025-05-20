@@ -1,12 +1,15 @@
 // File: app/courses/azure-devops/page.tsx
 
 "use client";
+import { useState } from "react";
 import { FaCloud, FaLock, FaDatabase, FaServer, FaUserShield, FaClipboardList, FaCogs, FaKey, FaTools, FaUserTie } from "react-icons/fa";
 import { SiTerraform, SiApachespark } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";
 import { MdStorage, MdBackup, MdDns, MdOutlineMonitor, MdOutlineApi, MdOutlineWeb } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { GradientBadge } from "@/components/ui/gradient-badge";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { motion } from "motion/react";
 
 // You can adjust these icons as you see fit for each topic.
 const modules = [
@@ -247,25 +250,147 @@ function CurriculumCard({ icon, title, desc }: { icon: React.ReactNode; title: s
 }
 
 export default function AzureDevopsCurriculumPage() {
+  const [showSubheading, setShowSubheading] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+
+  const headingWords = "Azure DevOps";
+  const subheadingWords = "View our curriculum";
+  const descriptionWords = "Master Azure DevOps with our comprehensive curriculum covering cloud computing, networking, security, and more. Learn from industry experts and get hands-on experience with real-world projects.";
+
   return (
     <div className="min-h-screen bg-white text-gray-900 py-10 px-4 pt-24 md:pt-28">
-      <div className="max-w-4xl mx-auto text-center mb-12">
-        <GradientBadge text="Azure DevOps" className="mb-4" />
-        <h1 className="text-4xl font-bold mb-2">View our curriculum</h1>
-        <div className="text-gray-500 mb-2">The entire program takes 6 months full-time or 8 months part-time to complete</div>
-      </div>
-      <div className="max-w-5xl mx-auto">
-        {modules.map((mod, i) => (
-          <div key={mod.title} className="mb-10">
-            <div className="text-pink-500 font-semibold mb-2">Module {i + 1}</div>
-            <div className="text-2xl font-bold mb-4">{mod.title}</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {mod.topics.map((topic) => (
-                <CurriculumCard key={topic.title} {...topic} />
-              ))}
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left side - Modules (70%) */}
+          <div className="lg:w-[70%]">
+            <div className="mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex items-center gap-3"
+              >
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <VscAzure className="text-blue-600" size={55} />
+                </motion.div>
+                <div className="text-3xl lg:text-5xl lg:leading-tight font-medium text-black">
+                  <TextGenerateEffect 
+                    words={headingWords} 
+                    onComplete={() => setShowSubheading(true)}
+                  />
+                </div>
+              </motion.div>
+              {showSubheading && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="text-xl lg:text-3xl lg:leading-tight mt-2 font-light text-black">
+                    <TextGenerateEffect 
+                      words={subheadingWords} 
+                      onComplete={() => setShowDescription(true)}
+                    />
+                  </div>
+                </motion.div>
+              )}
+              {showDescription && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="text-base lg:text-base lg:leading-tight mt-1 font-extralight text-gray-500">
+                    <TextGenerateEffect 
+                      words={descriptionWords} 
+                      onComplete={() => setShowContent(true)}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </div>
+            {showContent && modules.map((mod, i) => (
+              <motion.div
+                key={mod.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="mb-10"
+              >
+                <div className="inline-flex items-center gap-2 mb-3">
+                  <span className="px-3 py-1 bg-gradient-to-r from-gray-800 to-gray-600 text-white text-sm font-medium rounded-full shadow-sm">
+                    Module {i + 1}
+                  </span>
+                </div>
+                <div className="text-2xl font-bold mb-4">{mod.title}</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {mod.topics.map((topic) => (
+                    <CurriculumCard key={topic.title} {...topic} />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          {/* Right side - Sticky Inquiry Form (30%) */}
+          <div className="lg:w-[30%]">
+            <div className="sticky top-42 bg-gradient-to-b from-transparent via-[#F1F2FF] to-transparent rounded-2xl p-6">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2">Unlock your learning journey now!</h3>
+                <p className="text-sm text-gray-600">Take the first step towards becoming a DevOps expert. Our team will guide you through the enrollment process.</p>
+              </div>
+              <form className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="+1 (555) 000-0000"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="Tell us about your goals..."
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-white hover:text-black border-2 border-black transition-colors duration-200"
+                >
+                  Send Inquiry
+                </button>
+              </form>
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
