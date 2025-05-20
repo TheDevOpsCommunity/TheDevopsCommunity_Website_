@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useMotionValue } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
 import { CalendarIcon, ClockIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { PointerHighlight } from "../ui/pointer-highlight";
+import Image from "next/image";
 
 interface WebinarCard {
   title: string;
@@ -63,14 +63,14 @@ const webinars: WebinarCard[] = [
   }
 ];
 
-function getTimeRemaining(dateString: string) {
-  const total = Date.parse(dateString) - Date.now();
-  const seconds = Math.floor((total / 1000) % 60);
-  const minutes = Math.floor((total / 1000 / 60) % 60);
-  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-  const days = Math.floor(total / (1000 * 60 * 60 * 24));
-  return { total, days, hours, minutes, seconds };
-}
+// function getTimeRemaining(dateString: string) {
+//   const total = Date.parse(dateString) - Date.now();
+//   const seconds = Math.floor((total / 1000) % 60);
+//   const minutes = Math.floor((total / 1000 / 60) % 60);
+//   const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+//   const days = Math.floor(total / (1000 * 60 * 60 * 24));
+//   return { total, days, hours, minutes, seconds };
+// }
 
 function ParallaxImage({ src, alt }: { src: string; alt: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -112,67 +112,6 @@ const cardVariants = {
     scale: 1,
     transition: { delay: i * 0.12, type: "spring", stiffness: 80 },
   }),
-};
-
-const Timer = ({ date }: { date: string }) => {
-  const [timeLeft, setTimeLeft] = useState(getTimeRemaining(date));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(getTimeRemaining(date));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [date]);
-
-  if (timeLeft.total <= 0) {
-    return (
-      <motion.span
-        className="flex items-center gap-1 text-red-500 font-semibold"
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ repeat: Infinity, duration: 1.2 }}
-      >
-        <span className="inline-block animate-pulse" role="img" aria-label="hourglass">⏳</span> <span className="tracking-wide">LIVE</span>
-      </motion.span>
-    );
-  }
-
-  return (
-    <span className="flex items-center gap-1 text-emerald-600 font-semibold text-sm md:text-base">
-      <span role="img" aria-label="clock">🕒</span>
-      <motion.span
-        key={timeLeft.days}
-        initial={{ y: -8, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      >
-        {timeLeft.days > 0 && `${timeLeft.days}d `}
-      </motion.span>
-      <motion.span
-        key={timeLeft.hours}
-        initial={{ y: -8, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      >
-        {timeLeft.hours}h
-      </motion.span>
-      <motion.span
-        key={timeLeft.minutes}
-        initial={{ y: -8, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      >
-        {timeLeft.minutes}m
-      </motion.span>
-      <motion.span
-        key={timeLeft.seconds}
-        initial={{ y: -8, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      >
-        {timeLeft.seconds}s
-      </motion.span>
-    </span>
-  );
 };
 
 const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }) => {
@@ -226,7 +165,7 @@ const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }
         <p className="text-base text-neutral-700 mb-4">{webinar.description}</p>
         {/* Speaker */}
         <div className="flex items-center gap-2 mb-4">
-          <img src={webinar.speaker.avatar} className="w-8 h-8 rounded-full" />
+          <Image src={webinar.speaker.avatar} alt={`Avatar of ${webinar.speaker.name}`} width={32} height={32} className="w-8 h-8 rounded-full" />
           <span className="text-sm text-neutral-500">{webinar.speaker.name}</span>
         </div>
         {/* Button */}

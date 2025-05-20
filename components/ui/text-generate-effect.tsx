@@ -17,7 +17,7 @@ export const TextGenerateEffect = ({
   onComplete?: () => void;
 }) => {
   const [scope, animate] = useAnimate();
-  let wordsArray = words.split(" ");
+  const wordsArray = words.split(" ");
   useEffect(() => {
     animate(
       "span",
@@ -33,7 +33,7 @@ export const TextGenerateEffect = ({
         },
       }
     );
-  }, [scope.current]);
+  }, [animate, duration, filter, onComplete]);
 
   const renderWords = () => {
     return (

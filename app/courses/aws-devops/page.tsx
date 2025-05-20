@@ -3,7 +3,6 @@ import { FaLinux, FaGitAlt, FaAws, FaDocker, FaJenkins, FaLinkedin, FaCloud } fr
 import { SiApachemaven, SiKubernetes, SiTerraform, SiAnsible } from "react-icons/si";
 import { MdOutlineDescription } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { GradientBadge } from "@/components/ui/gradient-badge";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { motion } from "motion/react";
 import { useState } from "react";

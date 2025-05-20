@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalTrigger } from "../ui/animated-modal";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import Image from "next/image";
 
 const faqs = [
   {
@@ -34,7 +35,7 @@ function InquiryForm() {
   return submitted ? (
     <div className="text-center py-10">
       <h2 className="text-2xl font-bold mb-2">Thank you!</h2>
-      <p className="text-neutral-600">Your inquiry has been submitted. We'll get back to you soon.</p>
+      <p className="text-neutral-600">Your inquiry has been submitted. We&apos;ll get back to you soon.</p>
     </div>
   ) : (
     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -78,9 +79,9 @@ export default function FaqSection() {
             <a href="#" className="text-blue-600 underline">Contact Us</a>, we are happy to help you
           </p>
           <div className="flex items-center space-x-2 mb-6">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user1" className="w-10 h-10 rounded-full border-2 border-white shadow" />
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user2" className="w-10 h-10 rounded-full border-2 border-white shadow -ml-4" />
-            <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="user3" className="w-10 h-10 rounded-full border-2 border-white shadow -ml-4" />
+            <Image src="https://randomuser.me/api/portraits/women/44.jpg" alt="Portrait of user1" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" />
+            <Image src="https://randomuser.me/api/portraits/men/32.jpg" alt="Portrait of user2" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow -ml-4" />
+            <Image src="https://randomuser.me/api/portraits/men/65.jpg" alt="Portrait of user3" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow -ml-4" />
           </div>
           <Modal>
             <ModalTrigger className="w-full bg-black text-white rounded-full py-3 font-medium text-base mt-2 hover:bg-neutral-800 transition">

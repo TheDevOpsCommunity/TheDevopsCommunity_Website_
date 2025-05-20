@@ -7,7 +7,6 @@ import { SiTerraform, SiApachespark } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";
 import { MdStorage, MdBackup, MdDns, MdOutlineMonitor, MdOutlineApi, MdOutlineWeb } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { GradientBadge } from "@/components/ui/gradient-badge";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { motion } from "motion/react";
 
