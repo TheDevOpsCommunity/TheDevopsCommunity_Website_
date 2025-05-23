@@ -19,6 +19,7 @@ interface WebinarCard {
     name: string;
   };
   isLive: boolean;
+  id: string;
 }
 
 const webinars: WebinarCard[] = [
@@ -33,7 +34,8 @@ const webinars: WebinarCard[] = [
       avatar: "https://via.placeholder.com/40",
       name: "John Doe",
     },
-    isLive: true
+    isLive: true,
+    id: "getting-started-with-devops"
   },
   {
     title: "CI/CD Pipeline Implementation",
@@ -46,7 +48,8 @@ const webinars: WebinarCard[] = [
       avatar: "https://via.placeholder.com/40",
       name: "Jane Smith",
     },
-    isLive: false
+    isLive: false,
+    id: "ci-cd-pipeline-implementation"
   },
   {
     title: "Container Orchestration with Kubernetes",
@@ -59,7 +62,8 @@ const webinars: WebinarCard[] = [
       avatar: "https://via.placeholder.com/40",
       name: "Alice Johnson",
     },
-    isLive: true
+    isLive: true,
+    id: "container-orchestration-with-kubernetes"
   }
 ];
 
@@ -169,7 +173,7 @@ const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }
           <span className="text-sm text-neutral-500">{webinar.speaker.name}</span>
         </div>
         {/* Button */}
-        <Link href="/webinars" className="block w-full h-full text-center">
+        <Link href={`/webinars/${webinar.id}`} className="block w-full h-full text-center">
           <button className="mt-2 px-7 py-2 w-auto bg-black text-white rounded-lg hover:bg-white hover:text-black border-2 border-black transition-colors duration-200 font-semibold shadow-sm text-base md:text-lg flex items-center gap-2 relative z-10 pointer-cursor">
             <PointerHighlight 
               pointerClassName="text-red-500" 
