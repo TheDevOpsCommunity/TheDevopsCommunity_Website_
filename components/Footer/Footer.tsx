@@ -59,7 +59,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap gap-4 text-neutral-500">
           <span className="font-medium text-black">Webinar:</span>
-          <a href="/webinars" className="hover:text-black">Register</a>
+          <Link href="/webinars" className="hover:text-black">Register</Link>
         </div>
       </div>
     </footer>
