@@ -7,6 +7,7 @@ import { FeaturesSection } from "../Features/Features";
 import Courses from "../Courses/Courses";
 import FaqSection from "../FaqSection/FaqSection";
 import Link from "next/link";
+import { TextGenerateEffect } from "../ui/text-generate-effect";
 
 export function HeroSectionOne() {
   return (
@@ -43,41 +44,17 @@ export function HeroSectionOne() {
           <div className="w-full px-4 md:px-6 lg:px-8 py-20 md:py-10 min-h-screen flex items-center justify-center">
             <div className="flex flex-col items-center justify-center">
               <div className="relative">
-                <h1 className="relative z-10 mx-auto max-w-4xl text-center text-5xl font-semibold text-black md:text-6xl lg:text-8xl">
-                  {"Master Your DevOps Career."
-                    .split(" ")
-                    .map((word, index) => (
-                      <motion.span
-                        key={index}
-                        initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-                        animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: index * 0.1,
-                          ease: "easeInOut",
-                        }}
-                        className="mr-2 inline-block relative after:absolute after:inset-0 after:blur-[20px] after:bg-white/40 after:-z-10"
-                      >
-                        {word}
-                      </motion.span>
-                    ))}
-                </h1>
+                <TextGenerateEffect
+                  words="Master Your DevOps Career."
+                  className="relative z-10 mx-auto max-w-4xl text-center text-5xl font-semibold text-black md:text-6xl lg:text-8xl"
+                  duration={0.7}
+                />
               </div>
-              <motion.p
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                transition={{
-                  duration: 0.3,
-                  delay: 0.8,
-                }}
+              <TextGenerateEffect
+                words="Build a Roadmap. Build Your Resume. Build Your Future"
                 className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-black/90"
-              >
-                Build a Roadmap. Build Your Resume. Build Your Future
-              </motion.p>
+                duration={0.7}
+              />
               <motion.div
                 initial={{
                   opacity: 0,
