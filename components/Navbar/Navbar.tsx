@@ -31,16 +31,20 @@ export function NavbarTop() {
   const navItems = [
     {
       name: "About Us",
-      link: "/",
+      link: "/about",
     },
     {
       name: "Courses",
-      link: isHomePage ? "#courses" : "/#courses",
-      onClick: handleCoursesClick,
+      link: "/courses",
+      onClick: isHomePage ? handleCoursesClick : undefined,
+    },
+    {
+      name: "Webinars",
+      link: "/webinars",
     },
     {
       name: "Blog",
-      link: "/",
+      link: "/blog",
     },
   ];
 
@@ -48,43 +52,22 @@ export function NavbarTop() {
 
   return (
     <div className="relative w-full">
-      <Navbar>
+      <Navbar className="">
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
-          <NavItems items={navItems} />
+          <NavItems items={navItems} className="text-blue-900 hover:text-blue-700" />
           <div className="flex items-center gap-4">
-            <Link href="/webinars" passHref legacyBehavior>
-              <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block">
-                <span className="absolute inset-0 overflow-hidden rounded-full">
-                  <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-                </span>
-                <div className="relative flex space-x-2 items-center justify-center z-10 rounded-full bg-zinc-950 py-2 px-4 ring-1 ring-white/10">
-                  <span>Register for Webinar</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M10.75 8.75L14.25 12L10.75 15.25"
-                    ></path>
-                  </svg>
-                </div>
-                <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
+            <Link href="/webinars">
+              <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-5 py-2.5 rounded-full shadow-md text-sm">
+                Register for Webinar
               </button>
             </Link>
           </div>
         </NavBody>
 
         {/* Mobile Navigation */}
-        <MobileNav>
+        <MobileNav className="bg-blue-50">
           <MobileNavHeader>
             <NavbarLogo />
             <MobileNavToggle
@@ -95,6 +78,7 @@ export function NavbarTop() {
 
           <MobileNavMenu
             isOpen={isMobileMenuOpen}
+            className="bg-blue-100/95 backdrop-blur-sm"
           >
             {navItems.map((item, idx) => (
               <a
@@ -106,36 +90,19 @@ export function NavbarTop() {
                   }
                   setIsMobileMenuOpen(false);
                 }}
-                className="relative text-neutral-600"
+                className="block py-2.5 px-4 text-lg font-medium text-blue-900 hover:bg-blue-200 rounded-md transition-colors"
               >
-                <span className="block">{item.name}</span>
+                {item.name}
               </a>
             ))}
-            <button 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block w-full"
-            >
-              <Link href="/webinars" passHref legacyBehavior>
-                <div className="relative flex space-x-2 items-center justify-center z-10 rounded-full bg-zinc-950 py-2 px-4 ring-1 ring-white/10">
-                  <span>Register for Webinar</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M10.75 8.75L14.25 12L10.75 15.25"
-                    ></path>
-                  </svg>
-                </div>
-              </Link>
-            </button>
+            <Link href="/webinars">
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-4 w-full bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold py-3 px-4 rounded-lg shadow-md text-base"
+              >
+                Register for Webinar
+              </button>
+            </Link>
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
