@@ -4,7 +4,17 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { FaCalendarAlt, FaUserEdit, FaAngleRight, FaSpinner } from "react-icons/fa";
 
-const blogPosts: any[] = []; // Empty array as content is coming soon
+interface BlogPost {
+  id: string;
+  title: string;
+  snippet: string;
+  author: string;
+  date: string;
+  image: string;
+  tags: string[];
+}
+
+const blogPosts: BlogPost[] = []; // Empty array as content is coming soon
 
 // const blogPosts = [
 //   {
@@ -88,7 +98,7 @@ export default function BlogPage() {
               Content Coming Soon!
             </h2>
             <p className="text-neutral-600 text-lg md:text-xl max-w-md mx-auto mb-8">
-              We're working hard to bring you exciting new blog posts. Please check back later!
+              We&apos;re working hard to bring you exciting new blog posts. Please check back later!
             </p>
             <Link href="/" passHref>
               <motion.button 

@@ -64,7 +64,7 @@ export default function AboutPage() {
           className="mb-12 md:mb-16 p-8 bg-white rounded-2xl shadow-xl border border-blue-100"
         >
           <p className="text-lg md:text-xl text-neutral-700 leading-relaxed text-center">
-            At DevOps Community, we believe that DevOps isn't just a skill — it's a mindset. Our mission is to empower individuals from all backgrounds to master the tools, practices, and culture that drive world-class software delivery.
+            At DevOps Community, we believe that DevOps isn&apos;t just a skill — it&apos;s a mindset. Our mission is to empower individuals from all backgrounds to master the tools, practices, and culture that drive world-class software delivery.
           </p>
         </motion.div>
         
@@ -106,9 +106,9 @@ export default function AboutPage() {
         >
           <h2 className="text-3xl font-bold mb-4 text-center">Why We Exist</h2>
           <p className="text-lg md:text-xl leading-relaxed text-center max-w-4xl mx-auto">
-            The tech industry is evolving fast. Traditional degrees alone don't cut it. We fill that gap with industry-aligned, project-based training crafted by real engineers — not textbook authors.
+            The tech industry is evolving fast. Traditional degrees alone don&apos;t cut it. We fill that gap with industry-aligned, project-based training crafted by real engineers — not textbook authors.
             <br/><br/>
-            We're not just an educational platform. We're a movement — building a strong, inclusive community of DevOps enthusiasts, practitioners, and leaders.
+            We&apos;re not just an educational platform. We&apos;re a movement — building a strong, inclusive community of DevOps enthusiasts, practitioners, and leaders.
           </p>
         </motion.div>
 
@@ -174,10 +174,10 @@ export default function AboutPage() {
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 px-4">Join the Movement</h2>
           <p className="text-blue-100 mb-8 max-w-xl mx-auto px-4 text-lg">
-            Whether you're a developer, system admin, student, or career switcher — DevOps Community is your launchpad to the future of engineering.
+            Whether you&apos;re a developer, system admin, student, or career switcher — DevOps Community is your launchpad to the future of engineering.
           </p>
           <p className="text-xl font-semibold text-yellow-300 mb-10 px-4">
-            👉 Let's automate, collaborate, and innovate — together.
+            👉 Let&apos;s automate, collaborate, and innovate — together.
           </p>
           <Link href="/webinars" passHref>
             <button className="bg-yellow-400 text-blue-800 font-bold py-3.5 px-10 rounded-lg hover:bg-yellow-300 transition-colors duration-300 shadow-lg text-lg transform hover:scale-105">

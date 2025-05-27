@@ -4,7 +4,7 @@ export default function ContactUs() {
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
 
       <p className="mb-4">
-        We'd love to hear from you! Whether you have a question about our
+        We&apos;d love to hear from you! Whether you have a question about our
         webinars, courses, pricing, or anything else, our team is ready to
         answer all your questions.
       </p>

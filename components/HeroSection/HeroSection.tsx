@@ -12,6 +12,7 @@ import { CheckCircle2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { SiCognizant, SiInfosys, SiZoho, SiTcs } from "react-icons/si";
 import { Briefcase } from "lucide-react";
+import Image from "next/image";
 
 function FAQAccordion() {
   const faqs = [
@@ -257,7 +258,13 @@ export function HeroSectionOne() {
               <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
                 <div className="flex items-center gap-4 mb-2">
                   <div className="w-12 h-12 relative">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS Logo" className="object-contain w-full h-full" />
+                    <Image
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
+                      alt="AWS Logo"
+                      width={100}
+                      height={50}
+                      className="object-contain w-full h-full"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-black">AWS DevOps Certification Course</h3>
@@ -279,7 +286,13 @@ export function HeroSectionOne() {
               <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
                 <div className="flex items-center gap-4 mb-2">
                   <div className="w-12 h-12 relative">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure Logo" className="object-contain w-full h-full" />
+                    <Image
+                      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg"
+                      alt="Azure Logo"
+                      width={100}
+                      height={50}
+                      className="object-contain w-full h-full"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-black">Azure DevOps with Azure Admin</h3>
@@ -345,25 +358,25 @@ export function HeroSectionOne() {
               {/* Review 1 */}
               <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
                 <div className="text-yellow-400 text-xl">★★★★★</div>
-                <div className="text-lg font-medium text-gray-900">"I switched from QA to DevOps within 90 days. The trainers were brilliant and always available!"</div>
+                <div className="text-lg font-medium text-gray-900">&quot;I switched from QA to DevOps within 90 days. The trainers were brilliant and always available!&quot;</div>
                 <div className="text-sm text-blue-700 font-semibold">— Ravi, Now at Capgemini</div>
               </div>
               {/* Review 2 */}
               <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
                 <div className="text-yellow-400 text-xl">★★★★★</div>
-                <div className="text-lg font-medium text-gray-900">"The hands-on labs and real projects made all the difference. I landed my first DevOps job at Infosys!"</div>
+                <div className="text-lg font-medium text-gray-900">&quot;The hands-on labs and real projects made all the difference. I landed my first DevOps job at Infosys!&quot;</div>
                 <div className="text-sm text-blue-700 font-semibold">— Priya, Infosys</div>
               </div>
               {/* Review 3 */}
               <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
                 <div className="text-yellow-400 text-xl">★★★★★</div>
-                <div className="text-lg font-medium text-gray-900">"Resume and LinkedIn help was a game changer. Got interview calls from 3 MNCs in a month."</div>
+                <div className="text-lg font-medium text-gray-900">&quot;Resume and LinkedIn help was a game changer. Got interview calls from 3 MNCs in a month.&quot;</div>
                 <div className="text-sm text-blue-700 font-semibold">— Sandeep, TCS</div>
               </div>
               {/* Review 4 */}
               <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
                 <div className="text-yellow-400 text-xl">★★★★★</div>
-                <div className="text-lg font-medium text-gray-900">"The community and mock interviews gave me the confidence to ace my Azure DevOps interview."</div>
+                <div className="text-lg font-medium text-gray-900">&quot;The community and mock interviews gave me the confidence to ace my Azure DevOps interview.&quot;</div>
                 <div className="text-sm text-blue-700 font-semibold">— Anjali, Cognizant</div>
               </div>
             </div>

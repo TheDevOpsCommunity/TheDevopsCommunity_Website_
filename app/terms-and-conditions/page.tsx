@@ -5,7 +5,7 @@ export default function TermsAndConditions() {
 
       <p className="mb-4">
         Welcome to Our Company! These terms and conditions outline the rules and
-        regulations for the use of Our Company's Website, located at
+        regulations for the use of Our Company&apos;s Website, located at
         [Your Website URL].
       </p>
 
@@ -18,10 +18,10 @@ export default function TermsAndConditions() {
       <h2 className="text-2xl font-semibold mb-3">Cookies</h2>
       <p className="mb-4">
         We employ the use of cookies. By accessing Our Company, you agreed to use
-        cookies in agreement with the Our Company's Privacy Policy.
+        cookies in agreement with the Our Company&apos;s Privacy Policy.
       </p>
       <p className="mb-4">
-        Most interactive websites use cookies to let us retrieve the user's
+        Most interactive websites use cookies to let us retrieve the user&apos;s
         details for each visit. Cookies are used by our website to enable the
         functionality of certain areas to make it easier for people visiting our
         website. Some of our affiliate/advertising partners may also use cookies.
@@ -111,7 +111,7 @@ export default function TermsAndConditions() {
         other Website information so long as the link: (a) is not in any way
         deceptive; (b) does not falsely imply sponsorship, endorsement or
         approval of the linking party and its products and/or services; and (c)
-        fits within the context of the linking party's site.
+        fits within the context of the linking party&apos;s site.
       </p>
       <p className="mb-4">
         We may consider and approve other link requests from the following types
@@ -140,7 +140,7 @@ export default function TermsAndConditions() {
         These organizations may link to our home page so long as the link: (a) is
         not in any way deceptive; (b) does not falsely imply sponsorship,
         endorsement or approval of the linking party and its products or
-        services; and (c) fits within the context of the linking party's site.
+        services; and (c) fits within the context of the linking party&apos;s site.
       </p>
       <p className="mb-4">
         If you are one of the organizations listed in paragraph 2 above and are
@@ -157,11 +157,11 @@ export default function TermsAndConditions() {
         <li>
           By use of any other description of our Website being linked to that
           makes sense within the context and format of content on the linking
-          party's site.
+          party&apos;s site.
         </li>
       </ul>
       <p className="mb-4">
-        No use of Our Company's logo or other artwork will be allowed for
+        No use of Our Company&apos;s logo or other artwork will be allowed for
         linking absent a trademark license agreement.
       </p>
 
@@ -187,7 +187,7 @@ export default function TermsAndConditions() {
         We reserve the right to request that you remove all links or any
         particular link to our Website. You approve to immediately remove all
         links to our Website upon request. We also reserve the right to amen
-        these terms and conditions and it's linking policy at any time. By
+        these terms and conditions and it&apos;s linking policy at any time. By
         continuously linking to our Website, you agree to be bound to and follow
         these linking terms and conditions.
       </p>
