@@ -240,13 +240,13 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-base font-normal text-black"
     >
       <Image
-        src="https://www.placehold.co/30x30"
+        src="/logo.svg"
         alt="logo"
         width={30}
         height={30}
         className="rounded-full"
       />
-      <span className="font-medium text-black"> DevOps Career </span>
+      <span className="font-medium text-black">Devops Community</span>
     </Link>
   );
 };

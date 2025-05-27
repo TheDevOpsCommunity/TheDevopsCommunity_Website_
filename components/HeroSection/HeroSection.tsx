@@ -1,6 +1,6 @@
 "use client";
 
-// import { motion } from "motion/react";
+import { motion } from "motion/react";
 // import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 // import { Card, CardTitle, CardDescription, CardSkeletonContainer, Skeleton1, Skeleton2, Skeleton3 } from "../ui/cards-demo-3";
 // import { FeaturesSection } from "../Features/Features";
@@ -147,6 +147,8 @@ export function HeroSectionOne() {
   const fullHeading = "Master DevOps with Experts Who've Done It for 10+ Years";
   const typingSpeed = 50; // milliseconds per character
 
+  const [isWelcomeVisible, setIsWelcomeVisible] = useState(true);
+
   useEffect(() => {
     if (animatedHeading.length < fullHeading.length) {
       const timer = setTimeout(() => {
@@ -156,209 +158,242 @@ export function HeroSectionOne() {
     }
   }, [animatedHeading, fullHeading, typingSpeed]);
 
+  useEffect(() => {
+    // Hide welcome message after a delay
+    const welcomeTimer = setTimeout(() => {
+      setIsWelcomeVisible(false);
+    }, 1000); // Welcome message displayed for 2 seconds before fading out
+    return () => clearTimeout(welcomeTimer);
+  }, []);
+
   return (
-    <div className="relative w-full flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 text-black">
-      {/* Hero Section - Two Column Layout */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between py-20 px-4 md:px-8 gap-12 mt-16">
-        {/* Left Side: Text */}
-        <div className="flex-1 flex flex-col items-start justify-center gap-6">
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight text-black min-h-[100px] md:min-h-[144px]">
-            {animatedHeading}
-            <span className={`ml-1 inline-block animate-blink ${animatedHeading.length === fullHeading.length ? 'hidden' : ''}`}>|</span>
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-blue-700">
-            AWS DevOps, Azure DevOps, and Real-World Projects
-          </h2>
-          <p className="text-base md:text-lg text-neutral-700 max-w-xl">
-            Taught by engineers with 10+ years of hands-on experience from top tech companies.
-          </p>
-          {/* Badges/Highlights */}
-          <div className="flex flex-wrap gap-3 mt-2">
-            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">2000+ Learners</span>
-            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">Project-Based Learning</span>
-            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">4+ Trainers</span>
-          </div>
-          {/* Buttons */}
-          <div className="flex gap-4 mt-4">
-            <Link href="/webinars" passHref legacyBehavior>
-              <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-6 py-3 rounded-full shadow-lg text-base">
-                Join Free Webinar
-              </button>
-            </Link>
-            <Link href="/courses" passHref legacyBehavior>
-              <button className="bg-white text-blue-700 border border-blue-700 hover:bg-blue-50 transition-colors font-semibold px-6 py-3 rounded-full shadow text-base">
-                Browse Courses
-              </button>
-            </Link>
-          </div>
-        </div>
-        {/* Right Side: Visual/Testimonial Slider */}
-        <div className="flex-1 flex items-center justify-center w-full max-w-md">
-          {/* Placeholder for UI mockup or testimonial slider */}
-          <div className="w-full h-[340px] bg-blue-50 rounded-3xl flex items-center justify-center shadow-2xl overflow-hidden border border-blue-100">
-            {/* Placeholder image or UI mockup */}
-            <div className="w-4/5 h-4/5 bg-gradient-to-br from-blue-100/60 to-blue-200/60 rounded-2xl flex flex-col items-center justify-center border-2 border-blue-200">
-              <span className="text-blue-700 text-lg font-semibold">Course UI Mockup</span>
-              <span className="text-blue-500 text-xs mt-2">(Replace with real screenshot)</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="relative w-full">
+      {/* Welcome Message Overlay - Fades in from white, then fades out */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isWelcomeVisible ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+        style={{ pointerEvents: isWelcomeVisible ? 'auto' : 'none' }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: isWelcomeVisible ? 1 : 0, y: isWelcomeVisible ? 0 : 10 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="text-3xl md:text-4xl font-bold text-blue-800 tracking-tight"
+        >
+          Welcome to DevOps Community
+        </motion.h1>
+      </motion.div>
 
-      {/* Upcoming Webinar Section */}
-      <section className="w-full bg-white py-16">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-            Upcoming Webinar
-          </h2>
-          <WebinarCountdownCTA />
-        </div>
-        <div className="max-w-5xl mx-auto px-4 mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-            Featured Courses
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* AWS DevOps Course */}
-            <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
-              <div className="flex items-center gap-4 mb-2">
-                <div className="w-12 h-12 relative">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS Logo" className="object-contain w-full h-full" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-black">AWS DevOps Certification Course</h3>
-                  <p className="text-neutral-600">Master DevOps fundamentals and cloud automation on AWS.</p>
-                </div>
-              </div>
-              <ul className="text-sm text-neutral-700 mb-2 pl-2 list-disc">
-                <li>Linux, Git, Jenkins, Docker, Kubernetes</li>
-                <li>AWS EC2, S3, IAM, CodePipeline, Terraform</li>
-                <li>CI/CD Implementation, Infrastructure as Code</li>
-              </ul>
-              <Link href="/courses/aws-devops" passHref legacyBehavior>
-                <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base">
-                  View Details
+      {/* Main Hero Section Content - Fades in after welcome message */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isWelcomeVisible ? 0 : 1 }}
+        transition={{ duration: 0.8, delay: 1.5 }}
+        className="w-full flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 text-black"
+      >
+        {/* Hero Section - Two Column Layout */}
+        <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between py-20 px-4 md:px-8 gap-12 mt-16">
+          {/* Left Side: Text */}
+          <div className="flex-1 flex flex-col items-start justify-center gap-6">
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight text-black min-h-[100px] md:min-h-[144px]">
+              {animatedHeading}
+              <span className={`ml-1 inline-block animate-blink ${animatedHeading.length === fullHeading.length ? 'hidden' : ''}`}>|</span>
+            </h1>
+            <h2 className="text-xl md:text-2xl font-medium text-blue-700">
+              AWS DevOps, Azure DevOps, and Real-World Projects
+            </h2>
+            <p className="text-base md:text-lg text-neutral-700 max-w-xl">
+              Taught by engineers with 10+ years of hands-on experience from top tech companies.
+            </p>
+            {/* Badges/Highlights */}
+            <div className="flex flex-wrap gap-3 mt-2">
+              <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">2000+ Learners</span>
+              <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">Project-Based Learning</span>
+              <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">4+ Trainers</span>
+            </div>
+            {/* Buttons */}
+            <div className="flex gap-4 mt-4">
+              <Link href="/webinars" passHref legacyBehavior>
+                <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-6 py-3 rounded-full shadow-lg text-base">
+                  Join Free Webinar
                 </button>
               </Link>
-            </div>
-            {/* Azure DevOps Course */}
-            <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
-              <div className="flex items-center gap-4 mb-2">
-                <div className="w-12 h-12 relative">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure Logo" className="object-contain w-full h-full" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-black">Azure DevOps with Azure Admin</h3>
-                  <p className="text-neutral-600">Build expertise in Azure cloud, networking, and DevOps pipelines.</p>
-                </div>
-              </div>
-              <ul className="text-sm text-neutral-700 mb-2 pl-2 list-disc">
-                <li>VNet, Storage, VMs, SQL, App Services</li>
-                <li>Azure DevOps Pipelines, ARM Templates, Terraform</li>
-                <li>Monitoring, Security, Real-world Projects</li>
-              </ul>
-              <Link href="/courses/azure-devops" passHref legacyBehavior>
-                <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base">
-                  View Details
+              <Link href="/courses" passHref legacyBehavior>
+                <button className="bg-white text-blue-700 border border-blue-700 hover:bg-blue-50 transition-colors font-semibold px-6 py-3 rounded-full shadow text-base">
+                  Browse Courses
                 </button>
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Trusted By / Featured In Section */}
-      <section className="w-full bg-white border-y border-blue-100 py-10">
-        <div className="max-w-5xl mx-auto px-4">
-          <h3 className="text-center text-xl font-semibold text-neutral-500 mb-6 tracking-wide uppercase">Trusted by learners working at</h3>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {/* TCS */}
-            <SiTcs className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="TCS" />
-            {/* Cognizant */}
-            <SiCognizant className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="Cognizant" />
-            {/* Capgemini (no SiCapgemini, use briefcase icon as placeholder) */}
-            <Briefcase className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" aria-label="Capgemini" />
-            {/* Infosys */}
-            <SiInfosys className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="Infosys" />
-            {/* Zoho */}
-            <SiZoho className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="Zoho" />
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="w-full bg-blue-50 py-20">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-900">
-            DevOps That Gets You Hired
-          </h2>
-          <ul className="space-y-4 mb-12 max-w-2xl mx-auto">
-            {[
-              "Real-world project-based learning",
-              "Resume and LinkedIn optimization",
-              "Doubt support from expert engineers",
-              "Peer community + Mock interview help",
-              "Lifetime access to training materials",
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-lg text-blue-900">
-                <CheckCircle2 className="text-blue-500 w-6 h-6" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          {/* Student Reviews / Career Success */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Review 1 */}
-            <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
-              <div className="text-yellow-400 text-xl">★★★★★</div>
-              <div className="text-lg font-medium text-gray-900">“I switched from QA to DevOps within 90 days. The trainers were brilliant and always available!”</div>
-              <div className="text-sm text-blue-700 font-semibold">— Ravi, Now at Capgemini</div>
-            </div>
-            {/* Review 2 */}
-            <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
-              <div className="text-yellow-400 text-xl">★★★★★</div>
-              <div className="text-lg font-medium text-gray-900">“The hands-on labs and real projects made all the difference. I landed my first DevOps job at Infosys!”</div>
-              <div className="text-sm text-blue-700 font-semibold">— Priya, Infosys</div>
-            </div>
-            {/* Review 3 */}
-            <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
-              <div className="text-yellow-400 text-xl">★★★★★</div>
-              <div className="text-lg font-medium text-gray-900">“Resume and LinkedIn help was a game changer. Got interview calls from 3 MNCs in a month.”</div>
-              <div className="text-sm text-blue-700 font-semibold">— Sandeep, TCS</div>
-            </div>
-            {/* Review 4 */}
-            <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
-              <div className="text-yellow-400 text-xl">★★★★★</div>
-              <div className="text-lg font-medium text-gray-900">“The community and mock interviews gave me the confidence to ace my Azure DevOps interview.”</div>
-              <div className="text-sm text-blue-700 font-semibold">— Anjali, Cognizant</div>
+          {/* Right Side: Visual/Testimonial Slider */}
+          <div className="flex-1 flex items-center justify-center w-full max-w-md">
+            {/* Placeholder for UI mockup or testimonial slider */}
+            <div className="w-full h-[340px] bg-blue-50 rounded-3xl flex items-center justify-center shadow-2xl overflow-hidden border border-blue-100">
+              {/* Placeholder image or UI mockup */}
+              <div className="w-4/5 h-4/5 bg-gradient-to-br from-blue-100/60 to-blue-200/60 rounded-2xl flex flex-col items-center justify-center border-2 border-blue-200">
+                <span className="text-blue-700 text-lg font-semibold">Course UI Mockup</span>
+                <span className="text-blue-500 text-xs mt-2">(Replace with real screenshot)</span>
+              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* FAQ Section */}
-      <section className="w-full bg-white py-20">
-        <div className="max-w-5xl mx-auto px-4 ">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-900">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-center text-neutral-500 mb-10 max-w-2xl mx-auto">
-            Find answers to the most common questions about our platform, courses, and community.
-          </p>
-          <div className="flex flex-col md:flex-row gap-8">
-            {/* Inquiry Form (Left) */}
-            <div className="bg-blue-50 shadow-lg rounded-2xl p-8 flex-1 max-w-full md:max-w-none flex flex-col justify-center" style={{ flexBasis: '35%' }}>
-              <h3 className="text-xl font-semibold mb-2 text-blue-900">Still Have Questions?</h3>
-              <p className="mb-4 text-base text-blue-700">Fill out the form and our team will get back to you soon.</p>
-              <InquiryModal />
-            </div>
-            {/* FAQ Accordion (Right) */}
-            <div className="bg-blue-50 shadow-lg rounded-2xl flex-1 max-w-full md:max-w-none" style={{ flexBasis: '65%' }}>
-              <FAQAccordion />
+        {/* Upcoming Webinar Section */}
+        <section className="w-full bg-white py-16">
+          <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
+              Upcoming Webinar
+            </h2>
+            <WebinarCountdownCTA />
+          </div>
+          <div className="max-w-5xl mx-auto px-4 mt-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
+              Featured Courses
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* AWS DevOps Course */}
+              <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 relative">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS Logo" className="object-contain w-full h-full" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-black">AWS DevOps Certification Course</h3>
+                    <p className="text-neutral-600">Master DevOps fundamentals and cloud automation on AWS.</p>
+                  </div>
+                </div>
+                <ul className="text-sm text-neutral-700 mb-2 pl-2 list-disc">
+                  <li>Linux, Git, Jenkins, Docker, Kubernetes</li>
+                  <li>AWS EC2, S3, IAM, CodePipeline, Terraform</li>
+                  <li>CI/CD Implementation, Infrastructure as Code</li>
+                </ul>
+                <Link href="/courses/aws-devops" passHref legacyBehavior>
+                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base">
+                    View Details
+                  </button>
+                </Link>
+              </div>
+              {/* Azure DevOps Course */}
+              <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 relative">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure Logo" className="object-contain w-full h-full" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-black">Azure DevOps with Azure Admin</h3>
+                    <p className="text-neutral-600">Build expertise in Azure cloud, networking, and DevOps pipelines.</p>
+                  </div>
+                </div>
+                <ul className="text-sm text-neutral-700 mb-2 pl-2 list-disc">
+                  <li>VNet, Storage, VMs, SQL, App Services</li>
+                  <li>Azure DevOps Pipelines, ARM Templates, Terraform</li>
+                  <li>Monitoring, Security, Real-world Projects</li>
+                </ul>
+                <Link href="/courses/azure-devops" passHref legacyBehavior>
+                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base">
+                    View Details
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
+        {/* Trusted By / Featured In Section */}
+        <section className="w-full bg-white border-y border-blue-100 py-10">
+          <div className="max-w-5xl mx-auto px-4">
+            <h3 className="text-center text-xl font-semibold text-neutral-500 mb-6 tracking-wide uppercase">Trusted by learners working at</h3>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+              {/* TCS */}
+              <SiTcs className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="TCS" />
+              {/* Cognizant */}
+              <SiCognizant className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="Cognizant" />
+              {/* Capgemini (no SiCapgemini, use briefcase icon as placeholder) */}
+              <Briefcase className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" aria-label="Capgemini" />
+              {/* Infosys */}
+              <SiInfosys className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="Infosys" />
+              {/* Zoho */}
+              <SiZoho className="h-20 w-auto grayscale opacity-80 hover:opacity-100 transition" title="Zoho" />
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us Section */}
+        <section className="w-full bg-blue-50 py-20">
+          <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-900">
+              DevOps That Gets You Hired
+            </h2>
+            <ul className="space-y-4 mb-12 max-w-2xl mx-auto">
+              {[
+                "Real-world project-based learning",
+                "Resume and LinkedIn optimization",
+                "Doubt support from expert engineers",
+                "Peer community + Mock interview help",
+                "Lifetime access to training materials",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-lg text-blue-900">
+                  <CheckCircle2 className="text-blue-500 w-6 h-6" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            {/* Student Reviews / Career Success */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Review 1 */}
+              <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
+                <div className="text-yellow-400 text-xl">★★★★★</div>
+                <div className="text-lg font-medium text-gray-900">"I switched from QA to DevOps within 90 days. The trainers were brilliant and always available!"</div>
+                <div className="text-sm text-blue-700 font-semibold">— Ravi, Now at Capgemini</div>
+              </div>
+              {/* Review 2 */}
+              <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
+                <div className="text-yellow-400 text-xl">★★★★★</div>
+                <div className="text-lg font-medium text-gray-900">"The hands-on labs and real projects made all the difference. I landed my first DevOps job at Infosys!"</div>
+                <div className="text-sm text-blue-700 font-semibold">— Priya, Infosys</div>
+              </div>
+              {/* Review 3 */}
+              <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
+                <div className="text-yellow-400 text-xl">★★★★★</div>
+                <div className="text-lg font-medium text-gray-900">"Resume and LinkedIn help was a game changer. Got interview calls from 3 MNCs in a month."</div>
+                <div className="text-sm text-blue-700 font-semibold">— Sandeep, TCS</div>
+              </div>
+              {/* Review 4 */}
+              <div className="bg-white rounded-xl p-6 border border-blue-100 shadow flex flex-col gap-3">
+                <div className="text-yellow-400 text-xl">★★★★★</div>
+                <div className="text-lg font-medium text-gray-900">"The community and mock interviews gave me the confidence to ace my Azure DevOps interview."</div>
+                <div className="text-sm text-blue-700 font-semibold">— Anjali, Cognizant</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="w-full bg-white py-20">
+          <div className="max-w-5xl mx-auto px-4 ">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-900">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-center text-neutral-500 mb-10 max-w-2xl mx-auto">
+              Find answers to the most common questions about our platform, courses, and community.
+            </p>
+            <div className="flex flex-col md:flex-row gap-8">
+              {/* Inquiry Form (Left) */}
+              <div className="bg-blue-50 shadow-lg rounded-2xl p-8 flex-1 max-w-full md:max-w-none flex flex-col justify-center" style={{ flexBasis: '35%' }}>
+                <h3 className="text-xl font-semibold mb-2 text-blue-900">Still Have Questions?</h3>
+                <p className="mb-4 text-base text-blue-700">Fill out the form and our team will get back to you soon.</p>
+                <InquiryModal />
+              </div>
+              {/* FAQ Accordion (Right) */}
+              <div className="bg-blue-50 shadow-lg rounded-2xl flex-1 max-w-full md:max-w-none" style={{ flexBasis: '65%' }}>
+                <FAQAccordion />
+              </div>
+            </div>
+          </div>
+        </section>
+      </motion.div>
     </div>
   );
 }

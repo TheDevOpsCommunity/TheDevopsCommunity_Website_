@@ -1,65 +1,66 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { FaDiscord, FaTwitter, FaGithub, FaEnvelope, FaUsers } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-50 border-t border-blue-100 w-full pt-12 pb-6 px-4 md:px-12 mt-16">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12 md:gap-0">
-        {/* Left: Personal Details */}
-        <div className="flex-1 min-w-[220px]">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-block bg-black text-white rounded-lg px-2 py-1 font-bold text-lg">P</span>
-            <span className="font-semibold text-xl text-black">Pratham Shirbhate</span>
+    <footer className="bg-blue-50 border-t border-blue-100 w-full pt-12 pb-8 px-4 md:px-12 mt-16">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12 md:gap-8">
+        {/* Left: About DevOps Community */}
+        <div className="flex-1 min-w-[250px] md:max-w-xs">
+          <div className="flex items-center gap-2 mb-3">
+            <FaUsers className="w-8 h-8 text-blue-700" />
+            <span className="font-bold text-xl text-blue-900">DevOps Community</span>
           </div>
-          <div className="text-neutral-600 mb-1">A product by Pratham Shirbhate</div>
-          <div className="text-neutral-500 text-sm">Building in public at <a href="https://twitter.com/prathamcodes" className="underline hover:text-black" target="_blank" rel="noopener noreferrer">@prathamcodes</a></div>
+          <p className="text-neutral-600 text-sm leading-relaxed mb-3">
+            Empowering engineers to grow, innovate, and lead in the world of DevOps and Cloud computing through hands-on training and community support.
+          </p>
+          <Link href="/about" passHref>
+            <button className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:underline">
+              Learn more about us →
+            </button>
+          </Link>
         </div>
-        {/* Right: Pages */}
-        <div className="flex-[2] grid grid-cols-2 md:grid-cols-3 gap-8">
+
+        {/* Right: Navigation Links */}
+        <div className="flex-[2] grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12">
           <div>
-            <div className="font-medium text-black mb-2">Pages</div>
-            <ul className="space-y-1 text-neutral-600">
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/#courses">Courses</Link></li>
-              <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/about">About</Link></li>
+            <div className="font-semibold text-blue-900 mb-3 text-base">Explore</div>
+            <ul className="space-y-2 text-neutral-600 text-sm">
+              <li><Link href="/" className="hover:text-blue-700 hover:underline">Home</Link></li>
+              <li><Link href="/courses" className="hover:text-blue-700 hover:underline">Courses</Link></li>
+              <li><Link href="/webinars" className="hover:text-blue-700 hover:underline">Webinars</Link></li>
+              <li><Link href="/blog" className="hover:text-blue-700 hover:underline">Blog</Link></li>
+              <li><Link href="/about" className="hover:text-blue-700 hover:underline">About Us</Link></li>
             </ul>
           </div>
           <div>
-            <div className="font-medium text-black mb-2">Connect</div>
-            <ul className="space-y-1 text-neutral-600">
-              <li><a href="https://twitter.com/prathamcodes" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-              <li><a href="https://github.com/prathamcodes" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-              <li><a href="mailto:pratham@example.com">Email</a></li>
+            <div className="font-semibold text-blue-900 mb-3 text-base">Connect</div>
+            <ul className="space-y-2 text-neutral-600 text-sm">
+              <li><a href="https://twitter.com/yourcommunityhandle" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaTwitter /> Twitter</a></li>
+              <li><a href="https://github.com/yourorghandle" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaGithub /> GitHub</a></li>
+              <li><a href="mailto:contact@devopscommunity.com" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaEnvelope /> Email</a></li>
+              <li><a href="https://discord.gg/yourcommunitylink" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaDiscord /> Discord</a></li>
             </ul>
           </div>
           <div>
-            <div className="font-medium text-black mb-2">Community</div>
-            <ul className="space-y-1 text-neutral-600">
-              <li><a href="https://discord.gg/yourdiscord" target="_blank" rel="noopener noreferrer">Discord</a></li>
-              <li><a href="/showcase">Showcase</a></li>
-              <li><a href="/playground">Playground</a></li>
+            <div className="font-semibold text-blue-900 mb-3 text-base">Resources</div>
+            <ul className="space-y-2 text-neutral-600 text-sm">
+              <li><Link href="/#faq" className="hover:text-blue-700 hover:underline">FAQ</Link></li>
+              <li><Link href="/contact-us" className="hover:text-blue-700 hover:underline">Contact Us</Link></li>
+              <li><Link href="/shipping-and-delivery" className="hover:text-blue-700 hover:underline">Shipping & Delivery</Link></li>
             </ul>
           </div>
         </div>
       </div>
-      {/* Bottom: All Pages, Courses, Webinar */}
-      <div className="max-w-7xl mx-auto mt-10 border-t border-gray-200 pt-6 flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-center text-sm">
-        <div className="flex flex-wrap gap-4 text-neutral-500">
-          <Link href="/">Home</Link>
-          <Link href="/#courses">Courses</Link>
-          <Link href="/blog">Blog</Link>
-          <Link href="/about">About</Link>
-        </div>
-        <div className="flex flex-wrap gap-4 text-neutral-500">
-          <span className="font-medium text-black">Courses:</span>
-          <Link href="/courses/aws-devops">AWS DevOps</Link>
-          <Link href="/courses/azure-devops">Azure DevOps</Link>
-        </div>
-        <div className="flex flex-wrap gap-4 text-neutral-500">
-          <span className="font-medium text-black">Webinar:</span>
-          <Link href="/webinars" className="hover:text-black">Register</Link>
+
+      {/* Bottom: Copyright and Quick Links */}
+      <div className="max-w-7xl mx-auto mt-10 border-t border-blue-200 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-neutral-500">
+        <p>&copy; {new Date().getFullYear()} DevOps Community. All rights reserved.</p>
+        <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 sm:mt-0">
+          <Link href="/privacy-policy" className="hover:text-blue-700 hover:underline">Privacy Policy</Link>
+          <Link href="/terms-and-conditions" className="hover:text-blue-700 hover:underline">Terms & Conditions</Link>
         </div>
       </div>
     </footer>
