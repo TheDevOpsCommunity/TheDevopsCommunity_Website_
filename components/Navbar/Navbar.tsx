@@ -30,10 +30,6 @@ export function NavbarTop() {
 
   const navItems = [
     {
-      name: "About Us",
-      link: "/about",
-    },
-    {
       name: "Courses",
       link: "/courses",
       onClick: isHomePage ? handleCoursesClick : undefined,
@@ -41,6 +37,10 @@ export function NavbarTop() {
     {
       name: "Webinars",
       link: "/webinars",
+    },
+    {
+      name: "About Us",
+      link: "/about",
     },
     {
       name: "Blog",
@@ -56,10 +56,13 @@ export function NavbarTop() {
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
-          <NavItems items={navItems} className="text-blue-900 hover:text-blue-700" />
-          <div className="flex items-center gap-4">
-            <Link href="/webinars">
-              <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-5 py-2.5 rounded-full shadow-md text-sm">
+          <NavItems 
+            items={navItems} 
+            className="text-blue-900"
+          />
+          <div className="flex items-center gap-4 cursor-pointer z-20">
+            <Link href="/webinars/devops-roadmap-2025" style={{ cursor: 'pointer' }}>
+              <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-5 py-2.5 rounded-full shadow-md text-sm cursor-pointer">
                 Register for Webinar
               </button>
             </Link>
@@ -90,16 +93,17 @@ export function NavbarTop() {
                   }
                   setIsMobileMenuOpen(false);
                 }}
-                className="block py-2.5 px-4 text-lg font-medium text-blue-900 hover:bg-blue-200 rounded-md transition-colors"
+                className="block py-2.5 px-4 text-lg font-medium text-blue-900 hover:bg-black hover:text-white rounded-md transition-colors"
               >
                 {item.name}
               </a>
             ))}
-            <Link href="/webinars">
-              <button 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 w-full bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold py-3 px-4 rounded-lg shadow-md text-base"
-              >
+            <Link 
+              href="/webinars/devops-roadmap-2025" 
+              style={{ cursor: 'pointer' }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <button className="mt-4 w-full bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold py-3 px-4 rounded-lg shadow-md text-base">
                 Register for Webinar
               </button>
             </Link>

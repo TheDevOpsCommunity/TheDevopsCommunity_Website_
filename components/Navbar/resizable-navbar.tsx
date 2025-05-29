@@ -101,7 +101,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         damping: 50,
       }}
       style={{
-        minWidth: "800px",
+        minWidth: "900px",
       }}
       className={cn(
         "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent border border-[#6966665a]",
@@ -115,31 +115,21 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 };
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
-  const [hovered, setHovered] = useState<number | null>(null);
-
   return (
     <motion.div
-      onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-base font-medium text-black transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2",
+        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-base font-medium text-black transition duration-200 lg:flex lg:space-x-2",
         className,
       )}
     >
       {items.map((item, idx) => (
         <a
-          onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-black hover:text-zinc-800"
+          className="relative px-4 py-2 text-blue-900 hover:text-[#1447E6] hover:bg-[#E0EDFE] transition-all duration-200 rounded-lg"
           key={`link-${idx}`}
           href={item.link}
         >
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-gray-100"
-            />
-          )}
-          <span className="relative z-20 text-black">{item.name}</span>
+          <span className="relative z-20">{item.name}</span>
         </a>
       ))}
     </motion.div>
@@ -246,7 +236,7 @@ export const NavbarLogo = () => {
         height={30}
         className="rounded-full"
       />
-      <span className="font-medium text-black">Devops Community</span>
+      <span className="font-medium text-black">DevOps Community</span>
     </Link>
   );
 };

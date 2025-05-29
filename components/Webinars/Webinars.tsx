@@ -36,48 +36,6 @@ const webinars: WebinarCard[] = [
     },
     isLive: true,
     id: "devops-roadmap-2025"
-  },
-  {
-    title: "Getting Started with DevOps",
-    subheading: "A Comprehensive Introduction",
-    description: "Learn the fundamentals of DevOps, its principles, and how it transforms software development and operations.",
-    imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-    date: "March 25, 2024",
-    time: "10:00 AM EST",
-    speaker: {
-      avatar: "https://via.placeholder.com/40",
-      name: "John Doe",
-    },
-    isLive: true,
-    id: "getting-started-with-devops"
-  },
-  {
-    title: "CI/CD Pipeline Implementation",
-    subheading: "Best Practices and Tools",
-    description: "Deep dive into setting up efficient CI/CD pipelines using Jenkins, GitHub Actions, and other popular tools.",
-    imageUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
-    date: "April 2, 2024",
-    time: "2:00 PM EST",
-    speaker: {
-      avatar: "https://via.placeholder.com/40",
-      name: "Jane Smith",
-    },
-    isLive: false,
-    id: "ci-cd-pipeline-implementation"
-  },
-  {
-    title: "Container Orchestration with Kubernetes",
-    subheading: "From Basics to Advanced",
-    description: "Master Kubernetes concepts, deployment strategies, and best practices for container orchestration.",
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    date: "April 10, 2024",
-    time: "11:00 AM EST",
-    speaker: {
-      avatar: "https://via.placeholder.com/40",
-      name: "Alice Johnson",
-    },
-    isLive: true,
-    id: "container-orchestration-with-kubernetes"
   }
 ];
 
@@ -177,8 +135,7 @@ const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }
 };
 
 export default function Webinars() {
-  const featuredWebinar = webinars.find(w => w.isLive) || webinars[0]; // Prioritize live or take the first
-  const otherWebinars = webinars.filter(w => w.id !== featuredWebinar.id);
+  const featuredWebinar = webinars[0];
 
   return (
     <section id="webinars" className="py-16 md:py-24 bg-gradient-to-b from-blue-50 to-blue-100">
@@ -244,19 +201,22 @@ export default function Webinars() {
           </motion.div>
         )}
 
-        {/* Other Webinars Section */}
-        {otherWebinars.length > 0 && (
-          <div className="mb-12 md:mb-16">
-            <h3 className="text-2xl md:text-3xl font-bold text-blue-800 text-center mb-8 md:mb-10">
-              Explore Other Upcoming Sessions
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-              {otherWebinars.map((webinar, index) => (
-                <WebinarCardSmall key={webinar.id} webinar={webinar} index={index} />
-              ))}
-            </div>
-          </div>
-        )}
+        {/* More Webinars Coming Soon Message */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 80 }}
+          viewport={{ once: true }}
+          className="text-center mt-16 mb-8"
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-blue-800 mb-3">
+            Stay Tuned for More!
+          </h3>
+          <p className="text-lg text-neutral-600 max-w-xl mx-auto">
+            We are actively planning more insightful webinars to help you grow. Keep checking this space for new announcements.
+          </p>
+        </motion.div>
+
       </div>
     </section>
   );

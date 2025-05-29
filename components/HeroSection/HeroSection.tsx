@@ -216,13 +216,13 @@ export function HeroSectionOne() {
             </div>
             {/* Buttons */}
             <div className="flex gap-4 mt-4">
-              <Link href="/webinars" passHref legacyBehavior>
-                <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-6 py-3 rounded-full shadow-lg text-base">
+              <Link href="/webinars/devops-roadmap-2025">
+                <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-6 py-3 rounded-full shadow-lg text-base cursor-pointer z-20">
                   Join Free Webinar
                 </button>
               </Link>
-              <Link href="/courses" passHref legacyBehavior>
-                <button className="bg-white text-blue-700 border border-blue-700 hover:bg-blue-50 transition-colors font-semibold px-6 py-3 rounded-full shadow text-base">
+              <Link href="/courses" >
+                <button className="bg-white text-blue-700 border border-blue-700 hover:bg-blue-50 transition-colors font-semibold px-6 py-3 rounded-full shadow text-base cursor-pointer z-20">
                   Browse Courses
                 </button>
               </Link>
@@ -436,19 +436,19 @@ function WebinarCountdownCTA() {
             {hours.toString().padStart(2, "0")}h : {minutes.toString().padStart(2, "0")}m : {seconds.toString().padStart(2, "0")}s
           </span>
         </div>
-        <div className="text-lg font-semibold text-blue-900 mb-1">Getting Started with DevOps</div>
+        <div className="text-lg font-semibold text-blue-900 mb-1">DevOps Roadmap Webinar – Build a Career That Scales in 2025</div>
         <div className="text-gray-700 mb-2 text-base max-w-xl">
-          Join our free live webinar and learn the fundamentals of DevOps, CI/CD, and cloud automation from engineers with 10+ years of experience. Perfect for beginners and those looking to upskill for 2024!
+          A 2-hour live masterclass for complete career clarity. Learn from industry experts about the DevOps career path, tools, and job strategy — even if you're just starting out.
         </div>
       </div>
       <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
-        <Link href="/webinars/register" passHref legacyBehavior>
-          <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base">
+        <Link href="/webinars/devops-roadmap-2025" passHref legacyBehavior>
+          <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer">
             Register for Webinar
           </button>
         </Link>
         <Link href="/webinars" passHref legacyBehavior>
-          <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base">
+          <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base cursor-pointer">
             View All Webinars
           </button>
         </Link>
