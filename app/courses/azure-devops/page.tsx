@@ -248,6 +248,127 @@ function CurriculumCard({ icon, title, desc }: { icon: React.ReactNode; title: s
   );
 }
 
+function CourseInquiryForm() {
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...form,
+          type: 'course',
+          courseId: 'azure-devops',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit inquiry');
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="text-center py-10">
+        <h2 className="text-2xl font-bold mb-2 text-blue-900">Thank you!</h2>
+        <p className="text-blue-700">Your inquiry has been submitted. We&apos;ll get back to you soon.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      {error && (
+        <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          value={form.name}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
+          placeholder="Your Name"
+        />
+      </div>
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-blue-800 mb-1">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          value={form.email}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
+          placeholder="you@example.com"
+        />
+      </div>
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-blue-800 mb-1">Phone (Optional)</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          value={form.phone}
+          onChange={handleChange}
+          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
+          placeholder="+1 (555) 000-0000"
+        />
+      </div>
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-blue-800 mb-1">Your Message</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          value={form.message}
+          onChange={handleChange}
+          rows={4}
+          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors min-h-[100px]"
+          placeholder="Ask us anything about the course..."
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {loading ? 'Submitting...' : 'Send Inquiry'}
+      </button>
+    </form>
+  );
+}
+
 export default function AzureDevopsCurriculumPage() {
   const [showSubheading, setShowSubheading] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -341,49 +462,7 @@ export default function AzureDevopsCurriculumPage() {
                 <h3 className="text-2xl font-bold mb-2 text-blue-900">Start Your Azure Journey!</h3>
                 <p className="text-sm text-neutral-600">Questions? Fill out the form, and our Azure experts will guide you.</p>
               </div>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-blue-800 mb-1">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-blue-800 mb-1">Phone (Optional)</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-                    placeholder="+1 (555) 000-0000"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-blue-800 mb-1">Your Message</label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors min-h-[100px]"
-                    placeholder="Ask us anything about the course..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                >
-                  Send Inquiry
-                </button>
-              </form>
+              <CourseInquiryForm />
             </div>
           </div>
         </div>

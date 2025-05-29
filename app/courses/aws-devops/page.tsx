@@ -235,6 +235,163 @@ function CurriculumCard({ icon, title, desc }: { icon: React.ReactNode; title: s
   );
 }
 
+const CourseInquiryForm = () => {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...form,
+          type: 'course'
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit inquiry');
+      }
+
+      setSubmitted(true);
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit inquiry');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg text-center border border-blue-100">
+        <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 className="text-2xl font-bold text-blue-900 mb-2">Thank You!</h3>
+        <p className="text-blue-700">We'll get back to you soon about the AWS DevOps course.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-1">
+        <label htmlFor="name" className="block text-sm font-medium text-blue-900">
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          required
+          placeholder="Your name"
+          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
+        />
+      </div>
+      <div className="space-y-1">
+        <label htmlFor="email" className="block text-sm font-medium text-blue-900">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          required
+          placeholder="you@example.com"
+          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
+        />
+      </div>
+      <div className="space-y-1">
+        <label htmlFor="phone" className="block text-sm font-medium text-blue-900">
+          Phone
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          value={form.phone}
+          onChange={handleChange}
+          placeholder="+1 (555) 000-0000"
+          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
+        />
+      </div>
+      <div className="space-y-1">
+        <label htmlFor="message" className="block text-sm font-medium text-blue-900">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          value={form.message}
+          onChange={handleChange}
+          required
+          rows={4}
+          placeholder="Tell us about your goals"
+          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200 resize-none"
+        />
+      </div>
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+          {error}
+        </div>
+      )}
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      >
+        {loading ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Submitting...
+          </span>
+        ) : (
+          'Submit Inquiry'
+        )}
+      </button>
+    </form>
+  );
+};
+
 export default function AwsDevopsCurriculumPage() {
   const [showSubheading, setShowSubheading] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -332,50 +489,7 @@ export default function AwsDevopsCurriculumPage() {
                 <h3 className="text-2xl font-bold mb-2 text-blue-900">Start Your AWS Journey!</h3>
                 <p className="text-sm text-neutral-600">Questions? Fill out the form, and our AWS experts will guide you.</p>
               </div>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-blue-800 mb-1">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-blue-800 mb-1">Phone (Optional)</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-                    placeholder="+1 (555) 000-0000"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-blue-800 mb-1">Your Message</label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors min-h-[100px]"
-                    placeholder="Ask us anything about the course..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                >
-                  Send Inquiry
-                </button>
-              </form>
+              <CourseInquiryForm />
             </div>
           </div>
         </div>
