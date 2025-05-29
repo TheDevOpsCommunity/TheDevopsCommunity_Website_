@@ -2,6 +2,25 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 
+// Types for webhook payload
+interface RazorpayPaymentEntity {
+  id: string;
+  amount: number;
+  email: string;
+  entity: {
+    id: string;
+    amount: number;
+    email: string;
+  };
+}
+
+interface RazorpayWebhookPayload {
+  event: string;
+  payload: {
+    payment: RazorpayPaymentEntity;
+  };
+}
+
 // Initialize nodemailer transporter
 const transporter = nodemailer.createTransport({
   host: 'mail.thedevopscommunity.com',
@@ -24,7 +43,7 @@ const corsHeaders = {
 };
 
 // Logger function
-function logEvent(type: string, data: any) {
+function logEvent(type: string, data: Record<string, unknown>) {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] [${type}]`, JSON.stringify(data, null, 2));
 }
@@ -68,7 +87,7 @@ function verifyWebhookSignature(
 }
 
 // Send confirmation email
-async function sendConfirmationEmail(paymentData: any) {
+async function sendConfirmationEmail(paymentData: RazorpayPaymentEntity) {
   const { email, amount, id } = paymentData.entity;
   const amountInRupees = (amount / 100).toFixed(2);
 
@@ -175,7 +194,7 @@ export async function POST(request: Request) {
     }
 
     // Only parse the body after signature verification
-    const data = JSON.parse(rawBody);
+    const data = JSON.parse(rawBody) as RazorpayWebhookPayload;
     logEvent('WEBHOOK_PROCESSING', {
       requestId,
       event: data.event,

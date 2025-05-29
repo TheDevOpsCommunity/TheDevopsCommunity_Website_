@@ -220,40 +220,4 @@ export default function Webinars() {
       </div>
     </section>
   );
-}
-
-const WebinarCardSmall = ({ webinar, index }: { webinar: WebinarCard; index: number }) => {
-  return (
-    <motion.div
-      custom={index}
-      variants={cardVariants} // You might want to adjust delay for these cards
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      className="bg-white rounded-2xl shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-all duration-300 flex flex-col"
-    >
-      <div className="w-full h-48 overflow-hidden">
-        <Image src={webinar.imageUrl} alt={webinar.title} width={400} height={200} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
-      </div>
-      <div className="p-5 flex flex-col flex-grow">
-        <div className="flex items-center gap-2 text-xs text-blue-600 mb-2">
-          <CalendarIcon className="w-4 h-4" /> <span>{webinar.date}</span>
-          <ClockIcon className="w-4 h-4" /> <span>{webinar.time}</span>
-        </div>
-        <h4 className="text-lg font-semibold text-blue-900 mb-1 leading-tight truncate" title={webinar.title}>{webinar.title}</h4>
-        <p className="text-sm text-neutral-600 mb-3 flex-grow truncate" title={webinar.subheading}>{webinar.subheading}</p>
-        
-        <div className="flex items-center gap-2 mb-3 text-xs text-neutral-500">
-            <Image src={webinar.speaker.avatar} alt={webinar.speaker.name} width={24} height={24} className="rounded-full" />
-            <span>{webinar.speaker.name}</span>
-        </div>
-
-        <Link href={`/webinars/${webinar.id}`} className="mt-auto">
-          <button className="w-full py-2 px-4 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center gap-1.5">
-            View Details <ArrowRightIcon className="w-4 h-4" />
-          </button>
-        </Link>
-      </div>
-    </motion.div>
-  );
-}; 
+} 

@@ -145,7 +145,7 @@ function InquiryForm({ onSuccess }: { onSuccess?: () => void }) {
 
 export function HeroSectionOne() {
   const [animatedHeading, setAnimatedHeading] = useState("");
-  const fullHeading = "Master DevOps with Experts Who've Done It for 10+ Years";
+  const fullHeading = "Master DevOps with Experts Who&apos;ve Done It for 10+ Years";
   const typingSpeed = 50; // milliseconds per character
 
   const [isWelcomeVisible, setIsWelcomeVisible] = useState(true);
@@ -389,9 +389,9 @@ export function HeroSectionOne() {
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-900">
               Frequently Asked Questions
             </h2>
-            <p className="text-center text-neutral-500 mb-10 max-w-2xl mx-auto">
+            <div className="text-center text-neutral-500 mb-10 max-w-2xl mx-auto">
               Find answers to the most common questions about our platform, courses, and community.
-            </p>
+            </div>
             <div className="flex flex-col md:flex-row gap-8">
               {/* Inquiry Form (Left) */}
               <div className="bg-blue-50 shadow-lg rounded-2xl p-8 flex-1 max-w-full md:max-w-none flex flex-col justify-center" style={{ flexBasis: '35%' }}>
@@ -438,7 +438,7 @@ function WebinarCountdownCTA() {
         </div>
         <div className="text-lg font-semibold text-blue-900 mb-1">DevOps Roadmap Webinar – Build a Career That Scales in 2025</div>
         <div className="text-gray-700 mb-2 text-base max-w-xl">
-          A 2-hour live masterclass for complete career clarity. Learn from industry experts about the DevOps career path, tools, and job strategy — even if you're just starting out.
+          A 2-hour live masterclass for complete career clarity. Learn from industry experts about the DevOps career path, tools, and job strategy — even if you&apos;re just starting out.
         </div>
       </div>
       <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
