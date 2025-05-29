@@ -381,11 +381,39 @@ export default function WebinarDetailsPage() {
                 <p className="text-sm text-gray-600">Limited seats available at ₹299/-</p>
                 <p className="text-sm text-gray-600 mt-2">100% secure Razorpay payment</p>
               </div>
-              <RazorpayButton />
-            </div>
-            <div className="mt-6">
-              <h3 className="text-2xl font-bold mb-2">Inquiry</h3>
-              <WebinarInquiryForm />
+              <form className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
+                    placeholder="+91 98765 43210"
+                  />
+                </div>
+                <RazorpayButton />
+                <p className="text-xs text-center text-gray-500 mt-2">
+                  By registering, you agree to our Terms of Service and Privacy Policy
+                </p>
+              </form>
             </div>
           </div>
         </div>
