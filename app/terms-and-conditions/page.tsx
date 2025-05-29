@@ -1,12 +1,12 @@
 export default function TermsAndConditions() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 mt-16">
       <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
 
       <p className="mb-4">
         Welcome to Our Company! These terms and conditions outline the rules and
         regulations for the use of Our Company&apos;s Website, located at
-        [Your Website URL].
+        https://www.devopscommunity.com.
       </p>
 
       <p className="mb-4">
@@ -241,7 +241,7 @@ export default function TermsAndConditions() {
         provided free of charge, we will not be liable for any loss or damage of
         any nature.
       </p>
-      <p className="mb-4"><em>Last updated: [Date]</em></p>
+      <p className="mb-4"><em>Last updated: 29th May 2025</em></p>
     </div>
   );
 } 

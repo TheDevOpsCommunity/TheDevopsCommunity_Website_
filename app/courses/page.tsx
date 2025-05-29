@@ -11,7 +11,7 @@ const courses = [
     title: "AWS DevOps Certification Course",
     description: "Master DevOps principles and tools on the AWS cloud. From CI/CD pipelines to Infrastructure as Code, become a certified AWS DevOps Engineer.",
     icon: <FaAws className="text-orange-500 w-12 h-12" />,
-    image: "https://images.unsplash.com/photo-1551818255-e6e1097514cf?q=80&w=1200&auto=format&fit=crop", // Placeholder
+    image: "/aws.png", 
     link: "/courses/aws-devops",
     tags: ["AWS", "DevOps", "CI/CD", "Terraform", "Kubernetes"],
   },
@@ -20,7 +20,7 @@ const courses = [
     title: "Azure DevOps with Azure Admin",
     description: "Gain expertise in Azure cloud services, networking, and build robust DevOps pipelines using Azure DevOps tools and best practices.",
     icon: <VscAzure className="text-blue-600 w-12 h-12" />,
-    image: "https://images.unsplash.com/photo-1614728263952-84ea256ec347?q=80&w=1200&auto=format&fit=crop", // Placeholder
+    image: "/azure.png", 
     link: "/courses/azure-devops",
     tags: ["Azure", "DevOps", "Pipelines", "ARM Templates", "Security"],
   },
@@ -100,7 +100,7 @@ export default function CoursesPage() {
                   ))}
                 </div>
                 <Link href={course.link} passHref>
-                  <button className="mt-auto w-full bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition-colors duration-300 flex items-center justify-center gap-2 group/button">
+                  <button className="mt-auto w-full bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition-colors duration-300 flex items-center justify-center gap-2 group/button cursor-pointer z-20">
                     View Details
                     <FaAngleRight className="transition-transform duration-300 group-hover/button:translate-x-1" />
                   </button>

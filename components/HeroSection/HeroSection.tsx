@@ -145,7 +145,7 @@ function InquiryForm({ onSuccess }: { onSuccess?: () => void }) {
 
 export function HeroSectionOne() {
   const [animatedHeading, setAnimatedHeading] = useState("");
-  const fullHeading = "Master DevOps with Experts Who&apos;ve Done It for 10+ Years";
+  const fullHeading = "Master DevOps with Experts Who've Done It for 10+ Years";
   const typingSpeed = 50; // milliseconds per character
 
   const [isWelcomeVisible, setIsWelcomeVisible] = useState(true);
@@ -276,8 +276,8 @@ export function HeroSectionOne() {
                   <li>AWS EC2, S3, IAM, CodePipeline, Terraform</li>
                   <li>CI/CD Implementation, Infrastructure as Code</li>
                 </ul>
-                <Link href="/courses/aws-devops" passHref legacyBehavior>
-                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base">
+                <Link href="/courses/aws-devops" >
+                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base cursor-pointer z-20">
                     View Details
                   </button>
                 </Link>
@@ -304,8 +304,8 @@ export function HeroSectionOne() {
                   <li>Azure DevOps Pipelines, ARM Templates, Terraform</li>
                   <li>Monitoring, Security, Real-world Projects</li>
                 </ul>
-                <Link href="/courses/azure-devops" passHref legacyBehavior>
-                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base">
+                <Link href="/courses/azure-devops" >
+                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base cursor-pointer z-20">
                     View Details
                   </button>
                 </Link>
@@ -442,13 +442,13 @@ function WebinarCountdownCTA() {
         </div>
       </div>
       <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
-        <Link href="/webinars/devops-roadmap-2025" passHref legacyBehavior>
-          <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer">
+        <Link href="/webinars/devops-roadmap-2025" >
+          <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer z-20">
             Register for Webinar
           </button>
         </Link>
-        <Link href="/webinars" passHref legacyBehavior>
-          <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base cursor-pointer">
+        <Link href="/webinars" >
+          <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base cursor-pointer z-20">
             View All Webinars
           </button>
         </Link>

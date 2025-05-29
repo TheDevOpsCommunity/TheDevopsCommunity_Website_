@@ -1,6 +1,6 @@
 export default function PrivacyPolicy() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 mt-16">
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
       <p className="mb-4">
         Your privacy is important to us. It is Our Company&apos;s policy to respect
@@ -109,7 +109,7 @@ export default function PrivacyPolicy() {
         If you have any questions or suggestions about our Privacy Policy, do
         not hesitate to contact us.
       </p>
-      <p className="mb-4"><em>Last updated: [Date]</em></p>
+      <p className="mb-4"><em>Last updated: 29th May 2025</em></p>
     </div>
   );
 } 
