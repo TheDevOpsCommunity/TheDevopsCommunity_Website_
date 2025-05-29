@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { NavbarTop } from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { Analytics } from "@vercel/analytics/next"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={`${geist.variable} ${geistMono.variable} ${poppins.className} min-h-screen bg-[white/80]`}>
+        <Analytics />
         <div className="fixed top-4 left-0 right-0 z-50">
           <NavbarTop />
         </div>

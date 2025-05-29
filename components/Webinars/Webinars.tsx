@@ -27,11 +27,11 @@ const webinars: WebinarCard[] = [
     title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
     subheading: "A 2-hour live masterclass for complete career clarity",
     description: "A comprehensive masterclass designed to give you complete clarity on the DevOps career path, tools, and job strategy — even if you're just starting out.",
-    imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/image.png",
     date: "May 30, 2025",
     time: "10:00 AM IST",
     speaker: {
-      avatar: "https://via.placeholder.com/40",
+      avatar: "https://avatar.iran.liara.run/public/6",
       name: "DevOps Expert",
     },
     isLive: true,
