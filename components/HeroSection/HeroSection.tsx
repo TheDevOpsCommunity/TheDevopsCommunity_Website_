@@ -166,7 +166,7 @@ const InquiryForm = () => {
           </svg>
         </div>
         <h3 className="text-2xl font-bold text-blue-900 mb-2">Thank You!</h3>
-        <p className="text-blue-700">We'll get back to you soon.</p>
+        <p className="text-blue-700">We&apos;ll get back to you soon.</p>
       </div>
     );
   }
