@@ -5,44 +5,57 @@ import { motion } from "motion/react";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { CalendarIcon, ClockIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import RazorpayButton from "@/components/RazorpayButton/RazorpayButton";
 
 // This would typically come from an API or database
 const webinarDetails = {
-  id: "getting-started-devops",
-  title: "Getting Started with DevOps",
-  subheading: "A Comprehensive Introduction",
-  description: "Learn the fundamentals of DevOps, its principles, and how it transforms software development and operations. This webinar will cover essential concepts, tools, and best practices that every DevOps professional should know.",
+  id: "devops-roadmap-2025",
+  title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
+  subheading: "A 2-hour live masterclass for complete career clarity",
+  description: "A comprehensive masterclass designed to give you complete clarity on the DevOps career path, tools, and job strategy — even if you're just starting out. Learn from industry experts and get actionable insights to kickstart or advance your DevOps career.",
   imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-  date: "March 25, 2024",
-  time: "10:00 AM EST",
-  duration: "90 minutes",
+  date: "May 30, 2025",
+  time: "10:00 AM IST",
+  duration: "2 hours",
   speaker: {
-    name: "John Doe",
+    name: "DevOps Expert",
     role: "Senior DevOps Engineer",
-    company: "Tech Solutions Inc.",
+    company: "DevOps Community",
     avatar: "https://via.placeholder.com/150",
-    bio: "John has over 10 years of experience in DevOps and cloud technologies. He has worked with Fortune 500 companies and helped numerous organizations transform their development and operations practices."
+    bio: "Experienced DevOps professional with expertise in cloud technologies, automation, and infrastructure management."
   },
   topics: [
-    "Introduction to DevOps principles and practices",
-    "Key DevOps tools and technologies",
-    "CI/CD pipeline implementation",
-    "Infrastructure as Code (IaC)",
-    "Containerization and orchestration",
-    "Monitoring and logging best practices",
-    "Q&A session with the expert"
+    "The 2025 DevOps Roadmap — What to learn, in what order",
+    "Key tools explained: Git, Docker, Jenkins, Kubernetes, Terraform, AWS",
+    "How to structure real-world DevOps projects that get you noticed",
+    "How to write a DevOps resume that clears ATS",
+    "The exact way to optimize your LinkedIn profile to attract recruiters",
+    "How to showcase skills on GitHub (with examples)",
+    "DevOps interview structure and top questions",
+    "Emerging trends: AI + Prompt Engineering in DevOps"
   ],
   requirements: [
-    "Basic understanding of software development",
-    "Familiarity with command line interface",
-    "Laptop with stable internet connection"
+    "No prior DevOps experience required",
+    "Basic computer knowledge",
+    "Laptop with stable internet connection",
+    "Zoom application installed"
   ],
   benefits: [
-    "Comprehensive understanding of DevOps concepts",
-    "Hands-on experience with popular tools",
-    "Certificate of participation",
-    "Access to webinar recording",
-    "Networking opportunities"
+    "DevOps Roadmap PDF (with tools, steps, projects)",
+    "Resume + LinkedIn Optimization Kit",
+    "5 DevOps project ideas with GitHub examples",
+    "Private DevOps community invite",
+    "Free slot in our upcoming mock interview pool (optional)",
+    "Live Q&A with the instructor"
+  ],
+  price: "₹299",
+  format: "Live Zoom Session",
+  targetAudience: [
+    "Freshers exploring cloud/DevOps careers",
+    "Professionals restarting after a break",
+    "Testers, Support Engineers & Sysadmins moving to DevOps",
+    "Working professionals switching domains",
+    "Developers moving into platform, automation, or SRE roles"
   ]
 };
 
@@ -208,7 +221,8 @@ export default function WebinarDetailsPage() {
             <div className="sticky top-42 bg-gradient-to-b from-transparent via-[#EFF2FF] to-transparent rounded-2xl p-6">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-2">Register Now</h3>
-                <p className="text-sm text-gray-600">Secure your spot in this exclusive webinar. Limited seats available!</p>
+                <p className="text-sm text-gray-600">Limited seats available at ₹299/-</p>
+                <p className="text-sm text-gray-600 mt-2">100% secure Razorpay payment</p>
               </div>
               <form className="space-y-4">
                 <div>
@@ -235,15 +249,10 @@ export default function WebinarDetailsPage() {
                     type="tel"
                     id="phone"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 98765 43210"
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-white hover:text-black border-2 border-black transition-colors duration-200"
-                >
-                  Proceed to Payment
-                </button>
+                <RazorpayButton />
                 <p className="text-xs text-center text-gray-500 mt-2">
                   By registering, you agree to our Terms of Service and Privacy Policy
                 </p>
