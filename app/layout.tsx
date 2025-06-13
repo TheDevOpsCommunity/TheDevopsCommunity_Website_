@@ -24,10 +24,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "DevOps Career",
+  title: "DevOps Community",
   description: "Master Your DevOps Career",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/dc_logo.svg',
   },
 };
 
