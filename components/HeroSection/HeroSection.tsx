@@ -346,13 +346,18 @@ export function HeroSectionOne() {
           {/* Right Side: Visual/Testimonial Slider */}
           <div className="flex-1 flex items-center justify-center w-full max-w-md">
             {/* Placeholder for UI mockup or testimonial slider */}
-            <div className="w-full h-[340px] bg-blue-50 rounded-3xl flex items-center justify-center shadow-2xl overflow-hidden border border-blue-100">
+            {/* <div className="w-full h-[340px] bg-blue-50 rounded-3xl flex items-center justify-center shadow-2xl overflow-hidden border border-blue-100"> */}
               {/* Placeholder image or UI mockup */}
-              <div className="w-4/5 h-4/5 bg-gradient-to-br from-blue-100/60 to-blue-200/60 rounded-2xl flex flex-col items-center justify-center border-2 border-blue-200">
-                <span className="text-blue-700 text-lg font-semibold">Course UI Mockup</span>
-                <span className="text-blue-500 text-xs mt-2">(Replace with real screenshot)</span>
+              <div className="w-full h-full bg-gradient-to-br from-blue-100/60 to-blue-200/60 rounded-2xl flex flex-col items-center justify-center border-2 border-blue-200">
+                <Image 
+                  src="/black.png" 
+                  alt="DevOps Community" 
+                  width={400} 
+                  height={400}
+                  className="object-contain w-full h-full rounded-2xl"
+                />
               </div>
-            </div>
+            {/* </div> */}
           </div>
         </div>
 
@@ -360,68 +365,28 @@ export function HeroSectionOne() {
         <section className="w-full bg-white py-16">
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-              Upcoming Webinar
+              Upcoming AWS DevOps Course
             </h2>
-            <WebinarCountdownCTA />
-          </div>
-          <div className="max-w-5xl mx-auto px-4 mt-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-              Featured Courses
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* AWS DevOps Course */}
-              <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="w-12 h-12 relative">
-                    <Image
-                      src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
-                      alt="AWS Logo"
-                      width={100}
-                      height={50}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-black">AWS DevOps Certification Course</h3>
-                    <p className="text-neutral-600">Master DevOps fundamentals and cloud automation on AWS.</p>
-                  </div>
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
+              <div className="flex-1 flex flex-col gap-2">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">New Batch</span>
+                  <span className="text-blue-700 font-semibold text-lg">Starting Monday</span>
                 </div>
-                <ul className="text-sm text-neutral-700 mb-2 pl-2 list-disc">
-                  <li>Linux, Git, Jenkins, Docker, Kubernetes</li>
-                  <li>AWS EC2, S3, IAM, CodePipeline, Terraform</li>
-                  <li>CI/CD Implementation, Infrastructure as Code</li>
-                </ul>
-                <Link href="/courses/aws-devops" >
-                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base cursor-pointer z-20">
-                    View Details
+                <div className="text-lg font-semibold text-blue-900 mb-1">AWS DevOps Certification Course</div>
+                <div className="text-gray-700 mb-2 text-base max-w-xl">
+                  Master DevOps fundamentals and cloud automation on AWS. Learn Linux, Git, Jenkins, Docker, Kubernetes, and more with hands-on projects.
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
+                <Link href="/courses/aws-devops">
+                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer z-20">
+                    View Course Details
                   </button>
                 </Link>
-              </div>
-              {/* Azure DevOps Course */}
-              <div className="bg-white rounded-xl p-6 border-2 border-blue-100 flex flex-col gap-4 shadow">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="w-12 h-12 relative">
-                    <Image
-                      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg"
-                      alt="Azure Logo"
-                      width={100}
-                      height={50}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-black">Azure DevOps with Azure Admin</h3>
-                    <p className="text-neutral-600">Build expertise in Azure cloud, networking, and DevOps pipelines.</p>
-                  </div>
-                </div>
-                <ul className="text-sm text-neutral-700 mb-2 pl-2 list-disc">
-                  <li>VNet, Storage, VMs, SQL, App Services</li>
-                  <li>Azure DevOps Pipelines, ARM Templates, Terraform</li>
-                  <li>Monitoring, Security, Real-world Projects</li>
-                </ul>
-                <Link href="/courses/azure-devops" >
-                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base cursor-pointer z-20">
-                    View Details
+                <Link href="/courses">
+                  <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base cursor-pointer z-20">
+                    View All Courses
                   </button>
                 </Link>
               </div>

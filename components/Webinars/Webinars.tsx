@@ -135,8 +135,6 @@ const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }
 };
 
 export default function Webinars() {
-  const featuredWebinar = webinars[0];
-
   return (
     <section id="webinars" className="py-16 md:py-24 bg-gradient-to-b from-blue-50 to-blue-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,74 +147,35 @@ export default function Webinars() {
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900 tracking-tight">
-            Unlock Your DevOps Potential
+            Webinars Coming Soon
           </h2>
           <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
-            Join our expert-led live webinars. Learn, interact, and grow with the latest in DevOps and cloud technologies.
+            We are currently preparing exciting webinars to help you master DevOps and cloud technologies. Stay tuned for updates!
           </p>
         </motion.div>
 
-        {/* Featured Webinar Section */}
-        {featuredWebinar && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 30 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 80 }}
-            viewport={{ once: true }}
-            className="mb-16 md:mb-20 bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-blue-200"
-          >
-            <div className="flex flex-col lg:flex-row gap-8 items-center">
-              {/* Left Side: Image */}
-              <div className="w-full lg:w-1/2 h-72 md:h-96 rounded-2xl overflow-hidden shadow-lg">
-                <ParallaxImage src={featuredWebinar.imageUrl} alt={featuredWebinar.title} />
-              </div>
-              {/* Right Side: Content */}
-              <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                <span className="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3 self-start">
-                  {featuredWebinar.isLive ? "Happening Now" : "Featured Webinar"}
-                </span>
-                <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-2">{featuredWebinar.title}</h3>
-                <p className="text-lg text-neutral-700 mb-4">{featuredWebinar.subheading}</p>
-                <div className="flex items-center gap-3 text-neutral-600 mb-4 text-sm">
-                  <CalendarIcon className="w-5 h-5 text-blue-500" /> 
-                  <span>{featuredWebinar.date}</span>
-                  <ClockIcon className="w-5 h-5 text-blue-500" /> 
-                  <span>{featuredWebinar.time}</span>
-                </div>
-                <div className="flex items-center gap-3 mb-5">
-                  <Image src={featuredWebinar.speaker.avatar} alt={featuredWebinar.speaker.name} width={40} height={40} className="rounded-full border-2 border-blue-200" />
-                  <div>
-                    <p className="font-semibold text-blue-800">{featuredWebinar.speaker.name}</p>
-                    {/* <p className="text-xs text-neutral-500">DevOps Expert</p> */}
-                  </div>
-                </div>
-                <p className="text-neutral-600 mb-6 leading-relaxed text-sm">{featuredWebinar.description}</p>
-                <Link href={`/webinars/${featuredWebinar.id}`} className="self-start">
-                  <button className="px-8 py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center gap-2 text-base">
-                    Register Now <ArrowRightIcon className="w-5 h-5" />
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* More Webinars Coming Soon Message */}
+        {/* Coming Soon Message */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 80 }}
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 80 }}
           viewport={{ once: true }}
-          className="text-center mt-16 mb-8"
+          className="mb-16 md:mb-20 bg-white p-8 rounded-3xl shadow-xl border border-blue-200 text-center"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-blue-800 mb-3">
-            Stay Tuned for More!
-          </h3>
-          <p className="text-lg text-neutral-600 max-w-xl mx-auto">
-            We are actively planning more insightful webinars to help you grow. Keep checking this space for new announcements.
-          </p>
+          <div className="max-w-2xl mx-auto">
+            <CalendarIcon className="w-16 h-16 text-blue-500 mx-auto mb-4" />
+            <h3 className="text-2xl md:text-3xl font-bold text-blue-900 mb-4">No Webinars Currently Scheduled</h3>
+            <p className="text-lg text-neutral-700 mb-6">
+              We are working on bringing you valuable webinars on DevOps, cloud technologies, and career development. 
+              Check back soon for updates on our upcoming sessions.
+            </p>
+            <Link href="/courses">
+              <button className="px-8 py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-base">
+                Explore Our Courses
+              </button>
+            </Link>
+          </div>
         </motion.div>
-
       </div>
     </section>
   );
