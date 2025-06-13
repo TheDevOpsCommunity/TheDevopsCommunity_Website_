@@ -491,7 +491,7 @@ export function HeroSectionOne() {
   );
 }
 
-function WebinarCountdownCTA() {
+/* function WebinarCountdownCTA() {
   // 48 hours from now
   const [timeLeft, setTimeLeft] = useState(48 * 60 * 60);
 
@@ -535,5 +535,5 @@ function WebinarCountdownCTA() {
       </div>
     </div>
   );
-}
+} */
 

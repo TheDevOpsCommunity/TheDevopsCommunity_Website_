@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { motion } from "motion/react";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { CalendarIcon, ClockIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import RazorpayButton from "@/components/RazorpayButton/RazorpayButton";
+// import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { CalendarIcon } from "@heroicons/react/24/outline";
+// import Image from "next/image";
+// import RazorpayButton from "@/components/RazorpayButton/RazorpayButton";
 import Link from "next/link";
 
 // This would typically come from an API or database
-const webinarDetails = {
+/* const webinarDetails = {
   id: "devops-roadmap-2025",
   title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
   subheading: "A 2-hour live masterclass for complete career clarity",
@@ -58,9 +58,9 @@ const webinarDetails = {
     "Working professionals switching domains",
     "Developers moving into platform, automation, or SRE roles"
   ]
-};
+}; */
 
-function TopicCard({ topic }: { topic: string }) {
+/* function TopicCard({ topic }: { topic: string }) {
   return (
     <div className="flex items-start gap-3 p-4 bg-[ghostwhite] rounded-xl border border-gray-100 shadow-sm">
       <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
@@ -69,7 +69,7 @@ function TopicCard({ topic }: { topic: string }) {
       <p className="text-gray-700">{topic}</p>
     </div>
   );
-}
+} */
 
 export default function WebinarDetailsPage() {
   return (

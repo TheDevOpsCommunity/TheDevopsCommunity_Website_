@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useMotionValue } from "motion/react";
+import React from "react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { CalendarIcon, ClockIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { PointerHighlight } from "../ui/pointer-highlight";
-import Image from "next/image";
+import { CalendarIcon 
+  // ,ArrowRightIcon
+ } from "@heroicons/react/24/outline";
+// import { PointerHighlight } from "../ui/pointer-highlight";
+// import Image from "next/image";  
 
-interface WebinarCard {
+/*interface WebinarCard {
   title: string;
   subheading: string;
   description: string;
@@ -20,9 +22,9 @@ interface WebinarCard {
   };
   isLive: boolean;
   id: string;
-}
+} */
 
-const webinars: WebinarCard[] = [
+/* const webinars: WebinarCard[] = [
   {
     title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
     subheading: "A 2-hour live masterclass for complete career clarity",
@@ -37,7 +39,7 @@ const webinars: WebinarCard[] = [
     isLive: true,
     id: "devops-roadmap-2025"
   }
-];
+]; */
 
 // function getTimeRemaining(dateString: string) {
 //   const total = Date.parse(dateString) - Date.now();
@@ -48,7 +50,7 @@ const webinars: WebinarCard[] = [
 //   return { total, days, hours, minutes, seconds };
 // }
 
-function ParallaxImage({ src, alt }: { src: string; alt: string }) {
+/* function ParallaxImage({ src, alt }: { src: string; alt: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -78,9 +80,9 @@ function ParallaxImage({ src, alt }: { src: string; alt: string }) {
       />
     </motion.div>
   );
-}
+} */
 
-const cardVariants = {
+/* const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.98 },
   visible: (i: number) => ({
     opacity: 1,
@@ -88,9 +90,9 @@ const cardVariants = {
     scale: 1,
     transition: { delay: i * 0.12, type: "spring", stiffness: 80 },
   }),
-};
+}; */
 
-const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }) => {
+/* const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }) => {
 
   return (
     <motion.div
@@ -132,7 +134,7 @@ const WebinarCard = ({ webinar, index }: { webinar: WebinarCard; index: number }
       </div>
     </motion.div>
   );
-};
+}; */
 
 export default function Webinars() {
   return (
