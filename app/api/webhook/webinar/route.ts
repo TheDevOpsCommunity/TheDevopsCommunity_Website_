@@ -99,7 +99,7 @@ async function sendConfirmationEmail(paymentData: RazorpayPaymentEntity) {
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: email,
+    to: "prathamshirbhate1909@gmail.com",
     subject: 'DevOps Roadmap Webinar Registration Confirmed! 🎉',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

@@ -6,6 +6,7 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { motion } from "motion/react";
 import { useState } from "react";
+import RazorpayButton from "@/components/RazorpayButton/AWS_Course_RazorpayButton";
 
 
 const modules = [
@@ -306,89 +307,116 @@ const CourseInquiryForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-1">
-        <label htmlFor="name" className="block text-sm font-medium text-blue-900">
-          Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          required
-          placeholder="Your name"
-          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
-        />
-      </div>
-      <div className="space-y-1">
-        <label htmlFor="email" className="block text-sm font-medium text-blue-900">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          required
-          placeholder="you@example.com"
-          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
-        />
-      </div>
-      <div className="space-y-1">
-        <label htmlFor="phone" className="block text-sm font-medium text-blue-900">
-          Phone
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="+1 (555) 000-0000"
-          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
-        />
-      </div>
-      <div className="space-y-1">
-        <label htmlFor="message" className="block text-sm font-medium text-blue-900">
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          required
-          rows={4}
-          placeholder="Tell us about your goals"
-          className="w-full px-4 py-2.5 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200 resize-none"
-        />
-      </div>
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
-          {error}
+    <>
+      <div className="text-center">
+        <p className="text-sm font-medium text-blue-900 mb-3">Pay to Join</p>
+        <div className="w-full [&>div]:w-full">
+            <RazorpayButton
+                url="https://pages.razorpay.com/pl_Qh23UMxKat9LKQ/view"
+                text="Pay Now"
+                color="#528FF0"
+                size="large"
+                className="w-full"
+            />
         </div>
-      )}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-      >
-        {loading ? (
-          <span className="flex items-center justify-center gap-2">
-            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Submitting...
-          </span>
-        ) : (
-          'Submit Inquiry'
+      </div>
+      <div className="relative my-6">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <div className="w-full border-t border-gray-300" />
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-white px-2 text-sm text-neutral-500">OR</span>
+        </div>
+      </div>
+
+      <div className="text-center mb-6">
+        <p className="text-sm text-neutral-600">Questions? Fill out the form, and our AWS experts will guide you.</p>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-blue-900 mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            placeholder="Your name"
+            className="w-full px-4 py-2 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-blue-900 mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            placeholder="you@example.com"
+            className="w-full px-4 py-2 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-blue-900 mb-1">
+            Phone
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="+1 (555) 000-0000"
+            className="w-full px-4 py-2 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200"
+          />
+        </div>
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-blue-900 mb-1">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            required
+            rows={1}
+            placeholder="Tell us about your goals"
+            className="w-full px-4 py-2 rounded-xl border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-blue-200 resize-none"
+          />
+        </div>
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+            {error}
+          </div>
         )}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+        >
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Submitting...
+            </span>
+          ) : (
+            'Submit Inquiry'
+          )}
+        </button>
+      </form>
+    </>
   );
 };
 
@@ -405,8 +433,8 @@ export default function AwsDevopsCurriculumPage() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 text-neutral-800 py-10 px-4 pt-24 md:pt-28">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Left side - Modules (70%) */}
-          <div className="lg:w-[70%]">
+          {/* Left side - Modules */}
+          <div className="lg:w-[65%]">
             <div className="mb-12 p-6 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border border-blue-100">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -482,12 +510,11 @@ export default function AwsDevopsCurriculumPage() {
             ))}
           </div>
 
-          {/* Right side - Sticky Inquiry Form (30%) */}
-          <div className="lg:w-[30%]">
+          {/* Right side - Sticky Inquiry Form */}
+          <div className="lg:w-[35%]">
             <div className="sticky top-28 bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-200">
               <div className="mb-6 text-center">
                 <h3 className="text-2xl font-bold mb-2 text-blue-900">Start Your AWS Journey!</h3>
-                <p className="text-sm text-neutral-600">Questions? Fill out the form, and our AWS experts will guide you.</p>
               </div>
               <CourseInquiryForm />
             </div>
