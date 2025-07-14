@@ -12,13 +12,33 @@ interface RazorpayPaymentEntity {
     amount: number;
     email: string;
     name?: string;
+    contact?: string;
+  };
+}
+
+interface RazorpayPaymentLinkEntity {
+  id: string;
+  amount: number;
+  customer: {
+    email: string;
+    contact: string;
+    name?: string;
   };
 }
 
 interface RazorpayWebhookPayload {
   event: string;
   payload: {
-    payment: RazorpayPaymentEntity;
+    payment?: RazorpayPaymentEntity;
+    payment_link?: {
+      entity: RazorpayPaymentLinkEntity;
+    };
+    order?: {
+      entity: {
+        id: string;
+        amount: number;
+      };
+    };
   };
 }
 
@@ -88,14 +108,15 @@ function verifyWebhookSignature(
 }
 
 // Send confirmation email
-async function sendConfirmationEmail(paymentData: RazorpayPaymentEntity) {
-  const { email, amount, id, name } = paymentData.entity;
+async function sendConfirmationEmail(emailData: { email: string; amount: number; id: string; name?: string; contact?: string }) {
+  const { email, amount, id, name, contact } = emailData;
   const amountInRupees = (amount / 100).toFixed(2);
   const userName = name || 'Student';
 
   logEvent('EMAIL_ATTEMPT', {
     to: email,
     name: userName,
+    contact: contact || 'Not provided',
     amount: amountInRupees,
     paymentId: id
   });
@@ -205,25 +226,67 @@ export async function POST(request: Request) {
     });
 
     // Check if it's a payment.captured event
-    if (data.event === 'payment.captured') {
+    if (data.event === 'payment.captured' && data.payload.payment) {
+      const payment = data.payload.payment;
       logEvent('PAYMENT_CAPTURED', {
         requestId,
-        paymentId: data.payload.payment.entity.id,
-        amount: data.payload.payment.entity.amount,
-        email: data.payload.payment.entity.email,
-        name: data.payload.payment.entity.name || 'Not provided'
+        paymentId: payment.entity.id,
+        amount: payment.entity.amount,
+        email: payment.entity.email,
+        name: payment.entity.name || 'Not provided'
       });
 
       // Send confirmation email
-      await sendConfirmationEmail(data.payload.payment);
+      await sendConfirmationEmail({
+        email: payment.entity.email,
+        amount: payment.entity.amount,
+        id: payment.entity.id,
+        name: payment.entity.name,
+        contact: payment.entity.contact
+      });
       
       logEvent('WEBHOOK_SUCCESS', {
         requestId,
-        paymentId: data.payload.payment.entity.id
+        paymentId: payment.entity.id
       });
 
       return NextResponse.json(
         { message: 'Payment processed and email sent successfully' },
+        { status: 200, headers: corsHeaders }
+      );
+    }
+
+    // Check if it's a payment_link.paid event
+    if (data.event === 'payment_link.paid' && data.payload.payment_link && data.payload.order) {
+      const paymentLink = data.payload.payment_link.entity;
+      const order = data.payload.order.entity;
+      
+      logEvent('PAYMENT_LINK_PAID', {
+        requestId,
+        paymentLinkId: paymentLink.id,
+        orderId: order.id,
+        amount: paymentLink.amount,
+        email: paymentLink.customer.email,
+        contact: paymentLink.customer.contact,
+        name: paymentLink.customer.name || 'Not provided'
+      });
+
+      // Send confirmation email
+      await sendConfirmationEmail({
+        email: paymentLink.customer.email,
+        amount: paymentLink.amount,
+        id: paymentLink.id,
+        name: paymentLink.customer.name,
+        contact: paymentLink.customer.contact
+      });
+      
+      logEvent('WEBHOOK_SUCCESS', {
+        requestId,
+        paymentLinkId: paymentLink.id
+      });
+
+      return NextResponse.json(
+        { message: 'Payment link processed and email sent successfully' },
         { status: 200, headers: corsHeaders }
       );
     }
