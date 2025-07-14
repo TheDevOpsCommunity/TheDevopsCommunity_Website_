@@ -9,7 +9,7 @@ const supabase = createClient(
 
 // Initialize nodemailer transporter
 const transporter = nodemailer.createTransport({
-  host: 'mtpout.secureserver.net',
+  host: 'smtpout.secureserver.net',
   port: 587,
   secure: false,
   auth: {
