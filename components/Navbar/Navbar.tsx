@@ -61,7 +61,7 @@ export function NavbarTop() {
             className="text-blue-900"
           />
           <div className="flex items-center gap-4 cursor-pointer z-20">
-            <Link href="/webinars/devops-roadmap-2025" style={{ cursor: 'pointer' }}>
+            <Link href="/webinars/linux-for-devops-5day-demo" style={{ cursor: 'pointer' }}>
               <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-5 py-2.5 rounded-full shadow-md text-sm cursor-pointer">
                 Register for Webinar
               </button>
@@ -99,7 +99,7 @@ export function NavbarTop() {
               </a>
             ))}
             <Link 
-              href="/webinars/devops-roadmap-2025" 
+              href="/webinars/linux-for-devops-5day-demo" 
               style={{ cursor: 'pointer' }}
               onClick={() => setIsMobileMenuOpen(false)}
             >

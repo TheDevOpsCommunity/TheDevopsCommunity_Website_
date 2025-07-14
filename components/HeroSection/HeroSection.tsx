@@ -365,28 +365,28 @@ export function HeroSectionOne() {
         <section className="w-full bg-white py-16">
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-              Upcoming AWS DevOps Course
+              Upcoming Webinar: Linux for DevOps – 5-Day Live Demo
             </h2>
             <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
               <div className="flex-1 flex flex-col gap-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">New Batch</span>
-                  <span className="text-blue-700 font-semibold text-lg">Starting Monday</span>
+                  <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">Live</span>
+                  <span className="text-blue-700 font-semibold text-lg">July 21st to 25th, 2024</span>
                 </div>
-                <div className="text-lg font-semibold text-blue-900 mb-1">AWS DevOps Certification Course</div>
+                <div className="text-lg font-semibold text-blue-900 mb-1">Linux for DevOps – 5-Day Live Demo</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
-                  Master DevOps fundamentals and cloud automation on AWS. Learn Linux, Git, Jenkins, Docker, Kubernetes, and more with hands-on projects.
+                  Master Linux from scratch for DevOps roles. Hands-on, live Zoom sessions. Only ₹499 for 5 days! Includes free DevOps roadmap and career Q&A.
                 </div>
               </div>
               <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
-                <Link href="/courses/aws-devops">
+                <Link href="/webinars/linux-for-devops-5day-demo">
                   <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer z-20">
-                    View Course Details
+                    View Webinar & Register
                   </button>
                 </Link>
-                <Link href="/courses">
+                <Link href="/webinars">
                   <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base cursor-pointer z-20">
-                    View All Courses
+                    View All Webinars
                   </button>
                 </Link>
               </div>
