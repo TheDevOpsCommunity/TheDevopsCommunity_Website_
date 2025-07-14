@@ -219,15 +219,36 @@ export async function POST(request: Request) {
 
     // Only parse the body after signature verification
     const data = JSON.parse(rawBody) as RazorpayWebhookPayload;
+    
+    // Log complete webhook payload for debugging
+    logEvent('COMPLETE_WEBHOOK_PAYLOAD', {
+      requestId,
+      event: data.event,
+      fullPayload: data,
+      payloadKeys: Object.keys(data.payload || {}),
+      timestamp: new Date().toISOString()
+    });
+    
     logEvent('WEBHOOK_PROCESSING', {
       requestId,
       event: data.event,
-      paymentId: data.payload?.payment?.entity?.id
+      paymentId: data.payload?.payment?.entity?.id,
+      paymentLinkId: data.payload?.payment_link?.entity?.id
     });
 
     // Check if it's a payment.captured event
     if (data.event === 'payment.captured' && data.payload.payment) {
       const payment = data.payload.payment;
+      
+      // Log all payment data for debugging
+      logEvent('PAYMENT_CAPTURED_DETAILED', {
+        requestId,
+        fullPaymentData: payment,
+        paymentEntity: payment.entity,
+        availableFields: Object.keys(payment.entity || {}),
+        timestamp: new Date().toISOString()
+      });
+      
       logEvent('PAYMENT_CAPTURED', {
         requestId,
         paymentId: payment.entity.id,
@@ -260,6 +281,20 @@ export async function POST(request: Request) {
     if (data.event === 'payment_link.paid' && data.payload.payment_link && data.payload.order) {
       const paymentLink = data.payload.payment_link.entity;
       const order = data.payload.order.entity;
+      
+      // Log all payment link data for debugging
+      logEvent('PAYMENT_LINK_DETAILED', {
+        requestId,
+        fullPaymentLinkData: data.payload.payment_link,
+        paymentLinkEntity: paymentLink,
+        orderEntity: order,
+        customerData: paymentLink.customer,
+        paymentData: data.payload.payment,
+        availablePaymentLinkFields: Object.keys(paymentLink || {}),
+        availableCustomerFields: Object.keys(paymentLink.customer || {}),
+        availableOrderFields: Object.keys(order || {}),
+        timestamp: new Date().toISOString()
+      });
       
       logEvent('PAYMENT_LINK_PAID', {
         requestId,
