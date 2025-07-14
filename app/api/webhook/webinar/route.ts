@@ -23,7 +23,7 @@ interface RazorpayWebhookPayload {
 
 // Initialize nodemailer transporter
 const transporter = nodemailer.createTransport({
-  host: 'mail.thedevopscommunity.com',
+  host: 'smtpout.secureserver.net',
   port: 587,
   secure: false,
   auth: {
