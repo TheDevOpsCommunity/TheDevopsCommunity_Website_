@@ -11,8 +11,12 @@ interface RazorpayPaymentEntity {
     id: string;
     amount: number;
     email: string;
-    name?: string;
     contact?: string;
+    notes?: {
+      name?: string;
+      email?: string;
+      phone?: string;
+    };
   };
 }
 
@@ -254,7 +258,9 @@ export async function POST(request: Request) {
         paymentId: payment.entity.id,
         amount: payment.entity.amount,
         email: payment.entity.email,
-        name: payment.entity.name || 'Not provided'
+        contact: payment.entity.contact,
+        name: payment.entity.notes?.name || 'Not provided',
+        notes: payment.entity.notes
       });
 
       // Send confirmation email
@@ -262,7 +268,7 @@ export async function POST(request: Request) {
         email: payment.entity.email,
         amount: payment.entity.amount,
         id: payment.entity.id,
-        name: payment.entity.name,
+        name: payment.entity.notes?.name,
         contact: payment.entity.contact
       });
       
