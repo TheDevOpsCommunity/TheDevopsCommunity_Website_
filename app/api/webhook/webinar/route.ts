@@ -149,16 +149,24 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
           
           <div style="background-color: #f0f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1447E6;">
             <h2 style="color: #1447E6; margin: 0 0 15px 0; font-size: 24px;">Registration Confirmed ✅</h2>
-            <p style="margin: 8px 0; color: #333;">Your registration for <strong>Linux for DevOps – 5-Day Live Demo</strong> has been confirmed!</p>
+            <p style="margin: 8px 0; color: #333;">Your registration for <strong>Linux for DevOps – Live Demo</strong> has been confirmed!</p>
             <p style="margin: 8px 0; color: #333;"><strong>📧 Transaction ID:</strong> ${id}</p>
             <p style="margin: 8px 0; color: #333;"><strong>💰 Amount Paid:</strong> ₹${amountInRupees}</p>
+          </div>
+
+          <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+            <h3 style="color: #333; margin: 0 0 15px 0;">📅 Webinar Details</h3>
+            <p style="margin: 8px 0; color: #555;">📅 <strong>Date:</strong> July 21st, 2024</p>
+            <p style="margin: 8px 0; color: #555;">🕘 <strong>Time:</strong> 9:30 AM - 10:30 AM IST</p>
+            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 1 hour</p>
+            <p style="margin: 8px 0; color: #555;">💻 <strong>Mode:</strong> Live Zoom Session</p>
           </div>
 
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
             <h3 style="color: #333; margin: 0 0 15px 0;">📅 What's Next?</h3>
             <p style="margin: 8px 0; color: #555;">🔗 <strong>Zoom Link:</strong> Will be provided soon</p>
             <p style="margin: 8px 0; color: #555;">💬 <strong>WhatsApp Group:</strong> Link will be shared soon</p>
-            <p style="margin: 8px 0; color: #555;">📚 <strong>Materials:</strong> You'll receive all resources before the sessions</p>
+            <p style="margin: 8px 0; color: #555;">📚 <strong>Materials:</strong> You'll receive all resources before the session</p>
           </div>
 
           <div style="text-align: center; margin-top: 30px; padding: 15px; background-color: #f0f8ff; border-radius: 8px;">

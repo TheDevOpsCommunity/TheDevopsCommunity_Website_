@@ -26,8 +26,8 @@ interface WebinarCard {
 
 const webinars: WebinarCard[] = [
   {
-    title: "Linux for DevOps – 5-Day Live Demo",
-    subheading: "Master Linux for DevOps roles in 5 days",
+    title: "Linux for DevOps – Live Demo",
+    subheading: "Master Linux for DevOps roles in 1 hour",
     description: `🔥 Why Attend This Demo?
 ✔️ Master Linux from Scratch – Tailored for DevOps roles
 ✔️ Hands-on Practice – Real-time terminal usage
@@ -42,21 +42,21 @@ const webinars: WebinarCard[] = [
 - Anyone interested in DevOps, Cloud, or Linux Admin
 
 💰 Registration Fee: ₹499 Only
-✅ 5-Day Live Linux Training
+✅ 1-Hour Live Linux Training
 ✅ Free DevOps Career Roadmap
 ✅ Personalized Career Q&A
 ✅ Recordings Access (if applicable)
 ✅ Certificate of Participation (Optional)`,
-    date: "July 21st to 25th, 2024",
-    time: "7:00 PM - 9:00 PM IST",
-    duration: "2 hours daily",
+    date: "July 21st, 2024",
+    time: "9:30 AM - 10:30 AM IST",
+    duration: "1 hour",
     fee: "₹499",
-    mode: "Live Zoom Sessions",
+    mode: "Live Zoom Session",
     speaker: {
       name: "DevOps Expert",
     },
     isLive: true,
-    id: "linux-for-devops-5day-demo"
+    id: "linux-for-devops-demo"
   },
   {
     title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
