@@ -46,6 +46,17 @@ interface RazorpayWebhookPayload {
   };
 }
 
+// In-memory cache to prevent duplicate processing (in production, use Redis)
+const processedPayments = new Set<string>();
+const processedPaymentLinks = new Set<string>();
+
+// Clean up cache every hour
+setInterval(() => {
+  processedPayments.clear();
+  processedPaymentLinks.clear();
+  logEvent('CACHE_CLEANED', { timestamp: new Date().toISOString() });
+}, 60 * 60 * 1000);
+
 // Initialize nodemailer transporter
 const transporter = nodemailer.createTransport({
   host: 'smtpout.secureserver.net',
@@ -243,6 +254,23 @@ export async function POST(request: Request) {
     // Check if it's a payment.captured event
     if (data.event === 'payment.captured' && data.payload.payment) {
       const payment = data.payload.payment;
+      const paymentId = payment.entity.id;
+      
+      // Check if we've already processed this payment
+      if (processedPayments.has(paymentId)) {
+        logEvent('DUPLICATE_PAYMENT_IGNORED', {
+          requestId,
+          paymentId,
+          timestamp: new Date().toISOString()
+        });
+        return NextResponse.json(
+          { message: 'Payment already processed' },
+          { status: 200, headers: corsHeaders }
+        );
+      }
+      
+      // Add to processed set
+      processedPayments.add(paymentId);
       
       // Log all payment data for debugging
       logEvent('PAYMENT_CAPTURED_DETAILED', {
@@ -264,19 +292,31 @@ export async function POST(request: Request) {
       });
 
       // Send confirmation email
-      await sendConfirmationEmail({
-        email: payment.entity.email,
-        amount: payment.entity.amount,
-        id: payment.entity.id,
-        name: payment.entity.notes?.name,
-        contact: payment.entity.contact
-      });
+      try {
+        await sendConfirmationEmail({
+          email: payment.entity.email,
+          amount: payment.entity.amount,
+          id: payment.entity.id,
+          name: payment.entity.notes?.name,
+          contact: payment.entity.contact
+        });
+        
+        logEvent('WEBHOOK_SUCCESS', {
+          requestId,
+          paymentId: payment.entity.id,
+          emailSent: true,
+          timestamp: new Date().toISOString()
+        });
+      } catch (emailError) {
+        logEvent('EMAIL_SEND_FAILED', {
+          requestId,
+          paymentId: payment.entity.id,
+          error: emailError instanceof Error ? emailError.message : 'Unknown error',
+          timestamp: new Date().toISOString()
+        });
+        // Still return success to prevent Razorpay retries
+      }
       
-      logEvent('WEBHOOK_SUCCESS', {
-        requestId,
-        paymentId: payment.entity.id
-      });
-
       return NextResponse.json(
         { message: 'Payment processed and email sent successfully' },
         { status: 200, headers: corsHeaders }
@@ -287,6 +327,23 @@ export async function POST(request: Request) {
     if (data.event === 'payment_link.paid' && data.payload.payment_link && data.payload.order) {
       const paymentLink = data.payload.payment_link.entity;
       const order = data.payload.order.entity;
+      const paymentLinkId = paymentLink.id;
+      
+      // Check if we've already processed this payment link
+      if (processedPaymentLinks.has(paymentLinkId)) {
+        logEvent('DUPLICATE_PAYMENT_LINK_IGNORED', {
+          requestId,
+          paymentLinkId,
+          timestamp: new Date().toISOString()
+        });
+        return NextResponse.json(
+          { message: 'Payment link already processed' },
+          { status: 200, headers: corsHeaders }
+        );
+      }
+      
+      // Add to processed set
+      processedPaymentLinks.add(paymentLinkId);
       
       // Log all payment link data for debugging
       logEvent('PAYMENT_LINK_DETAILED', {
@@ -313,19 +370,31 @@ export async function POST(request: Request) {
       });
 
       // Send confirmation email
-      await sendConfirmationEmail({
-        email: paymentLink.customer.email,
-        amount: paymentLink.amount,
-        id: paymentLink.id,
-        name: paymentLink.customer.name,
-        contact: paymentLink.customer.contact
-      });
+      try {
+        await sendConfirmationEmail({
+          email: paymentLink.customer.email,
+          amount: paymentLink.amount,
+          id: paymentLink.id,
+          name: paymentLink.customer.name,
+          contact: paymentLink.customer.contact
+        });
+        
+        logEvent('WEBHOOK_SUCCESS', {
+          requestId,
+          paymentLinkId: paymentLink.id,
+          emailSent: true,
+          timestamp: new Date().toISOString()
+        });
+      } catch (emailError) {
+        logEvent('EMAIL_SEND_FAILED', {
+          requestId,
+          paymentLinkId: paymentLink.id,
+          error: emailError instanceof Error ? emailError.message : 'Unknown error',
+          timestamp: new Date().toISOString()
+        });
+        // Still return success to prevent Razorpay retries
+      }
       
-      logEvent('WEBHOOK_SUCCESS', {
-        requestId,
-        paymentLinkId: paymentLink.id
-      });
-
       return NextResponse.json(
         { message: 'Payment link processed and email sent successfully' },
         { status: 200, headers: corsHeaders }
