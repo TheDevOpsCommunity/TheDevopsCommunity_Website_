@@ -177,8 +177,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
             <h3 style="color: #333; margin: 0 0 15px 0;">📅 What's Next?</h3>
             <p style="margin: 8px 0; color: #555;">🔗 <strong>Zoom Link:</strong> Will be provided soon</p>
-            <p style="margin: 8px 0; color: #555;">💬 <strong>WhatsApp Group:</strong> Link will be shared soon</p>
-            <p style="margin: 8px 0; color: #555;">📚 <strong>Materials:</strong> You'll receive all resources before the session</p>
+            <p style="margin: 8px 0; color: #555;">💬 <strong>WhatsApp Group:</strong> You will be added to our WhatsApp group soon</p>
           </div>
 
           <div style="text-align: center; margin-top: 30px; padding: 15px; background-color: #f0f8ff; border-radius: 8px;">
