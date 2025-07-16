@@ -7,16 +7,11 @@ interface RazorpayPaymentEntity {
   id: string;
   amount: number;
   email: string;
-  entity: {
-    id: string;
-    amount: number;
-    email: string;
-    contact?: string;
-    notes?: {
-      name?: string;
-      email?: string;
-      phone?: string;
-    };
+  contact?: string;
+  notes?: {
+    name?: string;
+    email?: string;
+    phone?: string;
   };
 }
 
@@ -30,10 +25,26 @@ interface RazorpayPaymentLinkEntity {
   };
 }
 
+interface RazorpayInvoiceEntity {
+  id: string;
+  amount: number;
+  customer_details: {
+    id: string;
+    name: string;
+    email: string;
+    contact: string;
+    customer_name: string;
+    customer_email: string;
+    customer_contact: string;
+  };
+}
+
 interface RazorpayWebhookPayload {
   event: string;
   payload: {
-    payment?: RazorpayPaymentEntity;
+    payment?: {
+      entity: RazorpayPaymentEntity;
+    };
     payment_link?: {
       entity: RazorpayPaymentLinkEntity;
     };
@@ -43,15 +54,18 @@ interface RazorpayWebhookPayload {
         amount: number;
       };
     };
+    invoice?: {
+      entity: RazorpayInvoiceEntity;
+    };
   };
 }
 
 // In-memory cache to prevent duplicate processing (in production, use Redis)
-const processedPaymentLinks = new Set<string>();
+const processedPayments = new Set<string>();
 
 // Clean up cache every hour
 setInterval(() => {
-  processedPaymentLinks.clear();
+  processedPayments.clear();
   logEvent('CACHE_CLEANED', { timestamp: new Date().toISOString() });
 }, 60 * 60 * 1000);
 
@@ -257,18 +271,34 @@ export async function POST(request: Request) {
       hasPayment: !!data.payload?.payment,
       hasPaymentLink: !!data.payload?.payment_link,
       hasOrder: !!data.payload?.order,
+      hasInvoice: !!data.payload?.invoice,
       paymentId: data.payload?.payment?.entity?.id,
       paymentLinkId: data.payload?.payment_link?.entity?.id,
       orderId: data.payload?.order?.entity?.id,
+      invoiceId: data.payload?.invoice?.entity?.id,
       timestamp: new Date().toISOString()
     });
+
+    // Log invoice.paid events with detailed information
+    if (data.event === 'invoice.paid' && data.payload.invoice) {
+      logEvent('INVOICE_PAID_DETAILED', {
+        requestId,
+        event: data.event,
+        invoiceData: data.payload.invoice.entity,
+        customerDetails: data.payload.invoice.entity.customer_details,
+        paymentData: data.payload.payment?.entity,
+        availableInvoiceFields: Object.keys(data.payload.invoice.entity || {}),
+        availableCustomerFields: Object.keys(data.payload.invoice.entity.customer_details || {}),
+        timestamp: new Date().toISOString()
+      });
+    }
     
-    // ONLY process payment_link.paid events - ignore all others
-    if (data.event !== 'payment_link.paid') {
+    // ONLY process payment.captured events - ignore all others
+    if (data.event !== 'payment.captured') {
       logEvent('EVENT_IGNORED', {
         requestId,
         event: data.event,
-        reason: 'Only payment_link.paid events are processed',
+        reason: 'Only payment.captured events are processed',
         timestamp: new Date().toISOString()
       });
       return NextResponse.json(
@@ -277,90 +307,89 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if payment_link data exists
-    if (!data.payload.payment_link) {
-      logEvent('PAYMENT_LINK_MISSING', {
+    // Check if payment data exists
+    if (!data.payload.payment) {
+      logEvent('PAYMENT_MISSING', {
         requestId,
         event: data.event,
         timestamp: new Date().toISOString()
       });
       return NextResponse.json(
-        { error: 'Payment link data missing' },
+        { error: 'Payment data missing' },
         { status: 400, headers: corsHeaders }
       );
     }
 
-    const paymentLink = data.payload.payment_link.entity;
-    const paymentLinkId = paymentLink.id;
+    const payment = data.payload.payment.entity;
+    const paymentId = payment.id;
     
-    // Check for duplicates using payment link ID
-    if (processedPaymentLinks.has(paymentLinkId)) {
-      logEvent('DUPLICATE_PAYMENT_LINK_IGNORED', {
+    // Check for duplicates using payment ID
+    if (processedPayments.has(paymentId)) {
+      logEvent('DUPLICATE_PAYMENT_IGNORED', {
         requestId,
-        paymentLinkId,
+        paymentId,
         timestamp: new Date().toISOString()
       });
       return NextResponse.json(
-        { message: 'Payment link already processed' },
+        { message: 'Payment already processed' },
         { status: 200, headers: corsHeaders }
       );
     }
 
     // Mark as processed immediately
-    processedPaymentLinks.add(paymentLinkId);
+    processedPayments.add(paymentId);
 
-    // Log payment link details
-    logEvent('PAYMENT_LINK_DETAILED', {
+    // Log payment details
+    logEvent('PAYMENT_DETAILED', {
       requestId,
-      fullPaymentLinkData: data.payload.payment_link,
-      paymentLinkEntity: paymentLink,
-      customerData: paymentLink.customer,
-      availablePaymentLinkFields: Object.keys(paymentLink || {}),
-      availableCustomerFields: Object.keys(paymentLink.customer || {}),
+      fullPaymentData: data.payload.payment,
+      paymentEntity: payment,
+      availablePaymentFields: Object.keys(payment || {}),
+      availableNotesFields: Object.keys(payment.notes || {}),
       timestamp: new Date().toISOString()
     });
     
-    logEvent('PAYMENT_LINK_PAID', {
+    logEvent('PAYMENT_CAPTURED', {
       requestId,
-      paymentLinkId: paymentLink.id,
-      amount: paymentLink.amount,
-      email: paymentLink.customer.email,
-      contact: paymentLink.customer.contact,
-      name: paymentLink.customer.name || 'Not provided'
+      paymentId: payment.id,
+      amount: payment.amount,
+      email: payment.email,
+      contact: payment.contact || 'Not provided',
+      notes: payment.notes
     });
 
-    // Send confirmation email using payment_link data
+    // Send confirmation email using payment data
     try {
       await sendConfirmationEmail({
-        email: paymentLink.customer.email,
-        amount: paymentLink.amount,
-        id: paymentLink.id,
-        name: paymentLink.customer.name,
-        contact: paymentLink.customer.contact
+        email: payment.email,
+        amount: payment.amount,
+        id: payment.id,
+        name: payment.notes?.name,
+        contact: payment.contact
       });
       
       logEvent('WEBHOOK_SUCCESS', {
         requestId,
-        paymentLinkId: paymentLink.id,
+        paymentId: payment.id,
         emailSent: true,
         timestamp: new Date().toISOString()
       });
 
       return NextResponse.json(
-        { message: 'Payment link processed and email sent successfully' },
+        { message: 'Payment processed and email sent successfully' },
         { status: 200, headers: corsHeaders }
       );
     } catch (emailError) {
       logEvent('EMAIL_SEND_FAILED', {
         requestId,
-        paymentLinkId: paymentLink.id,
+        paymentId: payment.id,
         error: emailError instanceof Error ? emailError.message : 'Unknown error',
         timestamp: new Date().toISOString()
       });
       
       // Still return success to prevent Razorpay retries
       return NextResponse.json(
-        { message: 'Payment link processed but email failed' },
+        { message: 'Payment processed but email failed' },
         { status: 200, headers: corsHeaders }
       );
     }
