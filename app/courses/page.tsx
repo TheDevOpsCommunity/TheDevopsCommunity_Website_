@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FaAws, FaAngleRight } from "react-icons/fa";
+import { FaAws, FaAngleRight, FaDatabase, FaChartBar } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
 
 const courses = [
@@ -23,6 +23,15 @@ const courses = [
     image: "/azure.png", 
     link: "/courses/azure-devops",
     tags: ["Azure", "DevOps", "Pipelines", "ARM Templates", "Security"],
+  },
+  {
+    id: "data-analyst",
+    title: "Data Analyst Certification Course",
+    description: "Master data analysis with SQL, Python, Power BI, and ETL processes. Learn to extract insights from data and create compelling visualizations for business intelligence.",
+    icon: <FaChartBar className="text-green-600 w-12 h-12" />,
+    image: "/data-analyst.png", 
+    link: "/courses/data-analyst",
+    tags: ["SQL", "Python", "Power BI", "ETL", "Azure", "Data Analysis"],
   },
   // Add more courses here if needed
 ];
@@ -53,10 +62,10 @@ export default function CoursesPage() {
           className="text-center mb-12 md:mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900 tracking-tight">
-            Our DevOps Courses
+            Our Professional Courses
           </h1>
           <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
-            Accelerate your career with our industry-leading DevOps courses, designed by experts for all skill levels.
+            Accelerate your career with our industry-leading DevOps and Data Analysis courses, designed by experts for all skill levels.
           </p>
         </motion.div>
 
