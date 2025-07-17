@@ -1,6 +1,6 @@
 "use client";
-import { FaDatabase, FaChartBar, FaCloud, FaPython } from "react-icons/fa";
-import { SiNumpy, SiPandas } from "react-icons/si";
+import { FaDatabase, FaChartBar, FaPython } from "react-icons/fa";
+import { SiPandas } from "react-icons/si";
 import { VscAzure ,} from "react-icons/vsc";
 // import { RiFileExcel2Line } from "react-icons/ri";
 import { MdOutlineDescription, MdAnalytics, MdSecurity } from "react-icons/md";

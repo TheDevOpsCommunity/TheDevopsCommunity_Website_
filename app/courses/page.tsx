@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FaAws, FaAngleRight, FaDatabase, FaChartBar } from "react-icons/fa";
+import { FaAws, FaAngleRight, FaChartBar } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
 
 const courses = [
