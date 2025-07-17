@@ -8,7 +8,6 @@ import { BsFillPersonLinesFill, BsGearFill } from "react-icons/bs";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { motion } from "motion/react";
 import { useState } from "react";
-import RazorpayButton from "@/components/RazorpayButton/AWS_Course_RazorpayButton";
 
 const modules = [
   {
@@ -369,6 +368,151 @@ const CourseInquiryForm = () => {
   );
 };
 
+const CompactCourseInquiryForm = () => {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...form,
+          type: 'course'
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit inquiry');
+      }
+
+      setSubmitted(true);
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit inquiry');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="bg-gradient-to-br from-blue-50 to-white p-4 rounded-xl shadow text-center border border-blue-100">
+        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-bold text-blue-900 mb-2">Thank You!</h3>
+        <p className="text-blue-700 text-sm">We&apos;ll get back to you soon with course details.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <div>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          required
+          placeholder="Your name"
+          className="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-gray-400"
+        />
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          required
+          placeholder="you@example.com"
+          className="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-gray-400"
+        />
+      </div>
+      <div>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          value={form.phone}
+          onChange={handleChange}
+          placeholder="Phone number"
+          className="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-gray-400"
+        />
+      </div>
+      <div>
+        <textarea
+          id="message"
+          name="message"
+          value={form.message}
+          onChange={handleChange}
+          required
+          rows={3}
+          placeholder="Tell us about your learning goals..."
+          className="w-full px-3 py-2 text-sm rounded-lg border border-blue-200 bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors placeholder:text-gray-400 resize-none"
+        />
+      </div>
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-600 px-3 py-2 rounded-lg text-xs">
+          {error}
+        </div>
+      )}
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2.5 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow hover:shadow-lg text-sm"
+      >
+        {loading ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Submitting...
+          </span>
+        ) : (
+          'Submit Inquiry'
+        )}
+      </button>
+    </form>
+  );
+};
+
 export default function DataAnalystCoursePage() {
   const [showSubheading, setShowSubheading] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
@@ -524,91 +668,65 @@ export default function DataAnalystCoursePage() {
                 </div>
               </motion.div>
             ))}
-
-            {/* Have Questions Section at the bottom */}
-            {showContent && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="mb-8 md:mb-10 p-4 md:p-6 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border border-blue-100"
-              >
-                <h4 className="text-xl md:text-2xl font-bold text-blue-900 mb-6 text-center">
-                  Have Questions About the Course?
-                </h4>
-                <div className="max-w-md mx-auto">
-                  <CourseInquiryForm />
-                </div>
-              </motion.div>
-            )}
           </div>
 
-          {/* Right side - Sticky Pricing & Registration */}
+          {/* Right side - Sticky Inquiry Form */}
           <div className="lg:w-[35%]">
-            <div className="sticky top-28 bg-white/80 backdrop-blur-md rounded-2xl p-4 md:p-6 shadow-xl border border-blue-200">
-              <div className="mb-4 md:mb-6 text-center">
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-blue-900">
+            <div className="sticky top-28 bg-white/80 backdrop-blur-md rounded-2xl p-4 md:p-5 shadow-xl border border-blue-200 max-h-[calc(100vh-8rem)] overflow-y-auto">
+              <div className="mb-4 text-center">
+                <h3 className="text-lg md:text-xl font-bold mb-2 text-blue-900">
                   Start Your Data Analyst Journey
                 </h3>
-                <p className="text-xs md:text-sm text-neutral-600 mb-2 md:mb-4">
+                <p className="text-xs text-neutral-600 mb-4">
                   Master data analysis with industry-standard tools
                 </p>
-                <div className="text-center mb-4">
-                  <span className="text-3xl md:text-4xl font-bold text-blue-900">₹15,000</span>
-                  <div className="text-sm text-neutral-500">One-time payment</div>
-                </div>
               </div>
               
-              <div className="text-center mb-3 md:mb-4">
-                <div className="w-full [&>div]:w-full [&>div]:h-16 md:[&>div]:h-20">
-                  <RazorpayButton
-                    url="https://rzp.io/rzp/data-analyst-course"
-                    text="Enroll Now - ₹15,000"
-                    color="#059669"
-                    size="large"
-                    className="w-full h-16 md:h-20"
-                  />
+              {/* Compact Benefits Grid */}
+              <div className="grid grid-cols-2 gap-2 text-xs text-neutral-600 mb-4">
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>40+ hours training</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>10+ projects</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>Industry tools</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>Resume prep</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>Lifetime access</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>Expert support</span>
                 </div>
               </div>
-              
-              <div className="space-y-3 text-sm text-neutral-600">
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>40+ hours of comprehensive training</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>10+ hands-on projects & case studies</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Industry-standard tools & techniques</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Resume & interview preparation</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Lifetime access to materials</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Expert doubt support</span>
-                </div>
+
+              <div className="border-t border-blue-100 pt-3">
+                <h4 className="font-semibold text-blue-900 mb-3 text-center text-sm">
+                  Contact for Pricing & Enrollment
+                </h4>
+                <CompactCourseInquiryForm />
               </div>
             </div>
           </div>

@@ -27,7 +27,7 @@ async function sendNotificationEmail(inquiryData: { name: string; email: string;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: "prathamshirbhate1909@gmail.com",
+    to: "frontdesk@thedevopscommunity.com",
     subject: `New ${type} Inquiry from ${name}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
