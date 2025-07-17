@@ -61,8 +61,10 @@ export function NavbarTop() {
             className="text-blue-900"
           />
           <div className="flex items-center gap-4 cursor-pointer z-20">
-            <Link href="/webinars/linux-for-devops-demo" style={{ cursor: 'pointer' }}>
-              <button className="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold px-5 py-2.5 rounded-full shadow-md text-sm cursor-pointer">
+            <Link href="/webinars/linux-for-devops-5day-demo" style={{ cursor: 'pointer' }}>
+              <button
+                className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium text-sm"
+              >
                 Register for Webinar
               </button>
             </Link>
@@ -98,14 +100,12 @@ export function NavbarTop() {
                 {item.name}
               </a>
             ))}
-            <Link 
-              href="/webinars/linux-for-devops-demo" 
-              style={{ cursor: 'pointer' }}
+            <Link
+              href="/webinars/linux-for-devops-5day-demo"
+              className="block bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium text-center"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <button className="mt-4 w-full bg-blue-700 hover:bg-blue-800 transition-colors text-white font-semibold py-3 px-4 rounded-lg shadow-md text-base">
-                Register for Webinar
-              </button>
+              Register for Webinar
             </Link>
           </MobileNavMenu>
         </MobileNav>

@@ -49,89 +49,29 @@ export default function WebinarDetailsPage() {
 
   // Webinar data for both current and past webinars
   const webinars = {
-    "linux-for-devops-demo": {
-      title: "Linux for DevOps – Live Demo",
-      isLive: true,
-      date: "July 21st, 2024",
-      time: "9:30 AM - 10:30 AM IST",
-      duration: "1 hour",
-      fee: "₹499",
-      mode: "Live Zoom Session",
-      subheading: "Master Linux for DevOps roles in 1 hour",
-      speaker: {
-        name: "DevOps Expert",
-      },
-      description: `Master Linux from scratch for DevOps roles. Hands-on, live Zoom session. Only ₹499 for 1 hour!`,
-      details: [
-        {
-          heading: "🔥 Why Attend This Demo?",
-          items: [
-            "Master Linux from Scratch – Tailored for DevOps roles",
-            "Hands-on Practice – Real-time terminal usage",
-            "Essential Commands – Files, permissions, processes, networking",
-            "Shell Scripting Basics – Automate tasks",
-            "Practical for DevOps Projects – Not just theory",
-          ],
-        },
-        {
-          heading: "👥 Who Should Join?",
-          items: [
-            "Beginners with zero tech background",
-            "Career switchers from non-IT fields",
-            "Freshers or students looking to upskill",
-            "Anyone interested in DevOps, Cloud, or Linux Admin",
-          ],
-        },
-        {
-          heading: "🎁 Bonus Session Included!",
-          items: [
-            "Free DevOps Roadmap: Learn the exact tools & skills needed to become a DevOps engineer",
-            "Step-by-step roadmap from beginner to expert",
-            "Toolstack breakdown (Linux → Git → Docker → Kubernetes → AWS → CI/CD)",
-            "Live Q&A Session: Get personalized career suggestions, ask anything about DevOps jobs, interviews, certifications, and more!",
-          ],
-        },
-        {
-          heading: "💰 What You Get for ₹499",
-          items: [
-            "1-Hour Live Linux Training",
-            "Free DevOps Career Roadmap",
-            "Personalized Career Q&A",
-            "Recordings Access (if applicable)",
-            "Certificate of Participation (Optional)",
-          ],
-        },
-      ],
-      registrationUrl: "https://rzp.io/rzp/wLPwpbVF",
-      registrationText: "Pay ₹499 & Register Now",
-      isCompleted: false,
-      headingWords: "Linux for DevOps",
-      subheadingWords: "Live Demo",
-      descriptionWords: "Master Linux from scratch for DevOps roles. This webinar is a 1-hour live session covering everything from basic commands to advanced shell scripting for DevOps automation.",
-    },
-    // Redirect old ID to new one for backward compatibility
     "linux-for-devops-5day-demo": {
-      title: "Linux for DevOps – Live Demo",
+      title: "Linux for DevOps – 5-Day Live Demo",
       isLive: true,
-      date: "July 21st, 2024",
-      time: "9:30 AM - 10:30 AM IST",
-      duration: "1 hour",
+      date: "July 21st-25th, 2025",
+      time: "9:30 AM - 10:30 AM IST (Daily)",
+      duration: "5 days, 1 hour each day",
       fee: "₹499",
-      mode: "Live Zoom Session",
-      subheading: "Master Linux for DevOps roles in 1 hour",
+      mode: "Live Zoom Sessions",
+      subheading: "Master Linux for DevOps roles in 5 days",
       speaker: {
         name: "DevOps Expert",
       },
-      description: `Master Linux from scratch for DevOps roles. Hands-on, live Zoom session. Only ₹499 for 1 hour!`,
+      description: `Master Linux from scratch for DevOps roles. Hands-on, live Zoom sessions over 5 days. Only ₹499 for complete training!`,
       details: [
         {
-          heading: "🔥 Why Attend This Demo?",
+          heading: "🔥 Why Attend This 5-Day Demo?",
           items: [
             "Master Linux from Scratch – Tailored for DevOps roles",
-            "Hands-on Practice – Real-time terminal usage",
+            "Hands-on Practice – Real-time terminal usage over 5 days",
             "Essential Commands – Files, permissions, processes, networking",
             "Shell Scripting Basics – Automate tasks",
             "Practical for DevOps Projects – Not just theory",
+            "Progressive learning – Build skills day by day",
           ],
         },
         {
@@ -155,11 +95,11 @@ export default function WebinarDetailsPage() {
         {
           heading: "💰 What You Get for ₹499",
           items: [
-            "1-Hour Live Linux Training",
+            "5-Day Live Linux Training (1 hour daily)",
             "Free DevOps Career Roadmap",
             "Personalized Career Q&A",
-            "Recordings Access (if applicable)",
-            "Certificate of Participation (Optional)",
+            "Recordings Access for all sessions",
+            "Certificate of Participation",
           ],
         },
       ],
@@ -167,8 +107,70 @@ export default function WebinarDetailsPage() {
       registrationText: "Pay ₹499 & Register Now",
       isCompleted: false,
       headingWords: "Linux for DevOps",
-      subheadingWords: "Live Demo",
-      descriptionWords: "Master Linux from scratch for DevOps roles. This webinar is a 1-hour live session covering everything from basic commands to advanced shell scripting for DevOps automation.",
+      subheadingWords: "5-Day Live Demo",
+      descriptionWords: "Master Linux from scratch for DevOps roles. This comprehensive 5-day live webinar series covers everything from basic commands to advanced shell scripting for DevOps automation, with 1 hour of hands-on learning each day.",
+    },
+    // Redirect old single-day ID to new 5-day one for backward compatibility
+    "linux-for-devops-demo": {
+      title: "Linux for DevOps – 5-Day Live Demo",
+      isLive: true,
+      date: "July 21st-25th, 2025",
+      time: "9:30 AM - 10:30 AM IST (Daily)",
+      duration: "5 days, 1 hour each day",
+      fee: "₹499",
+      mode: "Live Zoom Sessions",
+      subheading: "Master Linux for DevOps roles in 5 days",
+      speaker: {
+        name: "DevOps Expert",
+      },
+      description: `Master Linux from scratch for DevOps roles. Hands-on, live Zoom sessions over 5 days. Only ₹499 for complete training!`,
+      details: [
+        {
+          heading: "🔥 Why Attend This 5-Day Demo?",
+          items: [
+            "Master Linux from Scratch – Tailored for DevOps roles",
+            "Hands-on Practice – Real-time terminal usage over 5 days",
+            "Essential Commands – Files, permissions, processes, networking",
+            "Shell Scripting Basics – Automate tasks",
+            "Practical for DevOps Projects – Not just theory",
+            "Progressive learning – Build skills day by day",
+          ],
+        },
+        {
+          heading: "👥 Who Should Join?",
+          items: [
+            "Beginners with zero tech background",
+            "Career switchers from non-IT fields",
+            "Freshers or students looking to upskill",
+            "Anyone interested in DevOps, Cloud, or Linux Admin",
+          ],
+        },
+        {
+          heading: "🎁 Bonus Session Included!",
+          items: [
+            "Free DevOps Roadmap: Learn the exact tools & skills needed to become a DevOps engineer",
+            "Step-by-step roadmap from beginner to expert",
+            "Toolstack breakdown (Linux → Git → Docker → Kubernetes → AWS → CI/CD)",
+            "Live Q&A Session: Get personalized career suggestions, ask anything about DevOps jobs, interviews, certifications, and more!",
+          ],
+        },
+        {
+          heading: "💰 What You Get for ₹499",
+          items: [
+            "5-Day Live Linux Training (1 hour daily)",
+            "Free DevOps Career Roadmap",
+            "Personalized Career Q&A",
+            "Recordings Access for all sessions",
+            "Certificate of Participation",
+          ],
+        },
+      ],
+      registrationUrl: "https://rzp.io/rzp/wLPwpbVF",
+      registrationText: "Pay ₹499 & Register Now",
+      isCompleted: false,
+      headingWords: "Linux for DevOps",
+      subheadingWords: "5-Day Live Demo",
+      descriptionWords: "Master Linux from scratch for DevOps roles. This comprehensive 5-day live webinar series covers everything from basic commands to advanced shell scripting for DevOps automation, with 1 hour of hands-on learning each day.",
     },
     "devops-roadmap-2025": {
       title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",

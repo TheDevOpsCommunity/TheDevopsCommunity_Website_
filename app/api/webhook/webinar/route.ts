@@ -168,9 +168,9 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
 
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
             <h3 style="color: #333; margin: 0 0 15px 0;">📅 Webinar Details</h3>
-            <p style="margin: 8px 0; color: #555;">📅 <strong>Date:</strong> July 21st, 2024</p>
-            <p style="margin: 8px 0; color: #555;">🕘 <strong>Time:</strong> 9:30 AM - 10:30 AM IST</p>
-            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 1 hour</p>
+            <p style="margin: 8px 0; color: #555;">📅 <strong>Date:</strong> July 21st-25th, 2025</p>
+            <p style="margin: 8px 0; color: #555;">🕘 <strong>Time:</strong> 9:30 AM - 10:30 AM IST (Daily)</p>
+            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 5 days, 1 hour each day</p>
             <p style="margin: 8px 0; color: #555;">💻 <strong>Mode:</strong> Live Zoom Session</p>
           </div>
 
