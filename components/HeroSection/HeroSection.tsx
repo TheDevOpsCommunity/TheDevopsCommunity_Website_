@@ -371,15 +371,15 @@ export function HeroSectionOne() {
               <div className="flex-1 flex flex-col gap-2">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">Live</span>
-                  <span className="text-blue-700 font-semibold text-lg">February 3rd-14th, 2025</span>
+                  <span className="text-blue-700 font-semibold text-lg">August 4th-17th, 2025</span>
                 </div>
                 <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 10-Day Live Bootcamp</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
                   Master containerization and orchestration for DevOps excellence. Comprehensive 10-day bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹2,999 for complete training!
                 </div>
-                <div className="text-sm text-blue-600 font-medium">
-                  🕘 9:30 AM - 10:30 AM IST (Daily, 1 hour each day)
-                </div>
+                                  <div className="text-sm text-blue-600 font-medium">
+                    🕘 9:30 AM - 10:30 AM IST (Mon-Fri, 1 hour each day)
+                  </div>
               </div>
               <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
                 <Link href="/webinars/docker-kubernetes-bootcamp">
