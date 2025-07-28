@@ -55,7 +55,7 @@ export default function WebinarDetailsPage() {
       date: "February 3rd-14th, 2025",
       time: "7:00 PM - 8:30 PM IST (Daily)",
       duration: "10 days, 1.5 hours each day",
-      fee: "₹1,999",
+      fee: "₹2,999",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
       speaker: {
@@ -115,7 +115,7 @@ export default function WebinarDetailsPage() {
           ],
         },
         {
-          heading: "💰 What You Get for ₹1,999",
+          heading: "�� What You Get for ₹2,999",
           items: [
             "10-Day Live Training Sessions (1.5 hours daily)",
             "Docker & Kubernetes Complete Curriculum",
@@ -128,7 +128,7 @@ export default function WebinarDetailsPage() {
         },
       ],
       registrationUrl: "RAZORPAY_LINK_PLACEHOLDER", // User will provide this
-      registrationText: "Pay ₹1,999 & Register Now",
+      registrationText: "Pay ₹2,999 & Register Now",
       isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
       subheadingWords: "10-Day Live Bootcamp",

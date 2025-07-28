@@ -375,7 +375,7 @@ export function HeroSectionOne() {
                 </div>
                 <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 10-Day Live Bootcamp</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
-                  Master containerization and orchestration for DevOps excellence. Comprehensive 10-day bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹1,999 for complete training!
+                  Master containerization and orchestration for DevOps excellence. Comprehensive 10-day bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹2,999 for complete training!
                 </div>
                 <div className="text-sm text-blue-600 font-medium">
                   🕘 7:00 PM - 8:30 PM IST (Daily, 1.5 hours each day)
