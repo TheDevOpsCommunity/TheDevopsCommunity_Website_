@@ -62,8 +62,8 @@ const webinars: WebinarCard[] = [
 ✅ Industry Expert Sessions
 ✅ Certificate of Completion`,
     date: "February 3rd-14th, 2025",
-    time: "7:00 PM - 8:30 PM IST (Daily)",
-    duration: "10 days, 1.5 hours each day",
+    time: "9:30 AM - 10:30 AM IST (Daily)",
+    duration: "10 days, 1 hour each day",
     fee: "₹2,999",
     mode: "Live Zoom Sessions",
     speaker: {

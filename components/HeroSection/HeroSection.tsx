@@ -378,7 +378,7 @@ export function HeroSectionOne() {
                   Master containerization and orchestration for DevOps excellence. Comprehensive 10-day bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹2,999 for complete training!
                 </div>
                 <div className="text-sm text-blue-600 font-medium">
-                  🕘 7:00 PM - 8:30 PM IST (Daily, 1.5 hours each day)
+                  🕘 9:30 AM - 10:30 AM IST (Daily, 1 hour each day)
                 </div>
               </div>
               <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">

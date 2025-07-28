@@ -53,8 +53,8 @@ export default function WebinarDetailsPage() {
       title: "Docker & Kubernetes Mastery – 10-Day Live Bootcamp",
       isLive: true,
       date: "February 3rd-14th, 2025",
-      time: "7:00 PM - 8:30 PM IST (Daily)",
-      duration: "10 days, 1.5 hours each day",
+      time: "9:30 AM - 10:30 AM IST (Daily)",
+      duration: "10 days, 1 hour each day",
       fee: "₹2,999",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
@@ -115,9 +115,9 @@ export default function WebinarDetailsPage() {
           ],
         },
         {
-          heading: "�� What You Get for ₹2,999",
+          heading: "💰 What You Get for ₹2,999",
           items: [
-            "10-Day Live Training Sessions (1.5 hours daily)",
+            "10-Day Live Training Sessions (1 hour daily)",
             "Docker & Kubernetes Complete Curriculum",
             "Hands-on Labs & Real Projects",
             "Industry Expert Sessions",
