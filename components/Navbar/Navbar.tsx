@@ -60,15 +60,14 @@ export function NavbarTop() {
             items={navItems} 
             className="text-blue-900"
           />
-          <div className="flex items-center gap-4 cursor-pointer z-20">
-            <Link href="/webinars/linux-for-devops-5day-demo" style={{ cursor: 'pointer' }}>
-              <button
-                className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium text-sm"
-              >
-                Register for Webinar
-              </button>
-            </Link>
-          </div>
+          {/* Register for Webinar Button (Desktop) */}
+          <Link href="/webinars/docker-kubernetes-bootcamp" style={{ cursor: 'pointer', zIndex: 1000 }}>
+            <button
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-blue-800 transition-colors font-medium text-sm"
+            >
+              Register for Webinar
+            </button>
+          </Link>
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -101,7 +100,7 @@ export function NavbarTop() {
               </a>
             ))}
             <Link
-              href="/webinars/linux-for-devops-5day-demo"
+              href="/webinars/docker-kubernetes-bootcamp"
               className="block bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium text-center"
               onClick={() => setIsMobileMenuOpen(false)}
             >

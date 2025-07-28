@@ -365,26 +365,26 @@ export function HeroSectionOne() {
         <section className="w-full bg-white py-16">
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-              Upcoming Webinar: Linux for DevOps – 5-Day Live Demo
+              Upcoming Webinar: Docker & Kubernetes Mastery – 10-Day Live Bootcamp
             </h2>
             <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
               <div className="flex-1 flex flex-col gap-2">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">Live</span>
-                  <span className="text-blue-700 font-semibold text-lg">July 21st-25th, 2025</span>
+                  <span className="text-blue-700 font-semibold text-lg">February 3rd-14th, 2025</span>
                 </div>
-                <div className="text-lg font-semibold text-blue-900 mb-1">Linux for DevOps – 5-Day Live Demo</div>
+                <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 10-Day Live Bootcamp</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
-                  Master Linux from scratch for DevOps roles. Hands-on, live Zoom sessions over 5 days. Only ₹499 for complete training! Includes free DevOps roadmap and career Q&A.
+                  Master containerization and orchestration for DevOps excellence. Comprehensive 10-day bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹1,999 for complete training!
                 </div>
                 <div className="text-sm text-blue-600 font-medium">
-                  🕘 9:30 AM - 10:30 AM IST (Daily, 1 hour each day)
+                  🕘 7:00 PM - 8:30 PM IST (Daily, 1.5 hours each day)
                 </div>
               </div>
               <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
-                <Link href="/webinars/linux-for-devops-5day-demo">
+                <Link href="/webinars/docker-kubernetes-bootcamp">
                   <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer z-20">
-                    View Webinar & Register
+                    View Bootcamp & Register
                   </button>
                 </Link>
                 <Link href="/webinars">

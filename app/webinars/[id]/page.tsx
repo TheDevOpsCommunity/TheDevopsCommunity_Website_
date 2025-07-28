@@ -49,9 +49,94 @@ export default function WebinarDetailsPage() {
 
   // Webinar data for both current and past webinars
   const webinars = {
+    "docker-kubernetes-bootcamp": {
+      title: "Docker & Kubernetes Mastery – 10-Day Live Bootcamp",
+      isLive: true,
+      date: "February 3rd-14th, 2025",
+      time: "7:00 PM - 8:30 PM IST (Daily)",
+      duration: "10 days, 1.5 hours each day",
+      fee: "₹1,999",
+      mode: "Live Zoom Sessions",
+      subheading: "Master containerization and orchestration for DevOps excellence",
+      speaker: {
+        name: "Kubernetes Expert",
+      },
+      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 10-day bootcamp with hands-on labs and real-world projects!`,
+      details: [
+        {
+          heading: "📚 Week 1 – Docker Fundamentals & Kubernetes Basics",
+          items: [
+            "Day 1: Introduction to Docker & Container Fundamentals",
+            "Day 2: Dockerfile Creation & Best Practices",
+            "Day 3: Docker Images, Registry & Docker Hub Integration",
+            "Day 4: Introduction to Kubernetes Architecture & Core Objects",
+            "Day 5: Kubernetes PODs, ReplicaSets, Deployments & Services",
+          ],
+        },
+        {
+          heading: "📚 Week 1 – Core Kubernetes Objects (Continued)",
+          items: [
+            "Day 1 (Mon): Introduction to Kubernetes & Architecture, Real-World Use Cases & Adoption, Cluster Setup using Minikube/Kubeadm",
+            "Day 2 (Tue): Kubernetes Installation (Hands-on), Working with kubectl – Basic Commands",
+            "Day 3 (Wed): Kubernetes Objects: POD, ReplicaSet, Deployment, Update Strategies: Rolling Update vs Recreate",
+            "Day 4 (Thu): DaemonSet, StatefulSet, Storage: PersistentVolume & PersistentVolumeClaim, Managing ConfigMaps & Secrets",
+            "Day 5 (Fri): Kubernetes Services: ClusterIP, NodePort, LoadBalancer, Ingress Controller Setup, Resource Quota & LimitRange, Q&A Session",
+          ],
+        },
+        {
+          heading: "🔧 Week 2 – Advanced Kubernetes Concepts & Projects",
+          items: [
+            "Day 6 (Mon): Health Checks: Liveness & Readiness Probes, Auto-scaling with HPA, Metrics Server Installation",
+            "Day 7 (Tue): Node Maintenance: Cordon, Drain, Uncordon, Scheduling: Taints, Tolerations, Affinity & Anti-Affinity",
+            "Day 8 (Wed): Kubernetes RBAC: Roles, RoleBindings, ServiceAccounts, Kubernetes Dashboard Setup",
+            "Day 9 (Thu): Production Deployment Strategies, CI/CD Pipeline Integration",
+            "Day 10 (Fri): Real-world Project Implementation & Final Q&A",
+          ],
+        },
+        {
+          heading: "🔥 Why Attend This Bootcamp?",
+          items: [
+            "Master Docker from Basics to Advanced – Dockerfile, Images, Registry, Docker Hub",
+            "Complete Kubernetes Learning – From Architecture to Production Deployment",
+            "Hands-on Practice – Real-time container and cluster management",
+            "Industry Projects – Deploy real applications with CI/CD pipelines",
+            "Expert Guidance – Live sessions with experienced DevOps professionals",
+            "Production-ready skills for modern infrastructure",
+          ],
+        },
+        {
+          heading: "👥 Who Should Join?",
+          items: [
+            "DevOps Engineers looking to master containerization",
+            "Developers wanting to learn container orchestration",
+            "System Administrators transitioning to cloud-native",
+            "Anyone serious about modern infrastructure management",
+            "Professionals preparing for CKA/CKAD certifications",
+          ],
+        },
+        {
+          heading: "💰 What You Get for ₹1,999",
+          items: [
+            "10-Day Live Training Sessions (1.5 hours daily)",
+            "Docker & Kubernetes Complete Curriculum",
+            "Hands-on Labs & Real Projects",
+            "Industry Expert Sessions",
+            "Certificate of Completion",
+            "Lifetime Access to Recordings",
+            "Career Guidance & Job Assistance",
+          ],
+        },
+      ],
+      registrationUrl: "RAZORPAY_LINK_PLACEHOLDER", // User will provide this
+      registrationText: "Pay ₹1,999 & Register Now",
+      isCompleted: false,
+      headingWords: "Docker & Kubernetes Mastery",
+      subheadingWords: "10-Day Live Bootcamp",
+      descriptionWords: "Master containerization and orchestration for DevOps excellence. This comprehensive 10-day live bootcamp covers Docker fundamentals, Kubernetes architecture, and production deployment strategies with hands-on labs and real-world projects.",
+    },
     "linux-for-devops-5day-demo": {
       title: "Linux for DevOps – 5-Day Live Demo",
-      isLive: true,
+      isLive: false,
       date: "July 21st-25th, 2025",
       time: "9:30 AM - 10:30 AM IST (Daily)",
       duration: "5 days, 1 hour each day",
@@ -105,69 +190,7 @@ export default function WebinarDetailsPage() {
       ],
       registrationUrl: "https://rzp.io/rzp/wLPwpbVF",
       registrationText: "Pay ₹499 & Register Now",
-      isCompleted: false,
-      headingWords: "Linux for DevOps",
-      subheadingWords: "5-Day Live Demo",
-      descriptionWords: "Master Linux from scratch for DevOps roles. This comprehensive 5-day live webinar series covers everything from basic commands to advanced shell scripting for DevOps automation, with 1 hour of hands-on learning each day.",
-    },
-    // Redirect old single-day ID to new 5-day one for backward compatibility
-    "linux-for-devops-demo": {
-      title: "Linux for DevOps – 5-Day Live Demo",
-      isLive: true,
-      date: "July 21st-25th, 2025",
-      time: "9:30 AM - 10:30 AM IST (Daily)",
-      duration: "5 days, 1 hour each day",
-      fee: "₹499",
-      mode: "Live Zoom Sessions",
-      subheading: "Master Linux for DevOps roles in 5 days",
-      speaker: {
-        name: "DevOps Expert",
-      },
-      description: `Master Linux from scratch for DevOps roles. Hands-on, live Zoom sessions over 5 days. Only ₹499 for complete training!`,
-      details: [
-        {
-          heading: "🔥 Why Attend This 5-Day Demo?",
-          items: [
-            "Master Linux from Scratch – Tailored for DevOps roles",
-            "Hands-on Practice – Real-time terminal usage over 5 days",
-            "Essential Commands – Files, permissions, processes, networking",
-            "Shell Scripting Basics – Automate tasks",
-            "Practical for DevOps Projects – Not just theory",
-            "Progressive learning – Build skills day by day",
-          ],
-        },
-        {
-          heading: "👥 Who Should Join?",
-          items: [
-            "Beginners with zero tech background",
-            "Career switchers from non-IT fields",
-            "Freshers or students looking to upskill",
-            "Anyone interested in DevOps, Cloud, or Linux Admin",
-          ],
-        },
-        {
-          heading: "🎁 Bonus Session Included!",
-          items: [
-            "Free DevOps Roadmap: Learn the exact tools & skills needed to become a DevOps engineer",
-            "Step-by-step roadmap from beginner to expert",
-            "Toolstack breakdown (Linux → Git → Docker → Kubernetes → AWS → CI/CD)",
-            "Live Q&A Session: Get personalized career suggestions, ask anything about DevOps jobs, interviews, certifications, and more!",
-          ],
-        },
-        {
-          heading: "💰 What You Get for ₹499",
-          items: [
-            "5-Day Live Linux Training (1 hour daily)",
-            "Free DevOps Career Roadmap",
-            "Personalized Career Q&A",
-            "Recordings Access for all sessions",
-            "Certificate of Participation",
-          ],
-        },
-      ],
-      registrationUrl: "https://rzp.io/rzp/wLPwpbVF",
-      registrationText: "Pay ₹499 & Register Now",
-      isCompleted: false,
+      isCompleted: true,
       headingWords: "Linux for DevOps",
       subheadingWords: "5-Day Live Demo",
       descriptionWords: "Master Linux from scratch for DevOps roles. This comprehensive 5-day live webinar series covers everything from basic commands to advanced shell scripting for DevOps automation, with 1 hour of hands-on learning each day.",

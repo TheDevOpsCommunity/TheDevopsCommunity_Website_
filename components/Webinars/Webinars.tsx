@@ -26,6 +26,53 @@ interface WebinarCard {
 
 const webinars: WebinarCard[] = [
   {
+    title: "Docker & Kubernetes Mastery – 10-Day Live Bootcamp",
+    subheading: "Master containerization and orchestration for DevOps excellence",
+    description: `🔥 Why Attend This Bootcamp?
+✔️ Master Docker from Basics to Advanced – Dockerfile, Images, Registry, Docker Hub
+✔️ Complete Kubernetes Learning – From Architecture to Production Deployment
+✔️ Hands-on Practice – Real-time container and cluster management
+✔️ Industry Projects – Deploy real applications with CI/CD pipelines
+✔️ Expert Guidance – Live sessions with experienced DevOps professionals
+
+📚 Week 1 – Docker Fundamentals & Kubernetes Basics
+✔️ Docker Installation & Container Fundamentals
+✔️ Dockerfile Creation & Image Management
+✔️ Docker Registry & Docker Hub Integration
+✔️ Kubernetes Architecture & Core Objects
+✔️ PODs, ReplicaSets, Deployments & Services
+✔️ ConfigMaps, Secrets & Storage Management
+
+🔧 Week 2 – Advanced Kubernetes & Production Projects
+✔️ Health Checks, Auto-scaling & Monitoring
+✔️ RBAC, Security & Resource Management
+✔️ Production Deployment Strategies
+✔️ Real-world Project Implementation
+
+👥 Who Should Join?
+- DevOps Engineers looking to master containerization
+- Developers wanting to learn container orchestration
+- System Administrators transitioning to cloud-native
+- Anyone serious about modern infrastructure management
+
+💰 Registration Fee: ₹1,999 Only
+✅ 10-Day Live Training Sessions
+✅ Docker & Kubernetes Complete Curriculum
+✅ Hands-on Labs & Real Projects
+✅ Industry Expert Sessions
+✅ Certificate of Completion`,
+    date: "February 3rd-14th, 2025",
+    time: "7:00 PM - 8:30 PM IST (Daily)",
+    duration: "10 days, 1.5 hours each day",
+    fee: "₹1,999",
+    mode: "Live Zoom Sessions",
+    speaker: {
+      name: "Kubernetes Expert",
+    },
+    isLive: true,
+    id: "docker-kubernetes-bootcamp"
+  },
+  {
     title: "Linux for DevOps – 5-Day Live Demo",
     subheading: "Master Linux for DevOps roles in 5 days",
     description: `🔥 Why Attend This Demo?
@@ -55,7 +102,7 @@ const webinars: WebinarCard[] = [
     speaker: {
       name: "DevOps Expert",
     },
-    isLive: true,
+    isLive: false,
     id: "linux-for-devops-5day-demo"
   },
   {
