@@ -365,7 +365,7 @@ export function HeroSectionOne() {
         <section className="w-full bg-white py-16">
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-              Upcoming Webinar: Docker & Kubernetes Mastery – 10-Day Live Bootcamp
+              Upcoming Webinar: Docker & Kubernetes Mastery – 2-Week Live Bootcamp
             </h2>
             <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
               <div className="flex-1 flex flex-col gap-2">
@@ -373,9 +373,9 @@ export function HeroSectionOne() {
                   <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">Live</span>
                   <span className="text-blue-700 font-semibold text-lg">August 4th-17th, 2025</span>
                 </div>
-                <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 10-Day Live Bootcamp</div>
+                <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
-                  Master containerization and orchestration for DevOps excellence. Comprehensive 10-day bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹2,999 for complete training!
+                  Master containerization and orchestration for DevOps excellence. Comprehensive 2-week bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹2,999 for complete training!
                 </div>
                                   <div className="text-sm text-blue-600 font-medium">
                     🕘 9:30 AM - 10:30 AM IST (Mon-Fri, 1 hour each day)

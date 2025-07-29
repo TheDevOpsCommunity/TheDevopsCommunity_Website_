@@ -161,7 +161,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
           
           <div style="background-color: #f0f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1447E6;">
             <h2 style="color: #1447E6; margin: 0 0 15px 0; font-size: 24px;">Registration Confirmed ✅</h2>
-            <p style="margin: 8px 0; color: #333;">Your registration for <strong>Docker & Kubernetes Mastery – 10-Day Live Bootcamp</strong> has been confirmed!</p>
+            <p style="margin: 8px 0; color: #333;">Your registration for <strong>Docker & Kubernetes Mastery – 2-Week Live Bootcamp</strong> has been confirmed!</p>
             <p style="margin: 8px 0; color: #333;"><strong>📧 Transaction ID:</strong> ${id}</p>
             <p style="margin: 8px 0; color: #333;"><strong>💰 Amount Paid:</strong> ₹${amountInRupees}</p>
           </div>
@@ -170,7 +170,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
             <h3 style="color: #333; margin: 0 0 15px 0;">📅 Bootcamp Details</h3>
             <p style="margin: 8px 0; color: #555;">📅 <strong>Date:</strong> August 4th-17th, 2025</p>
             <p style="margin: 8px 0; color: #555;">🕘 <strong>Time:</strong> 9:30 AM - 10:30 AM IST (Mon-Fri)</p>
-            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 10 days, 1 hour each day (weekdays only)</p>
+            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 2 weeks, 1 hour each day (weekdays only)</p>
             <p style="margin: 8px 0; color: #555;">💻 <strong>Mode:</strong> Live Zoom Sessions</p>
           </div>
 

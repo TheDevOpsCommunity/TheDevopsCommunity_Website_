@@ -50,18 +50,18 @@ export default function WebinarDetailsPage() {
   // Webinar data for both current and past webinars
   const webinars = {
     "docker-kubernetes-bootcamp": {
-      title: "Docker & Kubernetes Mastery – 10-Day Live Bootcamp",
+      title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
       isLive: true,
       date: "August 4th-17th, 2025",
       time: "9:30 AM - 10:30 AM IST (Mon-Fri)",
-      duration: "10 days, 1 hour each day (weekdays only)",
+      duration: "2 weeks, 1 hour each day (weekdays only)",
       fee: "₹2,999",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
       speaker: {
         name: "Kubernetes Expert",
       },
-      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 10-day bootcamp with hands-on labs and real-world projects!`,
+      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects!`,
       details: [
         {
           heading: "📚 Week 1 – Docker Fundamentals & Kubernetes Basics",
@@ -117,7 +117,7 @@ export default function WebinarDetailsPage() {
         {
           heading: "💰 What You Get for ₹2,999",
           items: [
-            "10-Day Live Training Sessions (1 hour daily)",
+            "2-Week Live Training Sessions (1 hour daily)",
             "Docker & Kubernetes Complete Curriculum",
             "Hands-on Labs & Real Projects",
             "Industry Expert Sessions",
@@ -127,12 +127,12 @@ export default function WebinarDetailsPage() {
           ],
         },
       ],
-      registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // User will provide this
+      registrationUrl: "RAZORPAY_LINK_PLACEHOLDER", // User will provide this
       registrationText: "Pay ₹2,999 & Register Now",
       isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
-      subheadingWords: "10-Day Live Bootcamp",
-      descriptionWords: "Master containerization and orchestration for DevOps excellence. This comprehensive 10-day live bootcamp covers Docker fundamentals, Kubernetes architecture, and production deployment strategies with hands-on labs and real-world projects.",
+      subheadingWords: "2-Week Live Bootcamp",
+      descriptionWords: "Master containerization and orchestration for DevOps excellence. This comprehensive 2-week live bootcamp covers Docker fundamentals, Kubernetes architecture, and production deployment strategies with hands-on labs and real-world projects.",
     },
     "linux-for-devops-5day-demo": {
       title: "Linux for DevOps – 5-Day Live Demo",

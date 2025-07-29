@@ -26,7 +26,7 @@ interface WebinarCard {
 
 const webinars: WebinarCard[] = [
   {
-    title: "Docker & Kubernetes Mastery – 10-Day Live Bootcamp",
+    title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
     subheading: "Master containerization and orchestration for DevOps excellence",
     description: `🔥 Why Attend This Bootcamp?
 ✔️ Master Docker from Basics to Advanced – Dockerfile, Images, Registry, Docker Hub
@@ -56,14 +56,14 @@ const webinars: WebinarCard[] = [
 - Anyone serious about modern infrastructure management
 
 💰 Registration Fee: ₹2,999 Only
-✅ 10-Day Live Training Sessions
+✅ 2-Week Live Training Sessions
 ✅ Docker & Kubernetes Complete Curriculum
 ✅ Hands-on Labs & Real Projects
 ✅ Industry Expert Sessions
 ✅ Certificate of Completion`,
     date: "August 4th-17th, 2025",
     time: "9:30 AM - 10:30 AM IST (Mon-Fri)",
-    duration: "10 days, 1 hour each day (weekdays only)",
+    duration: "2 weeks, 1 hour each day (weekdays only)",
     fee: "₹2,999",
     mode: "Live Zoom Sessions",
     speaker: {
