@@ -151,145 +151,110 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Welcome to Docker & Kubernetes Bootcamp! 🎉🐳',
+    subject: 'Registration Confirmed - Docker & Kubernetes Bootcamp',
     html: `
-      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 650px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-        <div style="background-color: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh;">
+        
+        <!-- Main Container -->
+        <div style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e9ecef;">
           
-          <!-- Header Section -->
-          <div style="background: linear-gradient(135deg, #1447E6 0%, #0066ff 100%); padding: 40px 30px; text-align: center; position: relative;">
-            <div style="position: absolute; top: 20px; right: 20px; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-              <span style="font-size: 24px;">🐳</span>
-            </div>
-            <h1 style="color: white; margin: 0 0 10px 0; font-size: 28px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Welcome Aboard! 🎉</h1>
-            <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 16px;">Hello ${userName}! Ready to master containers? 🚀</p>
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #212529 0%, #343a40 100%); padding: 32px; text-align: center; border-bottom: 3px solid #000000;">
+            <h1 style="color: #ffffff; font-size: 26px; font-weight: 700; margin: 0 0 8px 0; letter-spacing: -0.01em;">Registration Confirmed</h1>
+            <p style="color: #adb5bd; font-size: 16px; margin: 0; font-weight: 400;">Hello ${userName}</p>
           </div>
 
-          <!-- Confirmation Card -->
-          <div style="padding: 30px;">
-            <div style="background: linear-gradient(135deg, #f8faff 0%, #e8f4fd 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 1px solid #e3f2fd; position: relative;">
-              <div style="position: absolute; top: -10px; left: 25px; background: #4CAF50; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">
-                ✅ CONFIRMED
-              </div>
-              <h2 style="color: #1447E6; margin: 15px 0 20px 0; font-size: 22px; font-weight: 600;">Registration Successful</h2>
-              <p style="margin: 10px 0; color: #2c3e50; font-size: 15px; line-height: 1.6;">Your spot in <strong>Docker & Kubernetes Mastery – 2-Week Live Bootcamp</strong> is confirmed!</p>
+          <!-- Content Container -->
+          <div style="padding: 32px;">
+            
+            <!-- Confirmation Details -->
+            <div style="margin-bottom: 32px;">
+              <h2 style="color: #212529; font-size: 20px; font-weight: 600; margin: 0 0 8px 0; line-height: 1.3;">Docker & Kubernetes Mastery</h2>
+              <p style="color: #6c757d; font-size: 16px; margin: 0 0 4px 0; font-weight: 500;">2-Week Live Bootcamp</p>
+              <p style="color: #495057; font-size: 14px; line-height: 1.5; margin: 0 0 24px 0;">Your registration has been successfully confirmed.</p>
               
-              <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px;">
-                <div style="background: white; padding: 12px 16px; border-radius: 10px; flex: 1; min-width: 150px; border-left: 4px solid #1447E6;">
-                  <div style="font-size: 12px; color: #666; font-weight: 500;">TRANSACTION ID</div>
-                  <div style="font-size: 14px; color: #2c3e50; font-weight: 600; margin-top: 2px;">${id}</div>
-                </div>
-                <div style="background: white; padding: 12px 16px; border-radius: 10px; flex: 1; min-width: 120px; border-left: 4px solid #4CAF50;">
-                  <div style="font-size: 12px; color: #666; font-weight: 500;">AMOUNT PAID</div>
-                  <div style="font-size: 16px; color: #4CAF50; font-weight: 700; margin-top: 2px;">₹${amountInRupees}</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bootcamp Details -->
-            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f7fa 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 1px solid #b3e5fc;">
-              <h3 style="color: #0277bd; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; display: flex; align-items: center;">
-                <span style="background: #0277bd; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 14px;">📅</span>
-                Bootcamp Schedule
-              </h3>
-              
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <div style="font-size: 12px; color: #666; font-weight: 500; margin-bottom: 5px;">DATES</div>
-                  <div style="font-size: 14px; color: #0277bd; font-weight: 600;">August 4th-17th, 2025</div>
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <div style="font-size: 12px; color: #666; font-weight: 500; margin-bottom: 5px;">TIME</div>
-                  <div style="font-size: 14px; color: #0277bd; font-weight: 600;">9:30 AM - 10:30 AM IST</div>
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <div style="font-size: 12px; color: #666; font-weight: 500; margin-bottom: 5px;">DURATION</div>
-                  <div style="font-size: 14px; color: #0277bd; font-weight: 600;">2 weeks (Mon-Fri only)</div>
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <div style="font-size: 12px; color: #666; font-weight: 500; margin-bottom: 5px;">MODE</div>
-                  <div style="font-size: 14px; color: #0277bd; font-weight: 600;">Live Zoom Sessions</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- FREE Linux Resources Section -->
-            <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffecb3 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 1px solid #ffcc02; position: relative;">
-              <div style="position: absolute; top: -10px; left: 25px; background: #ff9800; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">
-                🎁 FREE BONUS
-              </div>
-              <h3 style="color: #e65100; margin: 15px 0 15px 0; font-size: 18px; font-weight: 600; display: flex; align-items: center;">
-                <span style="background: #e65100; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 14px;">🐧</span>
-                Linux for DevOps Resources
-              </h3>
-              <p style="margin: 0 0 20px 0; color: #bf360c; font-size: 14px; line-height: 1.6;">
-                As a bonus, access our complete <strong>Linux for DevOps webinar recordings</strong> and materials from our previous sessions!
-              </p>
-              
-              <div style="background: white; padding: 20px; border-radius: 12px; border: 2px dashed #ffab00;">
-                <div style="display: flex; align-items: center; gap: 15px;">
-                  <div style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; box-shadow: 0 4px 12px rgba(255,152,0,0.3);">
-                    📁
+              <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 24px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);">
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                  <div style="flex: 1; min-width: 180px;">
+                    <span style="color: #6c757d; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Transaction ID</span>
+                    <div style="color: #212529; font-size: 15px; font-weight: 600; margin-top: 4px; font-family: 'SF Mono', Monaco, monospace; background-color: #ffffff; padding: 8px 12px; border-radius: 4px; border: 1px solid #dee2e6;">${id}</div>
                   </div>
-                  <div style="flex: 1;">
-                    <div style="font-size: 16px; font-weight: 600; color: #e65100; margin-bottom: 5px;">Complete Linux Training Archive</div>
-                    <div style="font-size: 13px; color: #bf360c; margin-bottom: 12px;">📹 Recordings • 📝 Notes • 💾 VirtualBox Setup • 🖥️ CentOS Installation</div>
-                    <a href="https://drive.google.com/drive/folders/1c75JeihmFQdP1Pd48XdKzli9hFu2FR_G?usp=sharing" 
-                       style="display: inline-block; background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 4px 12px rgba(255,152,0,0.3); transition: all 0.3s ease;">
-                      🚀 Access Resources Now
-                    </a>
+                  <div style="flex: 1; min-width: 120px;">
+                    <span style="color: #6c757d; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Amount Paid</span>
+                    <div style="color: #198754; font-size: 18px; font-weight: 700; margin-top: 4px;">₹${amountInRupees}</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- What's Next Section -->
-            <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 1px solid #ce93d8;">
-              <h3 style="color: #7b1fa2; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; display: flex; align-items: center;">
-                <span style="background: #7b1fa2; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 14px;">⏭️</span>
-                What's Next?
-              </h3>
+            <!-- Schedule -->
+            <div style="margin-bottom: 32px;">
+              <h3 style="color: #212529; font-size: 18px; font-weight: 600; margin: 0 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">Schedule Details</h3>
+              <div style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
+                <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);">
+                  <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Dates</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">August 4th-17th, 2025</div>
+                </div>
+                <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background-color: #ffffff;">
+                  <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Time</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">9:30 AM - 10:30 AM IST (Mon-Fri)</div>
+                </div>
+                <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);">
+                  <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">2 weeks, weekdays only</div>
+                </div>
+                <div style="padding: 16px 20px; background-color: #ffffff;">
+                  <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Format</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">Live Zoom Sessions</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Linux Resources -->
+            <div style="margin-bottom: 32px; border: 2px solid #212529; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);">
+              <div style="background: linear-gradient(135deg, #212529 0%, #343a40 100%); padding: 20px; border-bottom: 1px solid #000000;">
+                <h3 style="color: #ffffff; font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">Bonus: Linux for DevOps Resources</h3>
+                <p style="color: #adb5bd; font-size: 14px; line-height: 1.5; margin: 0;">Access our complete Linux for DevOps webinar recordings and materials from previous sessions.</p>
+              </div>
               
-              <div style="display: grid; gap: 15px;">
-                <div style="background: white; padding: 18px; border-radius: 12px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <div style="background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">
-                    🔗
-                  </div>
-                  <div>
-                    <div style="font-weight: 600; color: #7b1fa2; font-size: 15px;">Zoom Meeting Link</div>
-                    <div style="font-size: 13px; color: #8e24aa; margin-top: 2px;">Will be shared 24 hours before the bootcamp starts</div>
-                  </div>
+              <div style="background-color: #ffffff; padding: 24px;">
+                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                  <div style="color: #212529; font-size: 16px; font-weight: 600; margin-bottom: 6px;">Complete Linux Training Archive</div>
+                  <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">Recordings • Notes • VirtualBox Setup • CentOS Installation</div>
                 </div>
                 
-                <div style="background: white; padding: 18px; border-radius: 12px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <div style="background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">
-                    💬
-                  </div>
-                  <div>
-                    <div style="font-weight: 600; color: #7b1fa2; font-size: 15px;">WhatsApp Community</div>
-                    <div style="font-size: 13px; color: #8e24aa; margin-top: 2px;">You'll be added to our exclusive learners group soon</div>
-                  </div>
-                </div>
+                <a href="https://drive.google.com/drive/folders/1c75JeihmFQdP1Pd48XdKzli9hFu2FR_G?usp=sharing" 
+                   style="display: inline-block; background: linear-gradient(135deg, #212529 0%, #343a40 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 6px; box-shadow: 0 2px 8px rgba(33, 37, 41, 0.2); transition: all 0.3s ease; border: 1px solid #000000;">
+                  Access Resources
+                </a>
               </div>
             </div>
 
-            <!-- CTA Section -->
-            <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, #1447E6 0%, #0066ff 100%); border-radius: 15px; color: white;">
-              <div style="font-size: 20px; margin-bottom: 8px;">🚀</div>
-              <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Ready to Master Containers?</div>
-              <div style="font-size: 14px; opacity: 0.9; margin-bottom: 15px;">Prepare yourself for the most comprehensive Docker & Kubernetes journey!</div>
-              <div style="font-size: 13px; opacity: 0.8;">Questions? Reach out to <strong>info@devopscommunity.com</strong></div>
+            <!-- Next Steps -->
+            <div style="margin-bottom: 32px;">
+              <h3 style="color: #212529; font-size: 18px; font-weight: 600; margin: 0 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">Next Steps</h3>
+              
+              <div style="margin-bottom: 16px; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; border-left: 4px solid #212529; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
+                <div style="color: #212529; font-size: 15px; font-weight: 600; margin-bottom: 6px;">Zoom Meeting Link</div>
+                <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">Will be shared 24 hours before the bootcamp starts</div>
+              </div>
+              
+              <div style="background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; border-left: 4px solid #212529; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
+                <div style="color: #212529; font-size: 15px; font-weight: 600; margin-bottom: 6px;">WhatsApp Community</div>
+                <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">You will be added to our learners group soon</div>
+              </div>
+            </div>
+
+            <!-- Support -->
+            <div style="text-align: center; padding: 24px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);">
+              <p style="color: #212529; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">Questions?</p>
+              <p style="color: #6c757d; font-size: 14px; margin: 0; font-weight: 500;">Contact us at <span style="color: #212529; font-weight: 600;">info@devopscommunity.com</span></p>
             </div>
           </div>
 
           <!-- Footer -->
-          <div style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #e9ecef;">
-            <div style="font-size: 12px; color: #6c757d; margin-bottom: 8px;">
-              This is an automated confirmation email. Please do not reply directly.
-            </div>
-            <div style="font-size: 14px; color: #495057; font-weight: 500;">
-              See you in the bootcamp! 🐳💻 
-            </div>
+          <div style="background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%); padding: 20px; text-align: center; border-top: 1px solid #dee2e6;">
+            <p style="color: #6c757d; font-size: 12px; margin: 0; font-weight: 500;">This is an automated confirmation email.</p>
           </div>
         </div>
       </div>
