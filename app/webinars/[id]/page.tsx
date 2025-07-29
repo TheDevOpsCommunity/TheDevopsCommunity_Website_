@@ -127,7 +127,7 @@ export default function WebinarDetailsPage() {
           ],
         },
       ],
-      registrationUrl: "RAZORPAY_LINK_PLACEHOLDER", // User will provide this
+      registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // User will provide this
       registrationText: "Pay ₹2,999 & Register Now",
       isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
