@@ -151,27 +151,27 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Welcome to Linux for DevOps Webinar! 🎉🐧',
+    subject: 'Welcome to Docker & Kubernetes Bootcamp! 🎉🐳',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
         <div style="background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
           
-          <h1 style="color: #1447E6; text-align: center; margin-bottom: 10px;">Welcome to Our Webinar! 🎉</h1>
+          <h1 style="color: #1447E6; text-align: center; margin-bottom: 10px;">Welcome to Our Bootcamp! 🎉</h1>
           <p style="text-align: center; color: #666; margin-bottom: 30px;">Hello ${userName}! 👋</p>
           
           <div style="background-color: #f0f8ff; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #1447E6;">
             <h2 style="color: #1447E6; margin: 0 0 15px 0; font-size: 24px;">Registration Confirmed ✅</h2>
-            <p style="margin: 8px 0; color: #333;">Your registration for <strong>Linux for DevOps – Live Demo</strong> has been confirmed!</p>
+            <p style="margin: 8px 0; color: #333;">Your registration for <strong>Docker & Kubernetes Mastery – 10-Day Live Bootcamp</strong> has been confirmed!</p>
             <p style="margin: 8px 0; color: #333;"><strong>📧 Transaction ID:</strong> ${id}</p>
             <p style="margin: 8px 0; color: #333;"><strong>💰 Amount Paid:</strong> ₹${amountInRupees}</p>
           </div>
 
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-            <h3 style="color: #333; margin: 0 0 15px 0;">📅 Webinar Details</h3>
-            <p style="margin: 8px 0; color: #555;">📅 <strong>Date:</strong> July 21st-25th, 2025</p>
-            <p style="margin: 8px 0; color: #555;">🕘 <strong>Time:</strong> 9:30 AM - 10:30 AM IST (Daily)</p>
-            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 5 days, 1 hour each day</p>
-            <p style="margin: 8px 0; color: #555;">💻 <strong>Mode:</strong> Live Zoom Session</p>
+            <h3 style="color: #333; margin: 0 0 15px 0;">📅 Bootcamp Details</h3>
+            <p style="margin: 8px 0; color: #555;">📅 <strong>Date:</strong> August 4th-17th, 2025</p>
+            <p style="margin: 8px 0; color: #555;">🕘 <strong>Time:</strong> 9:30 AM - 10:30 AM IST (Mon-Fri)</p>
+            <p style="margin: 8px 0; color: #555;">⏱️ <strong>Duration:</strong> 10 days, 1 hour each day (weekdays only)</p>
+            <p style="margin: 8px 0; color: #555;">💻 <strong>Mode:</strong> Live Zoom Sessions</p>
           </div>
 
           <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
@@ -181,7 +181,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
           </div>
 
           <div style="text-align: center; margin-top: 30px; padding: 15px; background-color: #f0f8ff; border-radius: 8px;">
-            <p style="color: #1447E6; font-weight: bold; margin: 0 0 10px 0;">🚀 Get ready to master Linux for DevOps!</p>
+            <p style="color: #1447E6; font-weight: bold; margin: 0 0 10px 0;">🚀 Get ready to master Docker & Kubernetes!</p>
             <p style="color: #666; margin: 5px 0; font-size: 14px;">Need help? Contact us at <strong>info@devopscommunity.com</strong></p>
           </div>
 
@@ -189,7 +189,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
         
         <div style="text-align: center; color: #666; font-size: 12px; margin-top: 20px;">
           <p>This is an automated email. Please do not reply directly to this message.</p>
-          <p>See you in the live sessions! 🐧💻</p>
+          <p>See you in the live sessions! 🐳💻</p>
         </div>
       </div>
     `,
