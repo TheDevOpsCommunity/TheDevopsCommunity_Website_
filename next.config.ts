@@ -2,7 +2,32 @@ import type { NextConfig } from "next";
 
 const nextConfig = {
   images: {
-    domains: ['www.placehold.co', 'images.unsplash.com', 'randomuser.me', 'via.placeholder.com', 'avatar.iran.liara.run'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.placehold.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatar.iran.liara.run',
+      },
+      {
+        protocol: 'https',
+        hostname: 'portworx.com',
+      },
+    ],
   },
 };
 
