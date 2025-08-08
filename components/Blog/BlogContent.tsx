@@ -12,6 +12,10 @@ interface BlogContentProps {
 }
 
 export default function BlogContent({ content }: BlogContentProps) {
+  // Type-safe theme for SyntaxHighlighter (coerce union -> map via spread)
+            // Fallback to satisfy SyntaxHighlighter typing differences across versions
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const prismStyle = (tomorrow as unknown) as any;
 
   return (
     <div className="prose prose-lg max-w-none">
@@ -108,7 +112,7 @@ export default function BlogContent({ content }: BlogContentProps) {
           ),
           
           // Code styling
-          code: (props: any) => {
+          code: (props: React.HTMLAttributes<HTMLElement> & { inline?: boolean; className?: string; children?: React.ReactNode }) => {
             const { inline, className, children, ...rest } = props || {};
             const match = /language-(\w+)/.exec(className || '');
             const language = match ? match[1] : '';
@@ -128,7 +132,7 @@ export default function BlogContent({ content }: BlogContentProps) {
                     </button>
                   </div>
                   <SyntaxHighlighter
-                    style={tomorrow}
+                    style={prismStyle}
                     language={language}
                     PreTag="div"
                     className="!mt-0 rounded-t-none"
@@ -152,7 +156,7 @@ export default function BlogContent({ content }: BlogContentProps) {
           img: ({ src, alt }) => (
             <div className="my-8">
               <Image
-                src={src || ''}
+                src={typeof src === 'string' ? src : ''}
                 alt={alt || ''}
                 width={800}
                 height={400}
