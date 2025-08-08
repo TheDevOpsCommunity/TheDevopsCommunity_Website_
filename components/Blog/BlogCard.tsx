@@ -54,10 +54,10 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
         {/* Cover Image */}
         <div className="relative w-full h-48 overflow-hidden">
           <Image
-            src={blog.cover_image}
+            src="/Gemini_Generated_Image.png"
             alt={blog.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />

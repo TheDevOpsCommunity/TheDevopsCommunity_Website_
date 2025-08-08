@@ -30,10 +30,10 @@ export default function BlogHero({ blog }: BlogHeroProps) {
       {/* Cover Image */}
       <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden">
         <Image
-          src={blog.cover_image}
+          src="/Gemini_Generated_Image.png"
           alt={blog.title}
           fill
-          className="object-cover"
+          className="object-cover object-bottom"
           priority
           sizes="100vw"
         />
