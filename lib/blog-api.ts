@@ -1,7 +1,5 @@
 import { BlogPost, BlogApiResponse } from "@/types/blog";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
-
 // For development, we'll use mock data
 // In production, these would make actual API calls
 export async function getAllBlogs(): Promise<BlogApiResponse> {

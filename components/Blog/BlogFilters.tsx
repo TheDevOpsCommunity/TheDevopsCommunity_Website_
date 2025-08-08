@@ -131,7 +131,7 @@ export default function BlogFilters({
               animate={{ opacity: 1, scale: 1 }}
               className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium"
             >
-              "{searchQuery}"
+              &quot;{searchQuery}&quot;
               <button
                 onClick={() => onSearchChange("")}
                 className="ml-1 hover:bg-green-200 rounded-full p-0.5 transition-colors"

@@ -58,7 +58,7 @@ const EmptyState = () => (
     </div>
     <h3 className="text-2xl font-bold text-blue-900 mb-2">No Blog Posts Found</h3>
     <p className="text-neutral-600 text-center max-w-md mb-6">
-      We couldn't find any blog posts matching your criteria. Try adjusting your filters or check back later for new content.
+      We couldn&apos;t find any blog posts matching your criteria. Try adjusting your filters or check back later for new content.
     </p>
     <button
       onClick={() => window.location.reload()}

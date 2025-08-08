@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { CalendarIcon, ClockIcon, UserIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { BlogPost } from "@/types/blog";
-import { formatDate, getRelativeTime } from "@/lib/blog-api";
+import { getRelativeTime } from "@/lib/blog-api";
 
 interface BlogHeroProps {
   blog: BlogPost;
