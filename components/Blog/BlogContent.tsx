@@ -108,7 +108,8 @@ export default function BlogContent({ content }: BlogContentProps) {
           ),
           
           // Code styling
-          code: ({ inline, className, children, ...props }) => {
+          code: (props: any) => {
+            const { inline, className, children, ...rest } = props || {};
             const match = /language-(\w+)/.exec(className || '');
             const language = match ? match[1] : '';
             
@@ -132,7 +133,7 @@ export default function BlogContent({ content }: BlogContentProps) {
                     PreTag="div"
                     className="!mt-0 rounded-t-none"
                     showLineNumbers={true}
-                    {...props}
+                    {...rest}
                   >
                     {String(children).replace(/\n$/, '')}
                   </SyntaxHighlighter>
@@ -141,7 +142,7 @@ export default function BlogContent({ content }: BlogContentProps) {
             }
             
             return (
-              <code className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono" {...props}>
+              <code className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono" {...rest}>
                 {children}
               </code>
             );
