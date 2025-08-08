@@ -60,10 +60,7 @@ export async function GET(request: NextRequest) {
       category: blog.category,
       published_at: blog.published_at,
       reading_time: blog.reading_time,
-      cover_image: blog.cover_image,
       content: blog.content,
-      code_snippets: blog.code_snippets || [],
-      images: blog.images || [],
       tags: blog.tags || [],
       authors: blog.authors || []
     }));

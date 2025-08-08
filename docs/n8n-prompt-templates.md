@@ -16,7 +16,6 @@ You are an expert technical writer. Create a comprehensive blog post about "{{TO
 - Summary: 150-200 characters, value-focused, no ending period
 - Content: 1000+ words in markdown format with H1/H2/H3 structure
 - Reading Time: Calculate as (word_count ÷ 200) rounded up
-- Code Snippets: 3-4 practical examples with language, code, and description
 - Tags: 5-7 relevant tags with proper capitalization
 - Authors: ["{{AUTHOR_TYPE}}"]
 
@@ -143,19 +142,16 @@ try {
     "Content-Type": "application/json",
     "Prefer": "return=representation"
   },
-  "body": {
-    "title": "{{$json.title}}",
-    "slug": "{{$json.slug}}",
-    "summary": "{{$json.summary}}",
-    "category": "{{$json.category}}",
-    "content": "{{$json.content}}",
-    "reading_time": "{{$json.reading_time}}",
-    "cover_image": "https://portworx.com/wp-content/uploads/2022/10/kubernetes-k8s-portworx-overview-1.png",
-    "code_snippets": "{{JSON.stringify($json.code_snippets)}}",
-    "images": "[]",
-    "tags": "{{JSON.stringify($json.tags)}}",
-    "authors": "{{JSON.stringify($json.authors)}}"
-  }
+      "body": {
+      "title": "{{$json.title}}",
+      "slug": "{{$json.slug}}",
+      "summary": "{{$json.summary}}",
+      "category": "{{$json.category}}",
+      "content": "{{$json.content}}",
+      "reading_time": "{{$json.reading_time}}",
+      "tags": "{{JSON.stringify($json.tags)}}",
+      "authors": "{{JSON.stringify($json.authors)}}"
+    }
 }
 ```
 

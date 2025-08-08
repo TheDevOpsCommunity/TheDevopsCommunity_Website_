@@ -6,14 +6,7 @@ export interface BlogPost {
   category: string;
   published_at: string;
   reading_time: number;
-  cover_image: string;
   content: string;
-  code_snippets: Array<{
-    language: string;
-    code: string;
-    description?: string;
-  }>;
-  images: string[];
   tags: string[];
   authors: string[];
 }

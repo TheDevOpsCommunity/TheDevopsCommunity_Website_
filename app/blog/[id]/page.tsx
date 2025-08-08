@@ -8,7 +8,6 @@ import { getBlogById } from "@/lib/blog-api";
 import BlogHero from "@/components/Blog/BlogHero";
 import BlogContent from "@/components/Blog/BlogContent";
 import BlogMeta from "@/components/Blog/BlogMeta";
-import CodeBlock from "@/components/Blog/CodeBlock";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import ErrorMessage from "@/components/ui/error-message";
 
@@ -97,41 +96,6 @@ export default function BlogDetailPage() {
           >
             <div className="bg-white rounded-2xl shadow-lg border border-blue-100 p-8 md:p-12">
               <BlogContent content={blog.content} />
-
-              {/* Code Snippets Section */}
-              {blog.code_snippets && blog.code_snippets.length > 0 && (
-                <div className="mt-12 pt-8 border-t border-gray-200">
-                  <h2 className="text-2xl font-bold text-blue-900 mb-6">Code Examples</h2>
-                  <div className="space-y-6">
-                    {blog.code_snippets.map((snippet, index) => (
-                      <CodeBlock
-                        key={index}
-                        language={snippet.language}
-                        code={snippet.code}
-                        description={snippet.description}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Additional Images */}
-              {blog.images && blog.images.length > 0 && (
-                <div className="mt-12 pt-8 border-t border-gray-200">
-                  <h2 className="text-2xl font-bold text-blue-900 mb-6">Additional Resources</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {blog.images.map((image, index) => (
-                      <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                        <img
-                          src={image}
-                          alt={`Resource ${index + 1}`}
-                          className="w-full h-48 object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </motion.div>
 

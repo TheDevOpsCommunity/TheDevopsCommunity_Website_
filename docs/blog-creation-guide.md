@@ -16,9 +16,6 @@ Your Supabase `blog_posts` table has the following structure:
 
 ### Optional Fields
 - `reading_time` (INTEGER) - Estimated minutes to read
-- `cover_image` (TEXT) - URL to cover image
-- `code_snippets` (JSONB) - Array of code examples
-- `images` (JSONB) - Array of image URLs used in content
 - `tags` (TEXT[]) - Array of relevant tags
 - `authors` (TEXT[]) - Array of author names
 
@@ -125,45 +122,7 @@ Summarize key takeaways and next steps.
 // 800 words = 4 minutes
 ```
 
-### 7. Code Snippets Format (JSONB Array)
-```json
-[
-  {
-    "language": "dockerfile",
-    "code": "FROM node:18-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci --only=production\nCOPY . .\nEXPOSE 3000\nCMD [\"npm\", \"start\"]",
-    "description": "Basic Node.js Dockerfile"
-  },
-  {
-    "language": "yaml", 
-    "code": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: my-app",
-    "description": "Kubernetes deployment configuration"
-  }
-]
-```
-
-**Supported Languages:**
-- `bash`, `shell`, `zsh`
-- `javascript`, `typescript`, `nodejs`
-- `python`, `python3`
-- `yaml`, `yml`
-- `json`
-- `dockerfile`
-- `sql`, `postgresql`
-- `terraform`, `hcl`
-- `go`, `golang`
-- `java`
-- `csharp`, `c#`
-
-### 8. Images Array Format
-```json
-[
-  "https://portworx.com/wp-content/uploads/2022/10/kubernetes-k8s-portworx-overview-1.png",
-  "https://example.com/diagram1.png",
-  "https://example.com/architecture.png"
-]
-```
-
-### 9. Tags Array (5-7 tags recommended)
+### 7. Tags Array (5-7 tags recommended)
 ```json
 ["Docker", "Containerization", "DevOps", "CI/CD", "Kubernetes", "AWS"]
 ```
@@ -175,7 +134,7 @@ Summarize key takeaways and next steps.
 - Include cloud providers when relevant
 - Add skill level if applicable (Beginner, Advanced)
 
-### 10. Authors Array
+### 8. Authors Array
 ```json
 ["DevOps Expert", "Cloud Architecture Team", "AI Assistant"]
 ```
@@ -191,10 +150,7 @@ INSERT INTO blog_posts (
   summary, 
   category, 
   reading_time, 
-  cover_image, 
   content, 
-  code_snippets, 
-  images, 
   tags, 
   authors
 ) VALUES (
@@ -203,10 +159,7 @@ INSERT INTO blog_posts (
   'Your compelling summary here that explains the value proposition',
   'DevOps',  -- Must match predefined categories
   8,         -- Reading time in minutes
-  'https://portworx.com/wp-content/uploads/2022/10/kubernetes-k8s-portworx-overview-1.png',
   'Your full markdown content here...',
-  '[{"language": "bash", "code": "echo hello", "description": "Example command"}]'::jsonb,
-  '["https://example.com/image1.png"]'::jsonb,
   ARRAY['Docker', 'DevOps', 'Containerization'],
   ARRAY['DevOps Expert']
 );
