@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { CalendarIcon, ClockIcon, UserIcon } from "@heroicons/react/24/outline";
 import { BlogPost } from "@/types/blog";
 import { formatDate, getRelativeTime } from "@/lib/blog-api";
+import { Poppins } from "next/font/google";
 
 interface BlogCardProps {
   blog: BlogPost;
@@ -35,6 +36,8 @@ const getCategoryColor = (category: string) => {
   return colors[category as keyof typeof colors] || "bg-gray-100 text-gray-700 border-gray-200";
 };
 
+const headingFont = Poppins({ subsets: ["latin"], weight: ["700", "800", "900"] });
+
 export default function BlogCard({ blog, index }: BlogCardProps) {
   return (
     <motion.div
@@ -60,7 +63,8 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
             className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/40 via-transparent to-transparent" />
           
           {/* Category Badge */}
           <div className="absolute top-4 left-4">
@@ -75,6 +79,22 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
               <ClockIcon className="w-3 h-3" />
               {blog.reading_time} min read
             </span>
+          </div>
+
+          {/* Blog Title Overlay */}
+          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pr-8">
+            <div className="relative max-w-[85%] md:max-w-[70%]">
+              {/* Accent glow behind text */}
+              <div className="absolute -inset-3 rounded-2xl bg-gradient-to-r from-sky-400/30 via-blue-500/25 to-transparent blur-md -z-20" />
+              {/* Glass backdrop */}
+              <div className="absolute inset-0 -z-10 rounded-xl bg-slate-900/30 backdrop-blur-[3px] ring-1 ring-white/15 shadow-[0_12px_32px_rgba(2,6,23,0.35)]" />
+
+              <h3
+                className={`${headingFont.className} text-transparent bg-clip-text bg-gradient-to-r from-sky-100 via-blue-100 to-sky-50 font-extrabold text-lg md:text-2xl leading-snug line-clamp-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]`}
+              >
+                {blog.title.length > 52 ? `${blog.title.substring(0, 52)}...` : blog.title}
+              </h3>
+            </div>
           </div>
         </div>
 
