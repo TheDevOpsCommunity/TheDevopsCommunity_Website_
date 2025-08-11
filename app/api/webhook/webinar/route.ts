@@ -193,7 +193,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
               <div style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Dates</div>
-                  <div style="color: #212529; font-size: 15px; font-weight: 600;">August 4th-17th, 2025</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">22nd August - 4th September, 2025</div>
                 </div>
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background-color: #ffffff;">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Time</div>

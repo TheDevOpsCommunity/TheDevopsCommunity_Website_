@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FaAws, FaAngleRight, FaChartBar } from "react-icons/fa";
+import { FaAws, FaAngleRight } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
 
 const courses = [
@@ -24,15 +24,7 @@ const courses = [
     link: "/courses/azure-devops",
     tags: ["Azure", "DevOps", "Pipelines", "ARM Templates", "Security"],
   },
-  {
-    id: "data-analyst",
-    title: "Data Analyst Certification Course",
-    description: "Master data analysis with SQL, Python, Power BI, and ETL processes. Learn to extract insights from data and create compelling visualizations for business intelligence.",
-    icon: <FaChartBar className="text-green-600 w-12 h-12" />,
-    image: "/data-analyst.png", 
-    link: "/courses/data-analyst",
-    tags: ["SQL", "Python", "Power BI", "ETL", "Azure", "Data Analysis"],
-  },
+
   // Add more courses here if needed
 ];
 
@@ -65,7 +57,7 @@ export default function CoursesPage() {
             Our Professional Courses
           </h1>
           <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
-            Accelerate your career with our industry-leading DevOps and Data Analysis courses, designed by experts for all skill levels.
+            Accelerate your career with our industry-leading DevOps courses, designed by experts for all skill levels.
           </p>
         </motion.div>
 
@@ -84,9 +76,8 @@ export default function CoursesPage() {
                 <Image
                   src={course.image}
                   alt={course.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                  <div className="absolute top-4 right-4 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg">
