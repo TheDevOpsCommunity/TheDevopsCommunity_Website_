@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "motion/react";
+
 import { BlogPost } from "@/types/blog";
 import { getBlogById } from "@/lib/blog-api";
 import BlogHero from "@/components/Blog/BlogHero";
@@ -56,6 +57,51 @@ export default function BlogDetailPage() {
     return () => window.removeEventListener('scroll', updateProgress);
   }, []);
 
+  // Set meta tags for social sharing - always call useEffect  
+  useEffect(() => {
+    if (!blog) return; // Early return if no blog data
+    
+    // Update document title
+    document.title = `${blog.title} | DevOps Community Blog`;
+    
+    // Get current URL for meta tags
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+    
+    // Update meta tags
+    const updateMetaTag = (property: string, content: string) => {
+      let element = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        if (property.startsWith('og:') || property.startsWith('twitter:')) {
+          element.setAttribute('property', property);
+        } else {
+          element.setAttribute('name', property);
+        }
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    // Basic meta tags
+    updateMetaTag('description', blog.summary);
+    
+    // Open Graph tags
+    updateMetaTag('og:type', 'article');
+    updateMetaTag('og:title', blog.title);
+    updateMetaTag('og:description', blog.summary);
+    updateMetaTag('og:url', currentUrl);
+    updateMetaTag('og:image', `${window.location.origin}/Gemini_Generated_Image.png`);
+    updateMetaTag('og:site_name', 'DevOps Community');
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
+    
+    // Twitter tags
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', blog.title);
+    updateMetaTag('twitter:description', blog.summary);
+    updateMetaTag('twitter:image', `${window.location.origin}/Gemini_Generated_Image.png`);
+  }, [blog]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 flex items-center justify-center">
@@ -81,8 +127,8 @@ export default function BlogDetailPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 pt-20 md:pt-24">
-      {/* Hero Section */}
-      <BlogHero blog={blog} />
+        {/* Hero Section */}
+        <BlogHero blog={blog} />
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -104,7 +150,7 @@ export default function BlogDetailPage() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="lg:w-1/3"
+            className="lg:w-1/3 space-y-6"
           >
             <BlogMeta blog={blog} />
           </motion.div>

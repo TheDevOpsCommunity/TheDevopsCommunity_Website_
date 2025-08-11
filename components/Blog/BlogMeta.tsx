@@ -1,16 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { CalendarIcon, ClockIcon, UserIcon, TagIcon } from "@heroicons/react/24/outline";
 import { BlogPost } from "@/types/blog";
 import { formatDate } from "@/lib/blog-api";
+import ShareButtons from "./ShareButtons";
 
 interface BlogMetaProps {
   blog: BlogPost;
 }
 
 export default function BlogMeta({ blog }: BlogMetaProps) {
+  const [readingProgress, setReadingProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrolled = window.scrollY;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const progress = Math.min(100, Math.max(0, (scrolled / maxScroll) * 100));
+      setReadingProgress(progress);
+    };
+
+    window.addEventListener('scroll', updateProgress);
+    updateProgress(); // Initial calculation
+
+    return () => window.removeEventListener('scroll', updateProgress);
+  }, []);
+
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -75,37 +94,13 @@ export default function BlogMeta({ blog }: BlogMetaProps) {
       </div>
 
       {/* Share Section */}
-      <div className="border-t border-gray-100 pt-6">
+      <div className="mb-6">
         <h4 className="text-lg font-bold text-blue-900 mb-3">Share Article</h4>
-        <div className="flex gap-3">
-          <button
-            onClick={() => {
-              const url = window.location.href;
-              const text = `Check out this article: ${blog.title}`;
-              if (navigator.share) {
-                navigator.share({ title: blog.title, text, url });
-              } else {
-                navigator.clipboard.writeText(url);
-                alert("Link copied to clipboard!");
-              }
-            }}
-            className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-          >
-            Share
-          </button>
-          
-          <button
-            onClick={() => {
-              const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                `Check out this article: ${blog.title}`
-              )}&url=${encodeURIComponent(window.location.href)}`;
-              window.open(url, '_blank', 'width=550,height=420');
-            }}
-            className="flex-1 bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors text-sm font-medium"
-          >
-            Tweet
-          </button>
-        </div>
+        <ShareButtons 
+          url={currentUrl}
+          title={blog.title}
+          description={blog.summary}
+        />
       </div>
 
       {/* Reading Progress */}
@@ -114,16 +109,11 @@ export default function BlogMeta({ blog }: BlogMetaProps) {
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
             className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
-            style={{
-              width: `${Math.min(
-                100,
-                Math.max(0, (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100)
-              )}%`
-            }}
+            style={{ width: `${readingProgress}%` }}
           />
         </div>
         <p className="text-xs text-neutral-500 mt-2">
-          Scroll to track your progress
+          {Math.round(readingProgress)}% completed
         </p>
       </div>
     </motion.div>
