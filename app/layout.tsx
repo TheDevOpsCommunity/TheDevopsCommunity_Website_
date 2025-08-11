@@ -29,6 +29,30 @@ export const metadata: Metadata = {
   icons: {
     icon: '/dc_logo.svg',
   },
+  openGraph: {
+    title: "DevOps Community",
+    description: "Master Your DevOps Career",
+    siteName: "DevOps Community",
+    locale: "en_US",
+    type: "website",
+    url: "https://devops-community.com",
+    images: [
+      {
+        url: "/dc_logo.svg",
+        width: 128,
+        height: 128,
+        alt: "DevOps Community Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    site: "@devops-community",
+    creator: "@devops-community",
+    title: "DevOps Community",
+    description: "Master Your DevOps Career",
+    images: ["/dc_logo.svg"],
+  },
 };
 
 export default function RootLayout({

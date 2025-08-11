@@ -84,8 +84,9 @@ export default function BlogDetailPage() {
 
     // Basic meta tags
     updateMetaTag('description', blog.summary);
+    updateMetaTag('author', blog.authors.join(', '));
     
-    // Open Graph tags
+    // Open Graph tags for rich link previews
     updateMetaTag('og:type', 'article');
     updateMetaTag('og:title', blog.title);
     updateMetaTag('og:description', blog.summary);
@@ -94,12 +95,27 @@ export default function BlogDetailPage() {
     updateMetaTag('og:site_name', 'DevOps Community');
     updateMetaTag('og:image:width', '1200');
     updateMetaTag('og:image:height', '630');
+    updateMetaTag('og:image:alt', blog.title);
+    updateMetaTag('og:locale', 'en_US');
     
-    // Twitter tags
+    // Article specific tags
+    updateMetaTag('article:author', blog.authors.join(', '));
+    updateMetaTag('article:published_time', blog.published_at);
+    updateMetaTag('article:section', 'DevOps');
+    updateMetaTag('article:tag', blog.tags.join(', '));
+    
+    // Twitter Card tags for Twitter sharing
     updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:site', '@devops_community');
+    updateMetaTag('twitter:creator', '@devops_community');
     updateMetaTag('twitter:title', blog.title);
     updateMetaTag('twitter:description', blog.summary);
     updateMetaTag('twitter:image', `${window.location.origin}/Gemini_Generated_Image.png`);
+    updateMetaTag('twitter:image:alt', blog.title);
+    
+    // Additional meta tags for better SEO and sharing
+    updateMetaTag('robots', 'index, follow');
+    updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
   }, [blog]);
 
   if (loading) {
