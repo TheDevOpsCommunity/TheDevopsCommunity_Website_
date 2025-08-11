@@ -91,10 +91,10 @@ export default function BlogDetailPage() {
     updateMetaTag('og:title', blog.title);
     updateMetaTag('og:description', blog.summary);
     updateMetaTag('og:url', currentUrl);
-    updateMetaTag('og:image', `${window.location.origin}/Gemini_Generated_Image.png`);
+    updateMetaTag('og:image', `${window.location.origin}/blue.png`);
     updateMetaTag('og:site_name', 'DevOps Community');
-    updateMetaTag('og:image:width', '1200');
-    updateMetaTag('og:image:height', '630');
+    updateMetaTag('og:image:width', '1536');
+    updateMetaTag('og:image:height', '1024');
     updateMetaTag('og:image:alt', blog.title);
     updateMetaTag('og:locale', 'en_US');
     
@@ -110,7 +110,7 @@ export default function BlogDetailPage() {
     updateMetaTag('twitter:creator', '@devops_community');
     updateMetaTag('twitter:title', blog.title);
     updateMetaTag('twitter:description', blog.summary);
-    updateMetaTag('twitter:image', `${window.location.origin}/Gemini_Generated_Image.png`);
+    updateMetaTag('twitter:image', `${window.location.origin}/blue.png`);
     updateMetaTag('twitter:image:alt', blog.title);
     
     // Additional meta tags for better SEO and sharing

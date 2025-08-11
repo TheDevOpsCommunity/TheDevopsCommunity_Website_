@@ -38,20 +38,20 @@ export const metadata: Metadata = {
     url: "https://devops-community.com",
     images: [
       {
-        url: "/dc_logo.svg",
-        width: 128,
-        height: 128,
-        alt: "DevOps Community Logo",
+        url: "/blue.png",
+        width: 1536,
+        height: 1024,
+        alt: "DevOps Community - Master Your DevOps Career",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     site: "@devops-community",
     creator: "@devops-community",
     title: "DevOps Community",
     description: "Master Your DevOps Career",
-    images: ["/dc_logo.svg"],
+    images: ["/blue.png"],
   },
 };
 
