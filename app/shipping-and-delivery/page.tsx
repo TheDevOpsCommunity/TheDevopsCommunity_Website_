@@ -56,7 +56,7 @@ export default function ShippingAndDelivery() {
         <section>
           <h2 className="text-2xl font-semibold mb-3">Customer Support</h2>
           <p className="mb-4">
-            If you experience any issues accessing your purchased content, please contact our support team at <a href="mailto:[Your Support Email]" className="text-blue-600 hover:underline">[Your Support Email]</a>. We&apos;re here to help ensure you have a smooth learning experience.
+            If you experience any issues accessing your purchased content, please contact our support team at <a href="mailto:frontdesk@thedevopscommunity.com" className="text-blue-600 hover:underline">frontdesk@thedevopscommunity.com</a>. We&apos;re here to help ensure you have a smooth learning experience.
           </p>
         </section>
       </div>
