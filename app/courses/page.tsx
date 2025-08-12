@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "motion/react";
 import { FaAws, FaAngleRight } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
@@ -11,7 +10,6 @@ const courses = [
     title: "AWS DevOps Certification Course",
     description: "Master DevOps principles and tools on the AWS cloud. From CI/CD pipelines to Infrastructure as Code, become a certified AWS DevOps Engineer.",
     icon: <FaAws className="text-orange-500 w-12 h-12" />,
-    image: "/aws.png", 
     link: "/courses/aws-devops",
     tags: ["AWS", "DevOps", "CI/CD", "Terraform", "Kubernetes"],
   },
@@ -20,7 +18,6 @@ const courses = [
     title: "Azure DevOps with Azure Admin",
     description: "Gain expertise in Azure cloud services, networking, and build robust DevOps pipelines using Azure DevOps tools and best practices.",
     icon: <VscAzure className="text-blue-600 w-12 h-12" />,
-    image: "/azure.png", 
     link: "/courses/azure-devops",
     tags: ["Azure", "DevOps", "Pipelines", "ARM Templates", "Security"],
   },
@@ -62,7 +59,8 @@ export default function CoursesPage() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {courses.map((course, index) => (
+          {courses.map((course, index) => {
+            return (
             <motion.div
               key={course.id}
               custom={index}
@@ -70,44 +68,59 @@ export default function CoursesPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-blue-100 hover:border-blue-300 transition-all duration-300 flex flex-col group"
+              className="relative transition-all duration-300 group hover:-translate-y-0.5"
             >
-              <div className="relative w-full h-56 sm:h-64 overflow-hidden">
-                <Image
-                  src={course.image}
-                  alt={course.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                 <div className="absolute top-4 right-4 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg">
-                  {course.icon}
-                </div>
-              </div>
+              {/* Aura to add visual weight without loud colors */}
+              <div className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-b from-blue-300/25 via-blue-200/10 to-transparent blur-xl opacity-70 group-hover:opacity-90 transition-opacity" />
 
-              <div className="p-6 flex flex-col flex-grow">
-                <h2 className="text-2xl font-semibold text-blue-900 mb-2 leading-tight">
-                  {course.title}
-                </h2>
-                <p className="text-neutral-600 text-sm mb-4 flex-grow line-clamp-3">
+              {/* Compact blue-themed card */}
+              <div className="relative bg-white rounded-2xl border border-blue-200/70 shadow-[0_8px_24px_rgba(30,64,175,0.08)] hover:shadow-[0_14px_36px_rgba(30,64,175,0.12)] p-5">
+                {/* Subtle top accent */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 rounded-t-2xl" />
+                {/* Header row: icon + title */}
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-700 ring-1 ring-blue-200 shadow-inner">
+                    {course.icon}
+                  </div>
+                  <h2 className="text-xl md:text-2xl font-black text-blue-900 leading-tight tracking-tight">
+                    {course.title}
+                  </h2>
+                </div>
+                
+                {/* Description */}
+                <p className="text-neutral-700 text-[0.95rem] mb-4 leading-relaxed">
                   {course.description}
                 </p>
+                
+                {/* Tags */}
                 <div className="mb-4">
-                  {course.tags.map((tag) => (
-                    <span key={tag} className="inline-block bg-blue-100 text-blue-700 text-xs font-medium mr-2 mb-2 px-2.5 py-1 rounded-full">
-                      {tag}
-                    </span>
-                  ))}
+                  <div className="mb-2 text-[0.8rem] font-semibold text-blue-900/80">Key skills you learn</div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {course.tags.map((tag, index) => (
+                      <span 
+                        key={tag} 
+                        className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border transition-colors duration-200 shadow-sm ${
+                          index === 0 ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white text-neutral-600 border-neutral-200'
+                        } hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+                
+                {/* CTA */}
                 <Link href={course.link} passHref>
-                  <button className="mt-auto w-full bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition-colors duration-300 flex items-center justify-center gap-2 group/button cursor-pointer z-20">
-                    View Details
+                  <button className="mt-2 w-full rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-5 transition-colors flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(30,64,175,0.25)]">
+                    <span>View Details</span>
                     <FaAngleRight className="transition-transform duration-300 group-hover/button:translate-x-1" />
                   </button>
                 </Link>
               </div>
+              
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </motion.div>
     </main>
