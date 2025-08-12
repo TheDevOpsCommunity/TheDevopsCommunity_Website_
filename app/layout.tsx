@@ -3,7 +3,8 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { NavbarTop } from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import WebinarPopup from "@/components/WebinarPopup/WebinarPopup"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -73,6 +74,7 @@ export default function RootLayout({
           </div>
         </main>
         <Footer />
+        <WebinarPopup showOnPages={['/', '/blog']} delay={5000} />
       </body>
     </html>
   );

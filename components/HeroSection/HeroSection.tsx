@@ -375,10 +375,15 @@ export function HeroSectionOne() {
                 </div>
                 <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
-                  Master containerization and orchestration for DevOps excellence. Comprehensive 2-week bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. Only ₹2,999 for complete training!
+                  Master containerization and orchestration for DevOps excellence. Comprehensive 2-week bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. 
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-gray-500 line-through">₹5,999</span>
+                    <span className="text-green-600 font-bold text-lg">₹2,999</span>
+                    <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">50% OFF</span>
+                  </div>
                 </div>
                                   <div className="text-sm text-blue-600 font-medium">
-                    🕘 9:30 AM - 10:30 AM IST (Mon-Fri, 1 hour each day)
+                                             🕘 10:00 AM - 11:00 AM IST (Mon-Fri, 1 hour each day)
                   </div>
               </div>
               <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">

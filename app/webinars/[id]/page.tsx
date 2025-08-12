@@ -26,7 +26,7 @@ function DetailCard({ heading, items }: { heading: string; items: string[] }) {
   );
 }
 
-function InfoCard({ icon, title, value }: { icon: React.ReactNode; title: string; value: string }) {
+function InfoCard({ icon, title, value }: { icon: React.ReactNode; title: string; value: string | React.ReactNode }) {
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3 hover:bg-blue-100 transition-colors">
       <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
@@ -53,9 +53,11 @@ export default function WebinarDetailsPage() {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
       isLive: true,
       date: "22nd August - 4th September, 2025",
-      time: "9:30 AM - 10:30 AM IST (Mon-Fri)",
+      time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
       duration: "2 weeks, 1 hour each day (weekdays only)",
       fee: "₹2,999",
+      originalPrice: "₹5,999",
+      discount: "50% OFF",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
       speaker: {
@@ -138,7 +140,7 @@ export default function WebinarDetailsPage() {
       title: "Linux for DevOps – 5-Day Live Demo",
       isLive: false,
       date: "July 21st-25th, 2025",
-      time: "9:30 AM - 10:30 AM IST (Daily)",
+      time: "10:00 AM - 11:00 AM IST (Daily)",
       duration: "5 days, 1 hour each day",
       fee: "₹499",
       mode: "Live Zoom Sessions",
@@ -196,39 +198,39 @@ export default function WebinarDetailsPage() {
       descriptionWords: "Master Linux from scratch for DevOps roles. This comprehensive 5-day live webinar series covers everything from basic commands to advanced shell scripting for DevOps automation, with 1 hour of hands-on learning each day.",
     },
     "devops-roadmap-2025": {
-      title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
+  title: "DevOps Roadmap Webinar – Build a Career That Scales in 2025",
       isLive: false,
-      date: "May 30, 2025",
-      time: "10:00 AM IST",
-      duration: "2 hours",
+  date: "May 30, 2025",
+  time: "10:00 AM IST",
+  duration: "2 hours",
       fee: "Free",
       mode: "Live Zoom Session",
       subheading: "A 2-hour live masterclass for complete career clarity",
-      speaker: {
-        name: "DevOps Expert",
+  speaker: {
+    name: "DevOps Expert",
       },
       description: `A comprehensive masterclass designed to give you complete clarity on the DevOps career path, tools, and job strategy — even if you're just starting out.`,
       details: [
         {
           heading: "🎯 Key Takeaways",
           items: [
-            "The 2025 DevOps Roadmap — What to learn, in what order",
-            "Key tools explained: Git, Docker, Jenkins, Kubernetes, Terraform, AWS",
-            "How to structure real-world DevOps projects that get you noticed",
-            "How to write a DevOps resume that clears ATS",
-            "The exact way to optimize your LinkedIn profile to attract recruiters",
-            "How to showcase skills on GitHub (with examples)",
-            "DevOps interview structure and top questions",
+    "The 2025 DevOps Roadmap — What to learn, in what order",
+    "Key tools explained: Git, Docker, Jenkins, Kubernetes, Terraform, AWS",
+    "How to structure real-world DevOps projects that get you noticed",
+    "How to write a DevOps resume that clears ATS",
+    "The exact way to optimize your LinkedIn profile to attract recruiters",
+    "How to showcase skills on GitHub (with examples)",
+    "DevOps interview structure and top questions",
             "Emerging trends: AI + Prompt Engineering in DevOps",
           ],
         },
         {
           heading: "👤 Who Was This For?",
           items: [
-            "Freshers exploring cloud/DevOps careers",
-            "Professionals restarting after a break",
-            "Testers, Support Engineers & Sysadmins moving to DevOps",
-            "Working professionals switching domains",
+    "Freshers exploring cloud/DevOps careers",
+    "Professionals restarting after a break",
+    "Testers, Support Engineers & Sysadmins moving to DevOps",
+    "Working professionals switching domains",
             "Developers moving into platform, automation, or SRE roles",
           ],
         },
@@ -245,23 +247,23 @@ export default function WebinarDetailsPage() {
   const webinar = webinars[id as keyof typeof webinars];
 
   if (!webinar) {
-    return (
-      <div className="min-h-screen bg-white text-gray-900 py-10 px-4 pt-24 md:pt-28 lg:mt-14">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col items-center justify-center text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-8"
-            >
-              <CalendarIcon className="w-20 h-20 text-blue-500 mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
+  return (
+    <div className="min-h-screen bg-white text-gray-900 py-10 px-4 pt-24 md:pt-28 lg:mt-14">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col items-center justify-center text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8"
+          >
+            <CalendarIcon className="w-20 h-20 text-blue-500 mx-auto mb-6" />
+            <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
                 Webinar Not Found
-              </h1>
-              <p className="text-xl text-neutral-700 max-w-2xl mx-auto mb-8">
+            </h1>
+            <p className="text-xl text-neutral-700 max-w-2xl mx-auto mb-8">
                 Sorry, we couldn&apos;t find the webinar you&apos;re looking for.
-              </p>
+            </p>
               <Link href="/webinars">
                 <button className="px-8 py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-base">
                   Back to Webinars
@@ -367,7 +369,19 @@ export default function WebinarDetailsPage() {
                   <InfoCard 
                     icon={<CurrencyRupeeIcon className="w-5 h-5" />}
                     title="Registration Fee"
-                    value={webinar.fee}
+                    value={
+                      (webinar as any).originalPrice ? (
+                        <div className="flex items-center gap-2">
+                          <span className="text-gray-500 line-through text-sm">{(webinar as any).originalPrice}</span>
+                          <span className="font-bold text-green-600">{webinar.fee}</span>
+                          {(webinar as any).discount && (
+                            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{(webinar as any).discount}</span>
+                          )}
+                        </div>
+                      ) : (
+                        webinar.fee
+                      )
+                    }
                   />
                 </div>
                 <div className="mt-4">
@@ -409,8 +423,8 @@ export default function WebinarDetailsPage() {
                 <div className="bg-gray-100 border border-gray-200 rounded-xl p-4 md:p-6 text-gray-600 text-base md:text-lg font-semibold text-center">
                   This webinar has been completed. <br />
                   <span className="text-sm md:text-base font-normal">Recording or summary will be available soon.</span>
-                </div>
-              </motion.div>
+            </div>
+          </motion.div>
             )}
           </div>
 

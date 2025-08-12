@@ -197,7 +197,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
                 </div>
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background-color: #ffffff;">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Time</div>
-                  <div style="color: #212529; font-size: 15px; font-weight: 600;">9:30 AM - 10:30 AM IST (Mon-Fri)</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">10:00 AM - 11:00 AM IST (Mon-Fri)</div>
                 </div>
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
@@ -446,17 +446,17 @@ export async function POST(request: Request) {
       );
     } catch (emailError) {
       logEvent('EMAIL_SEND_FAILED', {
-        requestId,
+      requestId,
         paymentId: payment.id,
         error: emailError instanceof Error ? emailError.message : 'Unknown error',
         timestamp: new Date().toISOString()
-      });
-      
+    });
+
       // Still return success to prevent Razorpay retries
-      return NextResponse.json(
+    return NextResponse.json(
         { message: 'Payment processed but email failed' },
-        { status: 200, headers: corsHeaders }
-      );
+      { status: 200, headers: corsHeaders }
+    );
     }
 
   } catch (error) {

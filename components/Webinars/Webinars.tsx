@@ -16,6 +16,8 @@ interface WebinarCard {
   time: string;
   duration?: string;
   fee?: string;
+  originalPrice?: string;
+  discount?: string;
   mode?: string;
   speaker: {
     name: string;
@@ -62,9 +64,11 @@ const webinars: WebinarCard[] = [
 ✅ Industry Expert Sessions
 ✅ Certificate of Completion`,
     date: "22nd August - 4th September, 2025",
-    time: "9:30 AM - 10:30 AM IST (Mon-Fri)",
+    time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
     duration: "2 weeks, 1 hour each day (weekdays only)",
     fee: "₹2,999",
+    originalPrice: "₹5,999",
+    discount: "50% OFF",
     mode: "Live Zoom Sessions",
     speaker: {
       name: "Kubernetes Expert",
@@ -278,7 +282,15 @@ export default function Webinars() {
                     {webinar.fee && (
                       <div className="flex items-center gap-2 text-blue-800 bg-blue-50 rounded-lg p-2">
                         <span className="text-blue-400 flex-shrink-0">💰</span>
-                        <span className="font-medium">{webinar.fee}</span>
+                        <div className="flex items-center gap-2">
+                          {webinar.originalPrice && (
+                            <span className="text-gray-500 line-through text-sm font-medium">{webinar.originalPrice}</span>
+                          )}
+                          <span className="font-bold text-green-600">{webinar.fee}</span>
+                          {webinar.discount && (
+                            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{webinar.discount}</span>
+                          )}
+                        </div>
                       </div>
                     )}
                     {webinar.mode && (
@@ -317,27 +329,27 @@ export default function Webinars() {
               </motion.div>
             ))
           ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 80 }}
-              viewport={{ once: true }}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 80 }}
+          viewport={{ once: true }}
               className="col-span-full mb-16 md:mb-20 bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-blue-200 text-center"
-            >
-              <div className="max-w-2xl mx-auto">
+        >
+          <div className="max-w-2xl mx-auto">
                 <CalendarIcon className="w-12 md:w-16 h-12 md:h-16 text-blue-500 mx-auto mb-4" />
                 <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-900 mb-4">No Webinars Currently Scheduled</h3>
                 <p className="text-base md:text-lg text-neutral-700 mb-6">
-                  We are working on bringing you valuable webinars on DevOps, cloud technologies, and career development. 
-                  Check back soon for updates on our upcoming sessions.
-                </p>
-                <Link href="/courses">
+              We are working on bringing you valuable webinars on DevOps, cloud technologies, and career development. 
+              Check back soon for updates on our upcoming sessions.
+            </p>
+            <Link href="/courses">
                   <button className="px-6 md:px-8 py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm md:text-base">
-                    Explore Our Courses
-                  </button>
-                </Link>
-              </div>
-            </motion.div>
+                Explore Our Courses
+              </button>
+            </Link>
+          </div>
+        </motion.div>
           )}
         </div>
       </div>
