@@ -5,6 +5,13 @@ import { motion, AnimatePresence } from "motion/react";
 import { XMarkIcon, CalendarIcon, ClockIcon, CurrencyRupeeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
+// Extend Window interface for gtag
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, parameters?: Record<string, unknown>) => void;
+  }
+}
+
 interface WebinarPopupProps {
   showOnPages?: string[]; // Pages where the popup should show
   delay?: number; // Delay before showing popup (in ms)
@@ -159,7 +166,7 @@ export default function WebinarPopup({
 
               {/* Features */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-800 mb-3 text-sm">What You'll Master:</h3>
+                <h3 className="font-semibold text-gray-800 mb-3 text-sm">What You&apos;ll Master:</h3>
                 <div className="grid grid-cols-1 gap-2 text-xs text-gray-600">
                   <div className="flex items-center gap-2">
                     <span className="text-green-500">✅</span>

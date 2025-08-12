@@ -8,6 +8,37 @@ import Link from "next/link";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { useState } from "react";
 
+interface WebinarDetail {
+  heading: string;
+  items: string[];
+}
+
+interface WebinarSpeaker {
+  name: string;
+}
+
+interface WebinarData {
+  title: string;
+  isLive: boolean;
+  date: string;
+  time: string;
+  duration: string;
+  fee: string;
+  originalPrice?: string;
+  discount?: string;
+  mode: string;
+  subheading: string;
+  speaker: WebinarSpeaker;
+  description: string;
+  details: WebinarDetail[];
+  registrationUrl: string;
+  registrationText: string;
+  isCompleted: boolean;
+  headingWords: string;
+  subheadingWords: string;
+  descriptionWords: string;
+}
+
 function DetailCard({ heading, items }: { heading: string; items: string[] }) {
   return (
     <div className="relative border-2 border-blue-200 rounded-3xl p-2 bg-transparent overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -48,7 +79,7 @@ export default function WebinarDetailsPage() {
   const [showContent, setShowContent] = useState(false);
 
   // Webinar data for both current and past webinars
-  const webinars = {
+  const webinars: Record<string, WebinarData> = {
     "docker-kubernetes-bootcamp": {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
       isLive: true,
@@ -370,12 +401,12 @@ export default function WebinarDetailsPage() {
                     icon={<CurrencyRupeeIcon className="w-5 h-5" />}
                     title="Registration Fee"
                     value={
-                      (webinar as any).originalPrice ? (
+                      webinar.originalPrice ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-gray-500 line-through text-sm">{(webinar as any).originalPrice}</span>
+                          <span className="text-gray-500 line-through text-sm">{webinar.originalPrice}</span>
                           <span className="font-bold text-green-600">{webinar.fee}</span>
-                          {(webinar as any).discount && (
-                            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{(webinar as any).discount}</span>
+                          {webinar.discount && (
+                            <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{webinar.discount}</span>
                           )}
                         </div>
                       ) : (
