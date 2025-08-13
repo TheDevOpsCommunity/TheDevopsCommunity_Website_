@@ -4,21 +4,21 @@ export default function TermsAndConditions() {
       <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
 
       <p className="mb-4">
-        Welcome to Our Company! These terms and conditions outline the rules and
-        regulations for the use of Our Company&apos;s Website, located at
+        Welcome to DevOps Community! These terms and conditions outline the rules and
+        regulations for the use of DevOps Community&apos;s Website, located at
         https://www.devopscommunity.com.
       </p>
 
       <p className="mb-4">
         By accessing this website we assume you accept these terms and conditions.
-        Do not continue to use Our Company if you do not agree to take all of the
+        Do not continue to use DevOps Community if you do not agree to take all of the
         terms and conditions stated on this page.
       </p>
 
       <h2 className="text-2xl font-semibold mb-3">Cookies</h2>
       <p className="mb-4">
-        We employ the use of cookies. By accessing Our Company, you agreed to use
-        cookies in agreement with the Our Company&apos;s Privacy Policy.
+        We employ the use of cookies. By accessing DevOps Community, you agreed to use
+        cookies in agreement with the DevOps Community&apos;s Privacy Policy.
       </p>
       <p className="mb-4">
         Most interactive websites use cookies to let us retrieve the user&apos;s
@@ -29,18 +29,18 @@ export default function TermsAndConditions() {
 
       <h2 className="text-2xl font-semibold mb-3">License</h2>
       <p className="mb-4">
-        Unless otherwise stated, Our Company and/or its licensors own the
-        intellectual property rights for all material on Our Company. All
-        intellectual property rights are reserved. You may access this from Our
-        Company for your own personal use subjected to restrictions set in these
+        Unless otherwise stated, DevOps Community and/or its licensors own the
+        intellectual property rights for all material on DevOps Community. All
+        intellectual property rights are reserved. You may access this from DevOps
+        Community for your own personal use subjected to restrictions set in these
         terms and conditions.
       </p>
       <p className="mb-4">You must not:</p>
       <ul className="list-disc list-inside mb-4">
-        <li>Republish material from Our Company</li>
-        <li>Sell, rent or sub-license material from Our Company</li>
-        <li>Reproduce, duplicate or copy material from Our Company</li>
-        <li>Redistribute content from Our Company</li>
+        <li>Republish material from DevOps Community</li>
+        <li>Sell, rent or sub-license material from DevOps Community</li>
+        <li>Reproduce, duplicate or copy material from DevOps Community</li>
+        <li>Redistribute content from DevOps Community</li>
       </ul>
       <p className="mb-4">This Agreement shall begin on the date hereof.</p>
 
@@ -240,6 +240,10 @@ export default function TermsAndConditions() {
         As long as the website and the information and services on the website are
         provided free of charge, we will not be liable for any loss or damage of
         any nature.
+      </p>
+      <h2 className="text-2xl font-semibold mb-3">Contact Us</h2>
+      <p className="mb-4">
+        If you have any questions about these Terms and Conditions, please contact us at <a href="mailto:frontdesk@thedevopscommunity.com" className="text-blue-600 hover:underline">frontdesk@thedevopscommunity.com</a>.
       </p>
       <p className="mb-4"><em>Last updated: 29th May 2025</em></p>
     </div>

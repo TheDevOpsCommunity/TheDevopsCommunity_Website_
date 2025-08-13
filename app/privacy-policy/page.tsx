@@ -3,7 +3,7 @@ export default function PrivacyPolicy() {
     <div className="container mx-auto px-4 py-8 mt-16">
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
       <p className="mb-4">
-        Your privacy is important to us. It is Our Company&apos;s policy to respect
+        Your privacy is important to us. It is DevOps Community&apos;s policy to respect
         your privacy regarding any information we may collect from you across
         our website, and other sites we own and operate.
       </p>
@@ -107,7 +107,7 @@ export default function PrivacyPolicy() {
       <h2 className="text-2xl font-semibold mb-3">Contact Us</h2>
       <p className="mb-4">
         If you have any questions or suggestions about our Privacy Policy, do
-        not hesitate to contact us.
+        not hesitate to contact us at <a href="mailto:frontdesk@thedevopscommunity.com" className="text-blue-600 hover:underline">frontdesk@thedevopscommunity.com</a>.
       </p>
       <p className="mb-4"><em>Last updated: 29th May 2025</em></p>
     </div>
