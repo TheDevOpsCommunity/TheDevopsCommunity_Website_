@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { FaDiscord, FaTwitter, FaGithub, FaEnvelope, FaUsers } from 'react-icons/fa';
+import { FaInstagram, FaEnvelope, FaUsers } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -38,10 +38,8 @@ export default function Footer() {
           <div>
             <div className="font-semibold text-blue-900 mb-3 text-base">Connect</div>
             <ul className="space-y-2 text-neutral-600 text-sm">
-              <li><a href="https://twitter.com/yourcommunityhandle" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaTwitter /> Twitter</a></li>
-              <li><a href="https://github.com/yourorghandle" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaGithub /> GitHub</a></li>
-              <li><a href="mailto:contact@devopscommunity.com" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaEnvelope /> Email</a></li>
-              <li><a href="https://discord.gg/yourcommunitylink" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaDiscord /> Discord</a></li>
+              <li><a href="https://www.instagram.com/devops__community/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaInstagram /> Instagram</a></li>
+              <li><a href="mailto:frontdesk@thedevopscommunity.com" className="hover:text-blue-700 hover:underline flex items-center gap-1.5"><FaEnvelope /> Support</a></li>
             </ul>
           </div>
           <div>

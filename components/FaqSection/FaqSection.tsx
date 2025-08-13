@@ -5,24 +5,29 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalTrigger } from "../ui
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import Image from "next/image";
+import Link from "next/link";
 
 const faqs = [
   {
-    question: "What is Course Site?",
-    answer: "Course Site is a platform for learning and upskilling in DevOps and Cloud technologies.",
+    question: "What is DevOps Community?",
+    answer: "DevOps Community is a platform for learning and upskilling in DevOps and Cloud technologies. We offer comprehensive courses, live webinars, and hands-on training to help you master modern DevOps practices.",
   },
   {
-    question: "Do you have refund policy?",
+    question: "What payment methods do you accept?",
     answer:
-      "Our Purchases happen through Whop. Whop has its own refund policy, which you can find on their website. We recommend reviewing their policy before making a purchase.",
+      "We accept all major payment methods through Razorpay, including credit/debit cards, UPI, net banking, and digital wallets. All payments are secure and processed instantly.",
   },
   {
-    question: "Is the community supportive?",
-    answer: "Yes, we have an active and supportive community to help you throughout your learning journey.",
+    question: "Do you provide certificates?",
+    answer: "Yes, we provide certificates of completion for all our courses and webinars. These certificates validate your learning and can be shared on professional platforms like LinkedIn.",
   },
   {
     question: "Are there live classes or just recorded content?",
-    answer: "We offer both live classes and recorded content for flexible learning.",
+    answer: "We offer both live interactive sessions and recorded content. Our webinars are conducted live with real-time Q&A, while courses include both live sessions and recorded materials for flexible learning.",
+  },
+  {
+    question: "What support do you provide?",
+    answer: "We provide comprehensive support including technical assistance, learning guidance, and career mentorship. You can reach our support team at frontdesk@thedevopscommunity.com for any queries.",
   },
 ];
 
@@ -76,7 +81,7 @@ export default function FaqSection() {
         <div className="bg-ghostwhite shadow-lg rounded-2xl p-8 flex-1 max-w-full md:max-w-none" style={{ flexBasis: '35%' }}>
           <h3 className="text-xl font-semibold mb-2 text-neutral-900">Still Have Questions?</h3>
           <p className="mb-4 text-base text-neutral-700">
-            <a href="#" className="text-blue-600 underline">Contact Us</a>, we are happy to help you
+            <Link href="/contact-us" className="text-blue-600 underline">Contact Us</Link>, we are happy to help you
           </p>
           <div className="flex items-center space-x-2 mb-6">
             <Image src="https://randomuser.me/api/portraits/women/44.jpg" alt="Portrait of user1" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" />
