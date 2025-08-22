@@ -371,7 +371,7 @@ export function HeroSectionOne() {
               <div className="flex-1 flex flex-col gap-2">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">Live</span>
-                  <span className="text-blue-700 font-semibold text-lg">22nd August - 4th September, 2025</span>
+                  <span className="text-blue-700 font-semibold text-lg">27th August - 9th September, 2025</span>
                 </div>
                 <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</div>
                 <div className="text-gray-700 mb-2 text-base max-w-xl">
