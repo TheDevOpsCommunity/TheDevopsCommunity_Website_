@@ -102,7 +102,9 @@ export default function WebinarPopup({
             <button
               onClick={handleDismiss}
               className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 
-                         transition-colors z-10 bg-white/80 backdrop-blur-sm rounded-full"
+                         transition-colors z-[10001] bg-white/90 backdrop-blur-sm rounded-full
+                         hover:bg-white shadow-lg border border-gray-200"
+              style={{ pointerEvents: 'auto' }}
             >
               <XMarkIcon className="w-5 h-5" />
             </button>
@@ -110,8 +112,8 @@ export default function WebinarPopup({
             {/* Header with gradient */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 relative overflow-hidden">
               {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-8 translate-x-8" />
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-8 -translate-x-8" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-8 translate-x-8 z-0" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-8 -translate-x-8 z-0" />
               
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-2">
@@ -137,7 +139,7 @@ export default function WebinarPopup({
                     <CalendarIcon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-700">22nd Aug - 4th Sept, 2025</span>
+                    <span className="font-medium text-gray-700">27th Aug - 9th Sept, 2025</span>
                   </div>
                 </div>
                 
