@@ -14,10 +14,17 @@ export interface BlogPost {
 export interface BlogApiResponse {
   blogs: BlogPost[];
   total: number;
+  totalPages: number;
+  currentPage: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
   categories: string[];
 }
 
 export interface BlogFilters {
   category?: string;
   search?: string;
+  page?: number;
+  limit?: number;
+  sort?: 'newest' | 'oldest' | 'title' | 'category';
 }

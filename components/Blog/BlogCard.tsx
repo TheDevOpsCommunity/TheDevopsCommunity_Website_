@@ -100,6 +100,24 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
 
         {/* Content */}
         <div className="p-6">
+          {/* Tags - Moved to top */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {blog.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center px-2.5 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full border border-blue-200 hover:bg-blue-100 transition-colors"
+              >
+                <span className="mr-1 opacity-60">#</span>
+                {tag}
+              </span>
+            ))}
+            {blog.tags.length > 3 && (
+              <span className="inline-flex items-center px-2.5 py-1 bg-gray-50 text-gray-600 text-xs font-medium rounded-full border border-gray-200">
+                +{blog.tags.length - 3} more
+              </span>
+            )}
+          </div>
+
           {/* Title */}
           <h3 className="text-xl font-bold text-blue-900 mb-3 leading-tight line-clamp-2 group-hover:text-blue-700 transition-colors">
             {blog.title}
@@ -122,23 +140,6 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
                 <span>{blog.authors[0]}</span>
               </div>
             </div>
-          </div>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {blog.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="inline-block bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
-            {blog.tags.length > 3 && (
-              <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
-                +{blog.tags.length - 3} more
-              </span>
-            )}
           </div>
 
           {/* Read More Button */}

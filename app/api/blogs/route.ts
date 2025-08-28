@@ -15,32 +15,52 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '9');
+    const sort = searchParams.get('sort') || 'newest';
 
-    // Build the query
+    // Calculate offset for pagination
+    const offset = (page - 1) * limit;
+
+    // Build the query with pagination
     let query = supabase
       .from('blog_posts')
-      .select('*')
-      .order('published_at', { ascending: false });
+      .select('*', { count: 'exact' });
+
+    // Apply sorting
+    switch (sort) {
+      case 'oldest':
+        query = query.order('published_at', { ascending: true });
+        break;
+      case 'title':
+        query = query.order('title', { ascending: true });
+        break;
+      case 'category':
+        query = query.order('category', { ascending: true }).order('published_at', { ascending: false });
+        break;
+      default: // newest
+        query = query.order('published_at', { ascending: false });
+    }
 
     // Filter by category
     if (category && category !== 'All Categories') {
       query = query.eq('category', category);
     }
 
-    // Execute the query
-    const { data: blogs, error } = await query;
+    // Execute the query to get total count first
+    const { data: allBlogs, error: countError } = await query;
 
-    if (error) {
-      console.error('Error fetching blogs from Supabase:', error);
+    if (countError) {
+      console.error('Error fetching blogs count from Supabase:', countError);
       return NextResponse.json(
         { error: 'Failed to fetch blogs' },
         { status: 500 }
       );
     }
 
-    let filteredBlogs = blogs || [];
+    let filteredBlogs = allBlogs || [];
 
-    // Client-side search filtering (since Supabase text search can be complex)
+    // Client-side search filtering
     if (search) {
       const searchTerm = search.toLowerCase();
       filteredBlogs = filteredBlogs.filter(blog =>
@@ -51,8 +71,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Apply pagination after filtering
+    const totalFiltered = filteredBlogs.length;
+    const paginatedBlogs = filteredBlogs.slice(offset, offset + limit);
+
     // Transform data to match frontend expectations
-    const transformedBlogs = filteredBlogs.map(blog => ({
+    const transformedBlogs = paginatedBlogs.map(blog => ({
       _id: blog.id,
       title: blog.title,
       slug: blog.slug,
@@ -67,7 +91,11 @@ export async function GET(request: NextRequest) {
 
     const response: BlogApiResponse = {
       blogs: transformedBlogs,
-      total: transformedBlogs.length,
+      total: totalFiltered,
+      totalPages: Math.ceil(totalFiltered / limit),
+      currentPage: page,
+      hasNextPage: page < Math.ceil(totalFiltered / limit),
+      hasPrevPage: page > 1,
       categories
     };
 
