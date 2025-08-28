@@ -34,7 +34,7 @@ export default function BlogPage() {
       const data: BlogApiResponse = await getAllBlogs({
         page: currentPage,
         limit: 9,
-        sort: sortBy as any,
+        sort: sortBy as 'newest' | 'oldest' | 'title' | 'category',
         category: selectedCategory !== "All Categories" ? selectedCategory : undefined,
         search: searchQuery || undefined,
       });

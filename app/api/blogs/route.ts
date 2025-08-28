@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Execute the query to get total count first
-    const { data: allBlogs, error: countError, count: totalCount } = await query;
+    const { data: allBlogs, error: countError } = await query;
 
     if (countError) {
       console.error('Error fetching blogs count from Supabase:', countError);
