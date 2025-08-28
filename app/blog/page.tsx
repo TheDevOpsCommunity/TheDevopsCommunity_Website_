@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { BlogPost, BlogApiResponse } from "@/types/blog";
-import { getAllBlogs, getBlogsByCategory, searchBlogs } from "@/lib/blog-api";
+import { getAllBlogs } from "@/lib/blog-api";
 import BlogGrid from "@/components/Blog/BlogGrid";
 import BlogFilters from "@/components/Blog/BlogFilters";
+import Pagination from "@/components/Blog/Pagination";
+import BackToTop from "@/components/Blog/BackToTop";
 import ErrorMessage from "@/components/ui/error-message";
 
 export default function BlogPage() {
@@ -13,80 +15,115 @@ export default function BlogPage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalBlogs, setTotalBlogs] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPrevPage, setHasPrevPage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [featuredTags, setFeaturedTags] = useState<string[]>([]);
+
+  // Fetch blogs with current filters
+  const fetchBlogs = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const data: BlogApiResponse = await getAllBlogs({
+        page: currentPage,
+        limit: 9,
+        sort: sortBy as any,
+        category: selectedCategory !== "All Categories" ? selectedCategory : undefined,
+        search: searchQuery || undefined,
+      });
+      
+      setBlogs(data.blogs);
+      setCategories(data.categories);
+      setTotalBlogs(data.total);
+      setTotalPages(data.totalPages);
+      setHasNextPage(data.hasNextPage);
+      setHasPrevPage(data.hasPrevPage);
+      
+      // Extract featured tags from all blogs for the filter
+      if (data.blogs.length > 0) {
+        const allTags = data.blogs.flatMap(blog => blog.tags);
+        const tagCounts = allTags.reduce((acc, tag) => {
+          acc[tag] = (acc[tag] || 0) + 1;
+          return acc;
+        }, {} as Record<string, number>);
+        
+        const sortedTags = Object.entries(tagCounts)
+          .sort(([,a], [,b]) => b - a)
+          .slice(0, 8)
+          .map(([tag]) => tag);
+        
+        setFeaturedTags(sortedTags);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load blogs");
+    } finally {
+      setLoading(false);
+    }
+  }, [currentPage, sortBy, selectedCategory, searchQuery]);
 
   // Fetch initial data
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data: BlogApiResponse = await getAllBlogs();
-        setBlogs(data.blogs);
-        setCategories(data.categories);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load blogs");
-      } finally {
-        setLoading(false);
-      }
+    fetchBlogs();
+  }, [fetchBlogs]);
+
+  // Listen for clear filters event from empty state
+  useEffect(() => {
+    const handleClearFilters = () => {
+      setSelectedCategory("All Categories");
+      setSearchQuery("");
+      setSortBy("newest");
+      setCurrentPage(1);
     };
 
-    fetchBlogs();
+    window.addEventListener('clearAllFilters', handleClearFilters);
+    return () => window.removeEventListener('clearAllFilters', handleClearFilters);
   }, []);
 
-  // Handle category filter
-  const handleCategoryChange = async (category: string) => {
-    try {
-      setLoading(true);
-      setError(null);
-      setSelectedCategory(category);
-      setSearchQuery(""); // Clear search when changing category
-
-      let filteredBlogs: BlogPost[];
-      if (category === "All Categories") {
-        const data: BlogApiResponse = await getAllBlogs();
-        filteredBlogs = data.blogs;
-      } else {
-        filteredBlogs = await getBlogsByCategory(category);
-      }
-
-      setBlogs(filteredBlogs);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to filter blogs");
-    } finally {
-      setLoading(false);
-    }
+  // Handle filter changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset to first page when changing category
   };
 
-  // Handle search
-  const handleSearchChange = async (query: string) => {
+  const handleSearchChange = (query: string) => {
     setSearchQuery(query);
+    setCurrentPage(1); // Reset to first page when searching
+  };
 
-    if (query.trim() === "") {
-      // If search is cleared, reload blogs for current category
-      handleCategoryChange(selectedCategory);
-      return;
-    }
+  // Debounced search effect
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      // This will trigger fetchBlogs through the useEffect dependency
+    }, 300);
 
-    try {
-      setLoading(true);
-      setError(null);
-      const searchResults = await searchBlogs(query);
-      setBlogs(searchResults);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to search blogs");
-    } finally {
-      setLoading(false);
-    }
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  const handleSortChange = (sort: string) => {
+    setSortBy(sort);
+    setCurrentPage(1); // Reset to first page when changing sort
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll to top when page changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleTagFilter = (tag: string) => {
+    setSearchQuery(tag);
+    setCurrentPage(1);
   };
 
   const handleRetry = () => {
-    if (searchQuery) {
-      handleSearchChange(searchQuery);
-    } else {
-      handleCategoryChange(selectedCategory);
-    }
+    fetchBlogs();
   };
 
   return (
@@ -116,7 +153,11 @@ export default function BlogPage() {
           onCategoryChange={handleCategoryChange}
           searchQuery={searchQuery}
           onSearchChange={handleSearchChange}
-          totalBlogs={blogs.length}
+          totalBlogs={totalBlogs}
+          sortBy={sortBy}
+          onSortChange={handleSortChange}
+          featuredTags={featuredTags}
+          onTagFilter={handleTagFilter}
         />
 
         {/* Error State */}
@@ -131,7 +172,21 @@ export default function BlogPage() {
 
         {/* Blog Grid */}
         {!error && (
-          <BlogGrid blogs={blogs} loading={loading} />
+          <>
+            <BlogGrid blogs={blogs} loading={loading} />
+            
+            {/* Pagination */}
+            {!loading && totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                hasNextPage={hasNextPage}
+                hasPrevPage={hasPrevPage}
+                onPageChange={handlePageChange}
+                loading={loading}
+              />
+            )}
+          </>
         )}
 
         {/* Featured Categories Section */}
@@ -148,6 +203,7 @@ export default function BlogPage() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {categories.filter(cat => cat !== "All Categories").map((category) => {
+                // Note: This shows the count from current page, not total count
                 const categoryCount = blogs.filter(blog => blog.category === category).length;
                 const getCategoryIcon = (cat: string) => {
                   const icons = {
@@ -203,7 +259,7 @@ export default function BlogPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={() => window.location.reload()}
+                onClick={() => fetchBlogs()}
                 className="px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-300 shadow-md hover:shadow-lg"
               >
                 Refresh for New Posts
@@ -212,7 +268,8 @@ export default function BlogPage() {
                 onClick={() => {
                   setSelectedCategory("All Categories");
                   setSearchQuery("");
-                  handleCategoryChange("All Categories");
+                  setSortBy("newest");
+                  setCurrentPage(1);
                 }}
                 className="px-6 py-3 bg-white border border-blue-700 text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-colors duration-300"
               >
@@ -222,6 +279,9 @@ export default function BlogPage() {
           </motion.div>
         )}
       </div>
+      
+      {/* Back to Top Button */}
+      <BackToTop />
     </main>
   );
 }

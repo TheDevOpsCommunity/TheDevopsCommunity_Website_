@@ -1,15 +1,23 @@
-import { BlogPost, BlogApiResponse } from "@/types/blog";
+import { BlogPost, BlogApiResponse, BlogFilters } from "@/types/blog";
 
 // For development, we'll use mock data
 // In production, these would make actual API calls
-export async function getAllBlogs(): Promise<BlogApiResponse> {
+export async function getAllBlogs(filters?: BlogFilters): Promise<BlogApiResponse> {
   try {
-    // In production, this would be:
-    // const response = await fetch(`${API_BASE_URL}/api/blogs`);
-    // return await response.json();
+    // Build query parameters
+    const params = new URLSearchParams();
+    if (filters?.page) params.append('page', filters.page.toString());
+    if (filters?.limit) params.append('limit', filters.limit.toString());
+    if (filters?.sort) params.append('sort', filters.sort);
+    if (filters?.category && filters.category !== 'All Categories') {
+      params.append('category', filters.category);
+    }
+    if (filters?.search) params.append('search', filters.search);
     
-    // For now, use mock API route
-    const response = await fetch('/api/blogs');
+    const queryString = params.toString();
+    const url = queryString ? `/api/blogs?${queryString}` : '/api/blogs';
+    
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
     }
@@ -44,28 +52,18 @@ export async function getBlogById(id: string): Promise<BlogPost> {
   }
 }
 
-export async function getBlogsByCategory(category: string): Promise<BlogPost[]> {
+export async function getBlogsByCategory(category: string, filters?: Omit<BlogFilters, 'category'>): Promise<BlogApiResponse> {
   try {
-    const response = await fetch(`/api/blogs?category=${encodeURIComponent(category)}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch blogs by category');
-    }
-    const data = await response.json();
-    return data.blogs;
+    return await getAllBlogs({ ...filters, category });
   } catch (error) {
     console.error('Error fetching blogs by category:', error);
     throw new Error('Failed to load blogs. Please try again later.');
   }
 }
 
-export async function searchBlogs(query: string): Promise<BlogPost[]> {
+export async function searchBlogs(query: string, filters?: Omit<BlogFilters, 'search'>): Promise<BlogApiResponse> {
   try {
-    const response = await fetch(`/api/blogs?search=${encodeURIComponent(query)}`);
-    if (!response.ok) {
-      throw new Error('Failed to search blogs');
-    }
-    const data = await response.json();
-    return data.blogs;
+    return await getAllBlogs({ ...filters, search: query });
   } catch (error) {
     console.error('Error searching blogs:', error);
     throw new Error('Failed to search blogs. Please try again later.');

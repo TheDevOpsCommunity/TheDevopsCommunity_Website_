@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, MagnifyingGlassIcon, FunnelIcon, Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
 
 interface BlogFiltersProps {
   categories: string[];
@@ -11,6 +11,10 @@ interface BlogFiltersProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   totalBlogs: number;
+  sortBy: string;
+  onSortChange: (sort: string) => void;
+  featuredTags?: string[];
+  onTagFilter?: (tag: string) => void;
 }
 
 export default function BlogFilters({
@@ -20,12 +24,33 @@ export default function BlogFilters({
   searchQuery,
   onSearchChange,
   totalBlogs,
+  sortBy,
+  onSortChange,
+  featuredTags = [],
+  onTagFilter,
 }: BlogFiltersProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
 
   const handleCategorySelect = (category: string) => {
     onCategoryChange(category);
     setIsDropdownOpen(false);
+  };
+
+  const handleSortSelect = (sort: string) => {
+    onSortChange(sort);
+    setIsSortDropdownOpen(false);
+  };
+
+  const sortOptions = [
+    { value: 'newest', label: 'Newest First' },
+    { value: 'oldest', label: 'Oldest First' },
+    { value: 'title', label: 'Title A-Z' },
+    { value: 'category', label: 'Category' },
+  ];
+
+  const getSortLabel = (value: string) => {
+    return sortOptions.find(option => option.value === value)?.label || 'Newest First';
   };
 
   return (
@@ -35,6 +60,30 @@ export default function BlogFilters({
       transition={{ duration: 0.5, delay: 0.2 }}
       className="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 mb-8"
     >
+      {/* Featured Tags Section */}
+      {featuredTags.length > 0 && (
+        <div className="mb-6 pb-6 border-b border-gray-100">
+          <div className="flex items-center gap-2 mb-3">
+            <FunnelIcon className="w-4 h-4 text-blue-600" />
+            <span className="text-sm font-semibold text-blue-900">Popular Tags</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {featuredTags.map((tag) => (
+              <motion.button
+                key={tag}
+                onClick={() => onTagFilter && onTagFilter(tag)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-200 hover:bg-blue-100 hover:border-blue-300 transition-all duration-200"
+              >
+                <span className="mr-1">#</span>
+                {tag}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
         {/* Search Bar */}
         <div className="relative flex-1 max-w-md">
@@ -50,49 +99,99 @@ export default function BlogFilters({
           />
         </div>
 
-        {/* Category Filter */}
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-neutral-600 whitespace-nowrap">
-            Filter by:
-          </span>
-          <div className="relative">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center justify-between gap-2 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium text-blue-700 min-w-[160px]"
-            >
-              <span>{selectedCategory}</span>
-              <ChevronDownIcon
-                className={`h-4 w-4 transition-transform ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {isDropdownOpen && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                transition={{ duration: 0.15 }}
-                className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50"
+        {/* Filters and Sorting */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          {/* Category Filter */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-neutral-600 whitespace-nowrap">
+              Category:
+            </span>
+            <div className="relative">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center justify-between gap-2 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium text-blue-700 min-w-[160px]"
               >
-                <div className="py-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => handleCategorySelect(category)}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-blue-50 transition-colors ${
-                        selectedCategory === category
-                          ? "bg-blue-50 text-blue-700 font-medium"
-                          : "text-neutral-700"
-                      }`}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
+                <span>{selectedCategory}</span>
+                <ChevronDownIcon
+                  className={`h-4 w-4 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50"
+                >
+                  <div className="py-2">
+                    {categories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => handleCategorySelect(category)}
+                        className={`w-full text-left px-4 py-2 text-sm hover:bg-blue-50 transition-colors ${
+                          selectedCategory === category
+                            ? "bg-blue-50 text-blue-700 font-medium"
+                            : "text-neutral-700"
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </div>
+
+          {/* Sort Filter */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-neutral-600 whitespace-nowrap">
+              <Bars3BottomLeftIcon className="w-4 h-4 inline mr-1" />
+              Sort:
+            </span>
+            <div className="relative">
+              <button
+                onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
+                className="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors text-sm font-medium text-gray-700 min-w-[140px]"
+              >
+                <span>{getSortLabel(sortBy)}</span>
+                <ChevronDownIcon
+                  className={`h-4 w-4 transition-transform ${
+                    isSortDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isSortDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-xl border border-gray-200 z-50"
+                >
+                  <div className="py-2">
+                    {sortOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => handleSortSelect(option.value)}
+                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                          sortBy === option.value
+                            ? "bg-gray-50 text-gray-900 font-medium"
+                            : "text-neutral-700"
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -155,11 +254,14 @@ export default function BlogFilters({
         </div>
       )}
 
-      {/* Click outside to close dropdown */}
-      {isDropdownOpen && (
+      {/* Click outside to close dropdowns */}
+      {(isDropdownOpen || isSortDropdownOpen) && (
         <div
           className="fixed inset-0 z-40"
-          onClick={() => setIsDropdownOpen(false)}
+          onClick={() => {
+            setIsDropdownOpen(false);
+            setIsSortDropdownOpen(false);
+          }}
         />
       )}
     </motion.div>

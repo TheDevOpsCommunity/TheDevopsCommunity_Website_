@@ -39,11 +39,22 @@ const EmptyState = () => (
     initial={{ opacity: 0, scale: 0.95, y: 30 }}
     animate={{ opacity: 1, scale: 1, y: 0 }}
     transition={{ duration: 0.5, type: "spring", stiffness: 80 }}
-    className="col-span-full flex flex-col items-center justify-center py-16 px-4"
+    className="col-span-full flex flex-col items-center justify-center py-20 px-4"
   >
-    <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+    <motion.div
+      animate={{ 
+        rotate: [0, 10, -10, 0],
+        scale: [1, 1.1, 1]
+      }}
+      transition={{ 
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }}
+      className="w-32 h-32 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mb-8 shadow-lg"
+    >
       <svg
-        className="w-12 h-12 text-blue-500"
+        className="w-16 h-16 text-blue-600"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -55,17 +66,29 @@ const EmptyState = () => (
           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
         />
       </svg>
-    </div>
-    <h3 className="text-2xl font-bold text-blue-900 mb-2">No Blog Posts Found</h3>
-    <p className="text-neutral-600 text-center max-w-md mb-6">
-      We couldn&apos;t find any blog posts matching your criteria. Try adjusting your filters or check back later for new content.
+    </motion.div>
+    <h3 className="text-3xl font-bold text-blue-900 mb-4">No Blog Posts Found</h3>
+    <p className="text-neutral-600 text-center max-w-md mb-8 text-lg">
+      We couldn&apos;t find any blog posts matching your criteria. Try adjusting your filters or search terms to discover more content.
     </p>
-    <button
-      onClick={() => window.location.reload()}
-      className="px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-300 shadow-md hover:shadow-lg"
-    >
-      Refresh Page
-    </button>
+    <div className="flex gap-4">
+      <button
+        onClick={() => window.location.reload()}
+        className="px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+      >
+        Refresh Page
+      </button>
+      <button
+        onClick={() => {
+          // Clear all filters
+          const event = new CustomEvent('clearAllFilters');
+          window.dispatchEvent(event);
+        }}
+        className="px-6 py-3 bg-white border border-blue-700 text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-0.5"
+      >
+        Clear Filters
+      </button>
+    </div>
   </motion.div>
 );
 
