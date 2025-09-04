@@ -73,7 +73,7 @@ const webinars: WebinarCard[] = [
     speaker: {
       name: "Kubernetes Expert",
     },
-    isLive: true,
+    isLive: false,
     id: "docker-kubernetes-bootcamp"
   },
   {
