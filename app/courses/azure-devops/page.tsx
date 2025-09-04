@@ -8,6 +8,7 @@ import { VscAzure } from "react-icons/vsc";
 import { MdStorage, MdBackup, MdDns, MdOutlineMonitor, MdOutlineApi, MdOutlineWeb } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import RazorpayButton from "@/components/RazorpayButton/AWS_Course_RazorpayButton";
 import { motion } from "motion/react";
 
 // Updated curriculum per provided outline
@@ -450,14 +451,35 @@ export default function AzureDevopsCurriculumPage() {
               </motion.div>
             ))}
           </div>
-          {/* Right side - Sticky Inquiry Form (30%) */}
+          {/* Right side - Sticky Payment (30%) */}
           <div className="lg:w-[30%]">
-            <div className="sticky top-28 bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-200">
-              <div className="mb-6 text-center">
-                <h3 className="text-2xl font-bold mb-2 text-blue-900">Start Your Azure Journey!</h3>
-                <p className="text-sm text-neutral-600">Questions? Fill out the form, and our Azure experts will guide you.</p>
+            <div className="sticky top-28 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-200">
+              {/* Pricing */}
+              <div className="mb-4">
+                <div className="text-sm font-semibold text-blue-900/70">Course Fee</div>
+                <div className="mt-1 flex items-end gap-2">
+                  <span className="text-neutral-500 line-through text-lg">₹25,000</span>
+                  <span className="text-2xl font-extrabold text-blue-900">₹22,000</span>
+                </div>
               </div>
-              <CourseInquiryForm />
+
+              {/* Benefits bullets */}
+              <ul className="mb-6 space-y-2 text-sm text-blue-900/80">
+                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-600" /> Lifetime access with recordings</li>
+                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-600" /> Capstone project on Azure</li>
+                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-600" /> Free previews, secure streaming</li>
+              </ul>
+
+              {/* Razorpay Button */}
+              <RazorpayButton
+                url="https://rzp.io/rzp/Xq2joSL"
+                text="Enroll Now — ₹22,000"
+                color="#1d4ed8"
+                size="large"
+                className="w-full"
+              />
+
+              <div className="mt-3 text-[12px] text-neutral-500 text-center">Payments powered by Razorpay</div>
             </div>
           </div>
         </div>
