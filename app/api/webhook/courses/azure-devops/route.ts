@@ -89,119 +89,105 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: '🎉 Welcome to Azure DevOps Course - Registration Confirmed!',
+    subject: 'Welcome to Azure DevOps Course - Registration Confirmed',
     html: `
       <!DOCTYPE html>
       <html lang="en">
       <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Azure DevOps Course Registration</title>
       </head>
-      <body style="margin:0; padding:0; background-color:#f1f5f9; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;">
-        <div style="max-width:600px; margin:0 auto; background-color:#ffffff;">
-          
-          <!-- Header with gradient -->
-          <div style="background:linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #3b82f6 100%); padding:32px 24px; text-align:center; position:relative; overflow:hidden;">
-            <!-- Decorative elements -->
-            <div style="position:absolute; top:-20px; right:-20px; width:100px; height:100px; background:rgba(255,255,255,0.1); border-radius:50%; opacity:0.6;"></div>
-            <div style="position:absolute; bottom:-30px; left:-30px; width:120px; height:120px; background:rgba(255,255,255,0.08); border-radius:50%;"></div>
-            
-            <div style="position:relative; z-index:2;">
-              <div style="display:inline-block; padding:8px 16px; background:rgba(255,255,255,0.15); border-radius:20px; margin-bottom:16px; backdrop-filter:blur(10px);">
-                <span style="color:#ffffff; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Registration Confirmed</span>
-              </div>
-              <h1 style="margin:0; color:#ffffff; font-size:28px; font-weight:800; line-height:1.2;">Azure DevOps Course</h1>
-              <p style="margin:8px 0 0 0; color:rgba(255,255,255,0.9); font-size:16px;">Welcome to your DevOps journey, ${firstName}!</p>
-            </div>
-          </div>
-
-          <!-- Main content -->
-          <div style="padding:32px 24px;">
-            <!-- Welcome section -->
-            <div style="text-align:center; margin-bottom:32px;">
-              <div style="display:inline-block; width:60px; height:60px; background:linear-gradient(135deg, #dbeafe, #bfdbfe); border-radius:50%; margin-bottom:16px; position:relative;">
-                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#1d4ed8; font-size:24px;">✓</div>
-              </div>
-              <h2 style="margin:0 0 8px 0; color:#1e293b; font-size:22px; font-weight:700;">Payment Successful!</h2>
-              <p style="margin:0; color:#64748b; font-size:16px;">Your enrollment is now active and confirmed.</p>
-            </div>
-
-            <!-- Message content -->
-            <div style="color:#374151; font-size:16px; line-height:1.6; margin-bottom:32px;">
-              <p style="margin:0 0 16px 0;">Hi <strong style="color:#1e293b;">${firstName}</strong>,</p>
-              <p style="margin:0 0 16px 0;">Thank you for registering for our <strong style="color:#1d4ed8;">Azure DevOps Training Program</strong>! We're excited to have you on board and can't wait to get started.</p>
-              <p style="margin:0 0 24px 0;">Your registration and payment have been successfully confirmed.</p>
-              
-              <!-- What's Next section -->
-              <div style="background:linear-gradient(135deg, #f8fafc, #f1f5f9); border-left:4px solid #1d4ed8; padding:20px; border-radius:8px; margin:24px 0;">
-                <h3 style="margin:0 0 12px 0; color:#1e293b; font-size:18px; font-weight:600;">🚀 What's Next?</h3>
-                <p style="margin:0 0 12px 0; color:#1e293b; font-weight:500;">Our team will be reaching out shortly with:</p>
-                <ul style="margin:0; padding-left:20px; color:#475569;">
-                  <li style="margin-bottom:6px;">Course schedule & joining details</li>
-                  <li style="margin-bottom:6px;">Access instructions for sessions & materials</li>
-                  <li style="margin-bottom:6px;">Support information in case you need help</li>
-                </ul>
-              </div>
-
-              <p style="margin:24px 0 16px 0;">This program is designed by <strong style="color:#1d4ed8;">real DevOps Engineers</strong>, and we're committed to giving you hands-on, practical knowledge that will help you grow your career.</p>
-              <p style="margin:0 0 16px 0;">If you have any questions, feel free to reply to this email or reach out to us at <a href="mailto:info@thedevopscommunity" style="color:#1d4ed8; text-decoration:none; font-weight:500;">info@thedevopscommunity</a>.</p>
-            </div>
-
-            <!-- Payment details card -->
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin:24px 0;">
-              <div style="display:flex; align-items:center; margin-bottom:12px;">
-                <div style="width:8px; height:8px; background:#10b981; border-radius:50%; margin-right:8px;"></div>
-                <h4 style="margin:0; color:#1e293b; font-size:16px; font-weight:600;">Payment Confirmation</h4>
-              </div>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:14px;">
-                <div>
-                  <div style="color:#64748b; margin-bottom:4px;">Transaction ID</div>
-                  <div style="color:#1e293b; font-family:ui-monospace,SFMono-Regular,'SF Mono',Consolas,monospace; font-weight:500;">${id}</div>
-                </div>
-                <div>
-                  <div style="color:#64748b; margin-bottom:4px;">Amount Paid</div>
-                  <div style="color:#1e293b; font-weight:600; font-size:16px;">₹${amountInRupees}</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Course highlights -->
-            <div style="background:linear-gradient(135deg, #1e3a8a, #1d4ed8); border-radius:12px; padding:24px; margin:24px 0; color:#ffffff;">
-              <h3 style="margin:0 0 16px 0; font-size:18px; font-weight:600;">🎯 What You'll Master</h3>
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
-                <div style="padding:12px; background:rgba(255,255,255,0.1); border-radius:8px; backdrop-filter:blur(10px);">
-                  <div style="font-weight:600; margin-bottom:4px;">Azure Fundamentals</div>
-                  <div style="font-size:14px; opacity:0.9;">VMs, Storage, Networking</div>
-                </div>
-                <div style="padding:12px; background:rgba(255,255,255,0.1); border-radius:8px; backdrop-filter:blur(10px);">
-                  <div style="font-weight:600; margin-bottom:4px;">DevOps Tools</div>
-                  <div style="font-size:14px; opacity:0.9;">Docker, Kubernetes, Terraform</div>
-                </div>
-                <div style="padding:12px; background:rgba(255,255,255,0.1); border-radius:8px; backdrop-filter:blur(10px);">
-                  <div style="font-weight:600; margin-bottom:4px;">CI/CD Pipelines</div>
-                  <div style="font-size:14px; opacity:0.9;">Azure DevOps, GitHub Actions</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Footer message -->
-            <div style="text-align:center; margin-top:32px; padding-top:24px; border-top:1px solid #e2e8f0;">
-              <p style="margin:0 0 8px 0; color:#374151; font-size:16px;">We look forward to learning and building with you! 🚀</p>
-              <p style="margin:0; color:#1e293b; font-weight:600;">Best regards,<br/>The DevOps Community Team</p>
-            </div>
-          </div>
-
-          <!-- Footer -->
-          <div style="background:#f8fafc; padding:24px; text-align:center; border-top:1px solid #e2e8f0;">
-            <p style="margin:0 0 8px 0; color:#64748b; font-size:14px;">
-              © 2025 The DevOps Community. Empowering careers through hands-on learning.
-            </p>
-            <p style="margin:0; color:#64748b; font-size:12px;">
-              This email was sent because you enrolled in our Azure DevOps course.
-            </p>
-          </div>
-        </div>
+      <body style="margin:0; padding:0; background-color:#f3f4f6;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f3f4f6;">
+          <tr>
+            <td align="center" style="padding:24px;">
+              <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb; border-radius:8px;">
+                <tr>
+                  <td align="left" style="background-color:#1d4ed8; padding:24px; color:#ffffff;">
+                    <div style="font-family:Arial,Helvetica,sans-serif; font-size:12px; text-transform:uppercase; font-weight:bold; letter-spacing:0.5px; opacity:0.95;">Registration Confirmed</div>
+                    <div style="font-family:Arial,Helvetica,sans-serif; font-size:24px; font-weight:800; line-height:1.25; margin-top:6px;">Azure DevOps Course</div>
+                    <div style="font-family:Arial,Helvetica,sans-serif; font-size:14px; margin-top:6px;">Welcome to your DevOps journey, ${firstName}!</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:24px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td align="center" style="padding-bottom:16px;">
+                          <div style="font-family:Arial,Helvetica,sans-serif; font-size:20px; font-weight:700; color:#111827;">Payment Successful</div>
+                          <div style="font-family:Arial,Helvetica,sans-serif; font-size:14px; color:#6b7280;">Your enrollment is now active and confirmed.</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-family:Arial,Helvetica,sans-serif; font-size:15px; color:#374151; line-height:1.6;">
+                          <p style="margin:0 0 12px 0;">Hi <strong style="color:#111827;">${firstName}</strong>,</p>
+                          <p style="margin:0 0 12px 0;">Thank you for registering for our <strong style="color:#1d4ed8;">Azure DevOps Training Program</strong>. We're excited to have you on board and can't wait to get started.</p>
+                          <p style="margin:0 0 16px 0;">Your registration and payment have been successfully confirmed.</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:12px 0;">
+                          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f8fafc; border:1px solid #e5e7eb; border-radius:6px;">
+                            <tr>
+                              <td style="padding:16px; font-family:Arial,Helvetica,sans-serif;">
+                                <div style="font-size:16px; font-weight:700; color:#111827; margin-bottom:6px;">What's Next</div>
+                                <div style="font-size:14px; color:#111827; margin-bottom:8px;">Our team will be reaching out shortly with:</div>
+                                <ul style="padding-left:20px; margin:0; color:#374151; font-size:14px;">
+                                  <li style="margin-bottom:6px;">Course schedule and joining details</li>
+                                  <li style="margin-bottom:6px;">Access instructions for sessions and materials</li>
+                                  <li style="margin-bottom:6px;">Support information in case you need help</li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:4px 0 0 0;">
+                          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f9fafb; border:1px solid #e5e7eb; border-radius:6px;">
+                            <tr>
+                              <td style="padding:16px; font-family:Arial,Helvetica,sans-serif;">
+                                <div style="font-size:12px; color:#6b7280;">Payment Details</div>
+                                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top:6px; font-size:14px; color:#111827;">
+                                  <tr>
+                                    <td width="50%" style="padding:4px 0;">Transaction ID</td>
+                                    <td width="50%" style="padding:4px 0; font-family:Consolas,'Courier New',monospace;">${id}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="50%" style="padding:4px 0;">Amount Paid</td>
+                                    <td width="50%" style="padding:4px 0; font-weight:700;">₹${amountInRupees}</td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-top:12px; font-family:Arial,Helvetica,sans-serif; font-size:14px; color:#374151; line-height:1.6;">
+                          <p style="margin:0 0 12px 0;">This program is designed by real DevOps Engineers, and we're committed to giving you hands‑on, practical knowledge that will help you grow your career.</p>
+                          <p style="margin:0 0 0 0;">If you have any questions, reply to this email or reach out to us at <a href="mailto:info@thedevopscommunity" style="color:#1d4ed8; text-decoration:none;">info@thedevopscommunity</a>.</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-top:24px; border-top:1px solid #e5e7eb; font-family:Arial,Helvetica,sans-serif; text-align:center;">
+                          <div style="font-size:14px; color:#111827; font-weight:600;">Best regards,<br />The DevOps Community Team</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="background-color:#f8fafc; padding:16px; border-top:1px solid #e5e7eb;">
+                    <div style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#6b7280;">© 2025 The DevOps Community. Empowering careers through hands‑on learning.</div>
+                    <div style="font-family:Arial,Helvetica,sans-serif; font-size:11px; color:#6b7280; margin-top:4px;">This email was sent because you enrolled in our Azure DevOps course.</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
       </body>
       </html>
     `,
