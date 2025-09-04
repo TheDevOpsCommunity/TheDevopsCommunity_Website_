@@ -6,20 +6,20 @@ import { VscAzure } from "react-icons/vsc";
 
 const courses = [
   {
+    id: "azure-devops",
+    title: "Azure DevOps Course",
+    description: "Master Azure, Azure DevOps and core DevOps tools: fundamentals, networking, compute, storage, databases, AKS, CI/CD (YAML), Terraform, Docker, Kubernetes, monitoring, security and a real capstone project.",
+    icon: <VscAzure className="text-blue-600 w-12 h-12" />,
+    link: "/courses/azure-devops",
+    tags: ["Azure", "Azure DevOps", "Terraform", "Docker", "Kubernetes"],
+  },
+  {
     id: "aws-devops",
     title: "AWS DevOps Certification Course",
     description: "Master DevOps principles and tools on the AWS cloud. From CI/CD pipelines to Infrastructure as Code, become a certified AWS DevOps Engineer.",
     icon: <FaAws className="text-orange-500 w-12 h-12" />,
     link: "/courses/aws-devops",
     tags: ["AWS", "DevOps", "CI/CD", "Terraform", "Kubernetes"],
-  },
-  {
-    id: "azure-devops",
-    title: "Azure DevOps with Azure Admin",
-    description: "Gain expertise in Azure cloud services, networking, and build robust DevOps pipelines using Azure DevOps tools and best practices.",
-    icon: <VscAzure className="text-blue-600 w-12 h-12" />,
-    link: "/courses/azure-devops",
-    tags: ["Azure", "DevOps", "Pipelines", "ARM Templates", "Security"],
   },
 
   // Add more courses here if needed
