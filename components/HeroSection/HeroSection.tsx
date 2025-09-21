@@ -361,46 +361,7 @@ export function HeroSectionOne() {
           </div>
         </div>
 
-        {/* Upcoming Webinar Section */}
-        <section className="w-full bg-white py-16">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-700">
-              Upcoming Webinar: Docker & Kubernetes Mastery – 2-Week Live Bootcamp
-            </h2>
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg">
-              <div className="flex-1 flex flex-col gap-2">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="inline-block bg-blue-600 text-white rounded-lg px-2 py-1 font-bold text-lg">Live</span>
-                  <span className="text-blue-700 font-semibold text-lg">27th August - 9th September, 2025</span>
-                </div>
-                <div className="text-lg font-semibold text-blue-900 mb-1">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</div>
-                <div className="text-gray-700 mb-2 text-base max-w-xl">
-                  Master containerization and orchestration for DevOps excellence. Comprehensive 2-week bootcamp with Docker fundamentals, Kubernetes architecture, and production deployment strategies. 
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-gray-500 line-through">₹5,999</span>
-                    <span className="text-green-600 font-bold text-lg">₹2,999</span>
-                    <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">50% OFF</span>
-                  </div>
-                </div>
-                                  <div className="text-sm text-blue-600 font-medium">
-                                             🕘 10:00 AM - 11:00 AM IST (Mon-Fri, 1 hour each day)
-                  </div>
-              </div>
-              <div className="flex flex-col gap-3 min-w-[220px] w-full md:w-auto">
-                <Link href="/webinars/docker-kubernetes-bootcamp">
-                  <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow transition-colors text-base cursor-pointer z-20">
-                    View Bootcamp & Register
-                  </button>
-                </Link>
-                <Link href="/webinars">
-                  <button className="w-full bg-white border border-blue-700 text-blue-900 font-semibold py-3 px-6 rounded-xl shadow hover:bg-blue-50 transition-colors text-base cursor-pointer z-20">
-                    View All Webinars
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Upcoming Webinar Section removed as the bootcamp has ended */}
 
         {/* Trusted By / Featured In Section */}
         <section className="w-full bg-white border-y border-blue-100 py-10">

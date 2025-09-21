@@ -2,228 +2,223 @@
 
 "use client";
 import { useState } from "react";
-import { FaCloud, FaLock, FaDatabase, FaServer, FaUserShield, FaClipboardList, FaCogs, FaKey, FaTools, FaUserTie } from "react-icons/fa";
+import { FaCloud, FaLock, FaDatabase, FaServer, FaUserShield, FaClipboardList, FaCogs, FaTools, FaUserTie } from "react-icons/fa";
 import { SiTerraform, SiApachespark } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";
-import { MdStorage, MdBackup, MdDns, MdOutlineMonitor, MdOutlineApi, MdOutlineWeb } from "react-icons/md";
-import { BsFillPersonLinesFill } from "react-icons/bs";
+import { MdStorage, MdDns, MdOutlineMonitor, MdOutlineApi } from "react-icons/md";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import RazorpayButton from "@/components/RazorpayButton/AWS_Course_RazorpayButton";
 import { motion } from "motion/react";
 
-// You can adjust these icons as you see fit for each topic.
+// Updated curriculum per provided outline
 const modules = [
   {
-    title: "Cloud Computing & Azure Fundamentals",
+    title: "Fundamentals (Basics for Everyone)",
     topics: [
       {
         icon: <FaCloud className="text-blue-500" size={28} />,
-        title: "Cloud Computing Introduction",
-        desc: "Characteristics, service models (IaaS, PaaS, SaaS), deployment models, pros/cons, Azure certifications.",
+        title: "Introduction to Cloud Computing",
+        desc: "IaaS, PaaS, SaaS; Public, Private, Hybrid models and core benefits.",
       },
+      {
+        icon: <FaCogs className="text-blue-600" size={28} />,
+        title: "Introduction to DevOps",
+        desc: "Culture, principles and benefits; collaboration and automation mindset.",
+      },
+      {
+        icon: <FaServer className="text-green-600" size={28} />,
+        title: "Basic Linux Fundamentals",
+        desc: "Shell, commands, file system, users and permissions for DevOps work.",
+      },
+      {
+        icon: <FaTools className="text-purple-600" size={28} />,
+        title: "Version Control with Git & GitHub",
+        desc: "Git basics, branching, pull requests, GitHub workflows.",
+      },
+    ],
+  },
+  {
+    title: "Azure Fundamentals",
+    topics: [
       {
         icon: <VscAzure className="text-blue-700" size={28} />,
-        title: "Getting Started with Azure",
-        desc: "Portal navigation, subscriptions, hosting models, key services, resource groups.",
-      },
-    ],
-  },
-  {
-    title: "Azure Networking",
-    topics: [
-      {
-        icon: <MdDns className="text-blue-400" size={28} />,
-        title: "Virtual Networks",
-        desc: "VNet creation, subnets, IP addressing, NICs (public/private IPs), VM setup.",
+        title: "Azure Overview & Global Infrastructure",
+        desc: "Regions, Availability Zones and resiliency fundamentals.",
       },
       {
-        icon: <FaLock className="text-purple-500" size={28} />,
-        title: "Network Security",
-        desc: "NSG creation, rules, association, inbound/outbound, Azure Firewall.",
+        icon: <FaClipboardList className="text-pink-500" size={28} />,
+        title: "Subscriptions, Resource Groups & Management",
+        desc: "Structure, access and governance for Azure resources.",
       },
       {
-        icon: <MdDns className="text-blue-400" size={28} />,
-        title: "DNS & Connectivity",
-        desc: "Azure DNS, public/private zones, VNet peering, VNet-to-VNet, VPN, ExpressRoute.",
+        icon: <MdDns className="text-blue-500" size={28} />,
+        title: "Azure Networking",
+        desc: "VNet, Subnet, NSG, Firewall, VPN Gateway and ExpressRoute.",
       },
       {
-        icon: <MdOutlineMonitor className="text-green-500" size={28} />,
-        title: "Monitoring & Troubleshooting",
-        desc: "Network Watcher, connectivity monitoring, troubleshooting tools.",
+        icon: <FaServer className="text-blue-600" size={28} />,
+        title: "Compute Services",
+        desc: "Virtual Machines, VM Scale Sets, App Services and Azure Functions.",
       },
-    ],
-  },
-  {
-    title: "Advanced Virtual Networking",
-    topics: [
-      {
-        icon: <FaServer className="text-blue-500" size={28} />,
-        title: "Load Balancing & Availability",
-        desc: "External/internal load balancers, availability sets/zones, Application Gateway, Traffic Manager.",
-      },
-      {
-        icon: <FaServer className="text-blue-400" size={28} />,
-        title: "Hybrid Networking",
-        desc: "Site-to-site VPN, on-premises integration, ExpressRoute.",
-      },
-    ],
-  },
-  {
-    title: "Azure Storage Services",
-    topics: [
       {
         icon: <MdStorage className="text-yellow-500" size={28} />,
-        title: "Storage Accounts & Blobs",
-        desc: "Account creation, blob types (block, append, page), containers, CDN, custom domains.",
+        title: "Storage Services",
+        desc: "Blob, Queue, Table, File Storage and Azure Disk options.",
       },
-      {
-        icon: <FaKey className="text-purple-400" size={28} />,
-        title: "Data Management & Security",
-        desc: "AzCopy, encryption, access management, SAS, Key Vault integration.",
-      },
-      {
-        icon: <MdStorage className="text-yellow-400" size={28} />,
-        title: "Table, Queue, File Storage",
-        desc: "NoSQL tables, queues, SMB file storage, Azure File Sync.",
-      },
-    ],
-  },
-  {
-    title: "Resource Management & Automation",
-    topics: [
-      {
-        icon: <FaClipboardList className="text-pink-400" size={28} />,
-        title: "Resource Groups & Policies",
-        desc: "Policies, locks, tagging, resource movement and deletion.",
-      },
-      {
-        icon: <FaTools className="text-blue-400" size={28} />,
-        title: "Automation Tools",
-        desc: "Azure PowerShell, CLI, ARM templates (export/import, deployment).",
-      },
-    ],
-  },
-  {
-    title: "Compute & Virtual Machines",
-    topics: [
-      {
-        icon: <FaServer className="text-blue-500" size={28} />,
-        title: "VM Creation & Management",
-        desc: "Windows VM via portal, PowerShell, ARM; disk management, snapshots, extensions.",
-      },
-      {
-        icon: <MdOutlineMonitor className="text-green-500" size={28} />,
-        title: "Scaling & Monitoring",
-        desc: "VM scale sets, disk encryption, configuration, monitoring, alerts.",
-      },
-    ],
-  },
-  {
-    title: "Databases & App Services",
-    topics: [
       {
         icon: <FaDatabase className="text-blue-700" size={28} />,
-        title: "Azure SQL Database",
-        desc: "Setup, migration, security, backup/recovery, monitoring, elastic pools, auditing.",
+        title: "Databases",
+        desc: "Azure SQL, Cosmos DB, PostgreSQL and MySQL on Azure.",
       },
       {
-        icon: <MdOutlineWeb className="text-pink-400" size={28} />,
-        title: "App Services (Web, API, Functions)",
-        desc: "Deploying web apps, app service plans, scaling, deployment slots, configuration, monitoring, custom domains, SSL.",
+        icon: <MdOutlineMonitor className="text-green-600" size={28} />,
+        title: "Monitoring & Management",
+        desc: "Azure Monitor, Log Analytics and Application Insights.",
+      },
+      {
+        icon: <FaUserShield className="text-blue-700" size={28} />,
+        title: "Identity & Security",
+        desc: "Azure AD, RBAC, Managed Identity and Key Vault integration.",
+      },
+      {
+        icon: <MdOutlineApi className="text-blue-400" size={28} />,
+        title: "Messaging & Integration",
+        desc: "Event Grid, Event Hub and Service Bus patterns.",
       },
       {
         icon: <SiApachespark className="text-yellow-500" size={28} />,
-        title: "Serverless & Logic Apps",
-        desc: "Azure Functions (triggers, bindings, event processing), Logic Apps (triggers/actions, integration, custom connectors).",
+        title: "Data & Analytics",
+        desc: "Data Factory, Synapse Analytics and Azure Databricks overview.",
+      },
+      {
+        icon: <VscAzure className="text-blue-600" size={28} />,
+        title: "Containers & Serverless",
+        desc: "Azure Container Instances and Azure Kubernetes Service (AKS).",
       },
     ],
   },
   {
-    title: "Advanced Cloud Services",
+    title: "Azure DevOps",
     topics: [
       {
-        icon: <MdOutlineApi className="text-blue-400" size={28} />,
-        title: "API Management",
-        desc: "API creation, management, policies, protection, caching.",
-      },
-      {
-        icon: <VscAzure className="text-blue-500" size={28} />,
-        title: "Service Bus, Event Grid, Event Hub",
-        desc: "Messaging, event routing, monitoring, integration.",
-      },
-      {
-        icon: <FaKey className="text-purple-400" size={28} />,
-        title: "Key Vault, Redis, CosmosDB, Azure Search",
-        desc: "Secrets management, caching, NoSQL databases, search services.",
-      },
-    ],
-  },
-  {
-    title: "Identity, Access & Security",
-    topics: [
-      {
-        icon: <FaUserShield className="text-blue-700" size={28} />,
-        title: "Azure Active Directory (AD)",
-        desc: "User/group management, custom domains, on-premises sync, Azure AD Connect, SSO, MFA, conditional access, PIM.",
-      },
-      {
-        icon: <FaUserShield className="text-blue-400" size={28} />,
-        title: "RBAC & Policies",
-        desc: "Role-based access control, custom roles, managing identities for apps, SaaS integration.",
-      },
-    ],
-  },
-  {
-    title: "Monitoring, Backup & Migration",
-    topics: [
-      {
-        icon: <MdOutlineMonitor className="text-green-500" size={28} />,
-        title: "Azure Monitor & Log Analytics",
-        desc: "Metrics, logs, diagnostics, alerts, Application Insights.",
-      },
-      {
-        icon: <MdBackup className="text-blue-400" size={28} />,
-        title: "Backup & Site Recovery",
-        desc: "VM backup, Recovery Services Vault, backup policies, restoring VMs, migration strategies.",
-      },
-    ],
-  },
-  {
-    title: "DevOps on Azure",
-    topics: [
-      {
-        icon: <VscAzure className="text-blue-500" size={28} />,
-        title: "DevOps Fundamentals",
-        desc: "DevOps practices, Agile, CI/CD concepts, benefits over traditional IT.",
+        icon: <VscAzure className="text-blue-600" size={28} />,
+        title: "Azure DevOps Overview",
+        desc: "Core services and end‑to‑end delivery workflows.",
       },
       {
         icon: <VscAzure className="text-blue-700" size={28} />,
-        title: "Azure DevOps Tools",
-        desc: "Boards (work items, sprints), Repos (Git, branching, pull requests), Pipelines (classic/YAML, CI/CD, test integration), Artifacts (package management).",
+        title: "Azure Repos (Git & TFVC)",
+        desc: "Source control, branching strategies and PR reviews.",
       },
       {
-        icon: <SiTerraform className="text-purple-600" size={28} />,
-        title: "Infrastructure as Code",
-        desc: "ARM Templates, Terraform, Ansible for automated deployments.",
+        icon: <VscAzure className="text-blue-500" size={28} />,
+        title: "Azure Boards",
+        desc: "Agile project management with work items and sprints.",
       },
       {
-        icon: <FaCogs className="text-pink-400" size={28} />,
-        title: "Integration & Automation",
-        desc: "Pipeline integration with Teams, SQL deployments, multi-stage approvals, agent pools, secure files.",
+        icon: <VscAzure className="text-indigo-600" size={28} />,
+        title: "Azure Pipelines",
+        desc: "CI/CD using YAML and Classic pipelines across environments.",
+      },
+      {
+        icon: <VscAzure className="text-blue-500" size={28} />,
+        title: "Azure Test Plans",
+        desc: "Manual and exploratory testing for quality gates.",
+      },
+      {
+        icon: <VscAzure className="text-blue-700" size={28} />,
+        title: "Azure Artifacts",
+        desc: "Package feeds and dependency management.",
+      },
+      {
+        icon: <FaCogs className="text-pink-500" size={28} />,
+        title: "Integrations",
+        desc: "GitHub Actions and third‑party toolchain integrations.",
       },
     ],
   },
   {
-    title: "Job Readiness & Interview Prep",
+    title: "DevOps Tools & Practices",
     topics: [
       {
-        icon: <FaUserTie className="text-blue-700" size={28} />,
-        title: "Resume & LinkedIn Optimization",
-        desc: "Resume building, LinkedIn profile updates, job guidance.",
+        icon: <SiTerraform className="text-purple-600" size={28} />,
+        title: "Infrastructure as Code — Terraform",
+        desc: "Terraform on Azure for repeatable environment provisioning.",
       },
       {
-        icon: <BsFillPersonLinesFill className="text-pink-400" size={28} />,
-        title: "Mock Interviews & Q&A",
-        desc: "Technical and behavioral interview practice, expert tips, real-world scenarios.",
+        icon: <FaTools className="text-blue-500" size={28} />,
+        title: "Configuration Management",
+        desc: "Ansible, Chef and Puppet — where they fit (overview).",
+      },
+      {
+        icon: <FaServer className="text-blue-600" size={28} />,
+        title: "Containerization — Docker",
+        desc: "Images, containers, Dockerfile and Compose fundamentals.",
+      },
+      {
+        icon: <VscAzure className="text-blue-700" size={28} />,
+        title: "Orchestration — Kubernetes",
+        desc: "Pods, Services, Deployments and Helm basics.",
+      },
+      {
+        icon: <MdOutlineMonitor className="text-green-600" size={28} />,
+        title: "Monitoring & Logging",
+        desc: "Prometheus, Grafana and ELK stack patterns.",
+      },
+      {
+        icon: <FaUserShield className="text-blue-700" size={28} />,
+        title: "Security in DevOps",
+        desc: "DevSecOps, SAST/DAST and securing CI/CD pipelines.",
+      },
+    ],
+  },
+  {
+    title: "Cloud Networking & Security",
+    topics: [
+      {
+        icon: <MdDns className="text-blue-500" size={28} />,
+        title: "VNet Peering & Service Endpoints",
+        desc: "Patterns for secure and performant network design.",
+      },
+      {
+        icon: <FaLock className="text-purple-600" size={28} />,
+        title: "Private Link & Private Endpoints",
+        desc: "Private connectivity to PaaS services.",
+      },
+      {
+        icon: <FaServer className="text-blue-600" size={28} />,
+        title: "Load Balancing & Traffic",
+        desc: "LB (public/private), Application Gateway and Traffic Manager.",
+      },
+      {
+        icon: <MdDns className="text-blue-400" size={28} />,
+        title: "DNS, Firewall & WAF",
+        desc: "Name resolution, perimeter security and web protection.",
+      },
+      {
+        icon: <FaUserShield className="text-blue-700" size={28} />,
+        title: "Zero Trust & Governance",
+        desc: "Best practices for access, policy and guardrails.",
+      },
+    ],
+  },
+  {
+    title: "Capstone & Next Steps",
+    topics: [
+      {
+        icon: <FaClipboardList className="text-pink-500" size={28} />,
+        title: "Real‑Time Project",
+        desc: "Deploy a multi‑tier app on Azure using DevOps practices.",
+      },
+      {
+        icon: <MdOutlineMonitor className="text-green-600" size={28} />,
+        title: "Integrations",
+        desc: "Wire up monitoring, security and automation end‑to‑end.",
+      },
+      {
+        icon: <FaUserTie className="text-blue-700" size={28} />,
+        title: "Career Path",
+        desc: "Roadmap for Azure DevOps & Cloud Engineering roles.",
       },
     ],
   },
@@ -248,134 +243,14 @@ function CurriculumCard({ icon, title, desc }: { icon: React.ReactNode; title: s
   );
 }
 
-function CourseInquiryForm() {
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setError(null);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/inquiry', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...form,
-          type: 'course',
-          courseId: 'azure-devops',
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit inquiry');
-      }
-
-      setSubmitted(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (submitted) {
-    return (
-      <div className="text-center py-10">
-        <h2 className="text-2xl font-bold mb-2 text-blue-900">Thank you!</h2>
-        <p className="text-blue-700">Your inquiry has been submitted. We&apos;ll get back to you soon.</p>
-      </div>
-    );
-  }
-
-  return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
-      {error && (
-        <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
-          {error}
-        </div>
-      )}
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-1">Full Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          value={form.name}
-          onChange={handleChange}
-          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-          placeholder="Your Name"
-        />
-      </div>
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-blue-800 mb-1">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={form.email}
-          onChange={handleChange}
-          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-          placeholder="you@example.com"
-        />
-      </div>
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-blue-800 mb-1">Phone (Optional)</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors"
-          placeholder="+1 (555) 000-0000"
-        />
-      </div>
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-blue-800 mb-1">Your Message</label>
-        <textarea
-          id="message"
-          name="message"
-          required
-          value={form.message}
-          onChange={handleChange}
-          rows={4}
-          className="w-full px-4 py-2.5 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 backdrop-blur-sm transition-colors min-h-[100px]"
-          placeholder="Ask us anything about the course..."
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {loading ? 'Submitting...' : 'Send Inquiry'}
-      </button>
-    </form>
-  );
-}
 
 export default function AzureDevopsCurriculumPage() {
   const [showSubheading, setShowSubheading] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
-  const headingWords = "Azure DevOps";
-  const subheadingWords = "View our curriculum";
+  const headingWords = "Azure DevOps Course";
+  const subheadingWords = "Curriculum & roadmap — everything you'll master";
   const descriptionWords = "Master Azure DevOps with our comprehensive curriculum covering cloud computing, networking, security, and more. Learn from industry experts and get hands-on experience with real-world projects.";
 
   return (
@@ -455,14 +330,35 @@ export default function AzureDevopsCurriculumPage() {
               </motion.div>
             ))}
           </div>
-          {/* Right side - Sticky Inquiry Form (30%) */}
+          {/* Right side - Sticky Payment (30%) */}
           <div className="lg:w-[30%]">
-            <div className="sticky top-28 bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-200">
-              <div className="mb-6 text-center">
-                <h3 className="text-2xl font-bold mb-2 text-blue-900">Start Your Azure Journey!</h3>
-                <p className="text-sm text-neutral-600">Questions? Fill out the form, and our Azure experts will guide you.</p>
+            <div className="sticky top-28 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-200">
+              {/* Pricing */}
+              <div className="mb-4">
+                <div className="text-sm font-semibold text-blue-900/70">Course Fee</div>
+                <div className="mt-1 flex items-end gap-2">
+                  <span className="text-neutral-500 line-through text-lg">₹25,000</span>
+                  <span className="text-2xl font-extrabold text-blue-900">₹22,000</span>
+                </div>
               </div>
-              <CourseInquiryForm />
+
+              {/* Benefits bullets */}
+              <ul className="mb-6 space-y-2 text-sm text-blue-900/80">
+                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-600" /> Lifetime access with recordings</li>
+                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-600" /> Capstone project on Azure</li>
+                <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-600" /> Free previews, secure streaming</li>
+              </ul>
+
+              {/* Razorpay Button */}
+              <RazorpayButton
+                url="https://rzp.io/rzp/Xq2joSL"
+                text="Enroll Now — ₹22,000"
+                color="#1d4ed8"
+                size="large"
+                className="w-full"
+              />
+
+              <div className="mt-3 text-[12px] text-neutral-500 text-center">Payments powered by Razorpay</div>
             </div>
           </div>
         </div>

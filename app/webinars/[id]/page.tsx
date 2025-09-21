@@ -82,7 +82,7 @@ export default function WebinarDetailsPage() {
   const webinars: Record<string, WebinarData> = {
     "docker-kubernetes-bootcamp": {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
-      isLive: true,
+      isLive: false,
       date: "27th August - 9th September, 2025",
       time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
       duration: "2 weeks, 1 hour each day (weekdays only)",
@@ -162,7 +162,7 @@ export default function WebinarDetailsPage() {
       ],
       registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // User will provide this
       registrationText: "Pay ₹2,999 & Register Now",
-      isCompleted: false,
+      isCompleted: true,
       headingWords: "Docker & Kubernetes Mastery",
       subheadingWords: "2-Week Live Bootcamp",
       descriptionWords: "Master containerization and orchestration for DevOps excellence. This comprehensive 2-week live bootcamp covers Docker fundamentals, Kubernetes architecture, and production deployment strategies with hands-on labs and real-world projects.",
