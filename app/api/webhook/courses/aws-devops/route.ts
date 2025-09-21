@@ -30,7 +30,7 @@ setInterval(() => {
   logEvent('CACHE_CLEANED', { timestamp: new Date().toISOString() });
 }, 60 * 60 * 1000);
 
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   host: 'smtpout.secureserver.net',
   port: 587,
   secure: false,
