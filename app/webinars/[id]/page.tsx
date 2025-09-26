@@ -80,6 +80,101 @@ export default function WebinarDetailsPage() {
 
   // Webinar data for both current and past webinars
   const webinars: Record<string, WebinarData> = {
+    "terraform-azure-5day": {
+      title: "Terraform Webinar Series (5 Days) – Azure-Focused Hands-on",
+      isLive: true,
+      date: "6th–10th October, 2025",
+      time: "7:00 PM – 8:30 PM IST (Daily)",
+      duration: "5 days, 1.5 hours each day",
+      fee: "₹999",
+      originalPrice: "₹1,999",
+      discount: "50% OFF",
+      mode: "Live Zoom Sessions",
+      subheading: "Automate Azure infra with Terraform using real projects and best practices",
+      speaker: {
+        name: "Terraform Expert",
+      },
+      description: `A hands-on 5-day series to master Terraform for Azure with practical demos daily, AWS comparisons, enterprise best practices, and a capstone deploying production-style infra.`,
+      details: [
+        {
+          heading: "🚀 Why Join This Webinar?",
+          items: [
+            "Automate Azure infra with Terraform end-to-end",
+            "Hands-on demos, not just slides",
+            "Real-world patterns: governance, security, CI/CD",
+            "Multi-cloud mindset with Azure vs AWS comparisons",
+            "Capstone project mirroring production infra"
+          ]
+        },
+        {
+          heading: "Day 1 – Introduction to IaC & Terraform",
+          items: [
+            "Manual provisioning vs IaC, benefits and workflows",
+            "Terraform overview, architecture and providers",
+            "Setup: Terraform + Azure CLI",
+            "Azure demo: Create a Resource Group",
+            "AWS comparison: S3 bucket syntax"
+          ]
+        },
+        {
+          heading: "Day 2 – Terraform Core Concepts",
+          items: [
+            "Providers, resources, variables, outputs",
+            "Terraform state: local vs remote (Azure Storage)",
+            "Azure demo: Linux VM + VNet + NSG + Public IP + NIC",
+            "AWS comparison: EC2 + VPC"
+          ]
+        },
+        {
+          heading: "Day 3 – Modules & Workspaces",
+          items: [
+            "Why modules, local and registry modules",
+            "Workspaces for multi-environment",
+            "Azure demo: VM module, multiple VMs, dev/prod"
+          ]
+        },
+        {
+          heading: "Day 4 – Azure Resources with Terraform",
+          items: [
+            "Networking, Storage, Compute, Databases, Key Vault",
+            "Azure demo: VM Scale Set + Load Balancer + SQL DB + Key Vault"
+          ]
+        },
+        {
+          heading: "Day 5 – Advanced Concepts & CI/CD",
+          items: [
+            "Remote state locking, Terraform Cloud vs Azure backend",
+            "CI/CD with Azure DevOps",
+            "Policy-as-Code with OPA",
+            "Azure demo: Full Terraform pipeline"
+          ]
+        },
+        {
+          heading: "🎯 Capstone Project – Real-World Azure Infra",
+          items: [
+            "3-tier app: App Service, VM Scale Set, Azure Postgres",
+            "Security: Key Vault, NSGs, Managed Identity",
+            "Networking: VNet, subnets, autoscaling"
+          ]
+        },
+        {
+          heading: "🏆 Key Takeaways",
+          items: [
+            "Master fundamentals + advanced Terraform",
+            "Automate Azure with confidence",
+            "Best practices: modules, state, CI/CD",
+            "Compare Terraform across Azure & AWS",
+            "Build a production-style project"
+          ]
+        }
+      ],
+      registrationUrl: "https://rzp.io/rzp/VmiWzf4y", // replace with real link
+      registrationText: "Pay ₹999 & Register Now",
+      isCompleted: false,
+      headingWords: "Terraform Webinar Series",
+      subheadingWords: "Azure-Focused, Hands-on (5 Days)",
+      descriptionWords: "Master Terraform for Azure with hands-on demos, best practices, AWS comparisons, and a production-style capstone project over 5 days.",
+    },
     "docker-kubernetes-bootcamp": {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
       isLive: false,

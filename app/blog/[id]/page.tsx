@@ -11,6 +11,7 @@ import BlogContent from "@/components/Blog/BlogContent";
 import BlogMeta from "@/components/Blog/BlogMeta";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import ErrorMessage from "@/components/ui/error-message";
+import WebinarPopup from "@/components/WebinarPopup/WebinarPopup";
 
 export default function BlogDetailPage() {
   const params = useParams();
@@ -143,6 +144,7 @@ export default function BlogDetailPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 pt-20 md:pt-24">
+        <WebinarPopup showOnPages={["/blog", "/blog/"]} delay={2000} />
         {/* Hero Section */}
         <BlogHero blog={blog} />
 

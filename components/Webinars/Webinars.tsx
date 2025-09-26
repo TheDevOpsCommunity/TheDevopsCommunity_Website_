@@ -28,6 +28,20 @@ interface WebinarCard {
 
 const webinars: WebinarCard[] = [
   {
+    title: "Terraform Webinar Series (5 Days) – Azure-Focused Hands-on",
+    subheading: "Master Terraform for Azure with real-world, production-style projects",
+    description: `Learn to automate Azure infrastructure with Terraform using best practices, modules, workspaces, and CI/CD. Includes Azure demos daily and AWS comparisons to keep you multi-cloud ready. Build a production-style capstone by the end.`,
+    date: "6th–10th October, 2025",
+    time: "7:00 PM – 8:30 PM IST (Daily)",
+    duration: "5 days, 1.5 hours each day",
+    mode: "Live Zoom Sessions",
+    speaker: {
+      name: "Terraform Expert",
+    },
+    isLive: true,
+    id: "terraform-azure-5day"
+  },
+  {
     title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
     subheading: "Master containerization and orchestration for DevOps excellence",
     description: `🔥 Why Attend This Bootcamp?

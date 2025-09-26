@@ -18,19 +18,18 @@ interface WebinarPopupProps {
 }
 
 export default function WebinarPopup({ 
-  showOnPages = ['/'], 
+  showOnPages = ['/', '/blog', '/blog/'], 
   delay = 3000 
 }: WebinarPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    // Check if user has already dismissed the popup today
-    const lastDismissed = localStorage.getItem('webinar-popup-dismissed');
-    const today = new Date().toDateString();
+    // Check if user has already dismissed the popup (session-based, not date-based)
+    const isDismissed = sessionStorage.getItem('webinar-popup-dismissed');
     
-    if (lastDismissed === today) {
-      return; // Don't show if dismissed today
+    if (isDismissed === 'true') {
+      return; // Don't show if dismissed in this session
     }
 
     // Check if current page should show popup
@@ -52,8 +51,8 @@ export default function WebinarPopup({
   const handleDismiss = () => {
     setIsVisible(false);
     setIsDismissed(true);
-    // Remember dismissal for today
-    localStorage.setItem('webinar-popup-dismissed', new Date().toDateString());
+    // Remember dismissal for this session only
+    sessionStorage.setItem('webinar-popup-dismissed', 'true');
   };
 
   const handleRegister = () => {
@@ -61,7 +60,7 @@ export default function WebinarPopup({
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'webinar_popup_click', {
         event_category: 'engagement',
-        event_label: 'Docker Kubernetes Bootcamp'
+        event_label: 'Terraform Azure 5-Day'
       });
     }
     handleDismiss();
@@ -122,10 +121,10 @@ export default function WebinarPopup({
                   </span>
                 </div>
                 <h2 className="text-xl font-bold mb-1 leading-tight">
-                  Docker & Kubernetes Mastery
+                  Terraform Webinar Series (Azure)
                 </h2>
                 <p className="text-blue-100 text-sm">
-                  2-Week Live Bootcamp Starting Soon!
+                  6–10 Oct • 7–8:30 PM IST
                 </p>
               </div>
             </div>
@@ -139,7 +138,7 @@ export default function WebinarPopup({
                     <CalendarIcon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-700">27th Aug - 9th Sept, 2025</span>
+                    <span className="font-medium text-gray-700">6th–10th Oct, 2025</span>
                   </div>
                 </div>
                 
@@ -148,7 +147,7 @@ export default function WebinarPopup({
                     <ClockIcon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-700">10:00 AM - 11:00 AM IST (Mon-Fri)</span>
+                    <span className="font-medium text-gray-700">7:00 PM – 8:30 PM IST (Daily)</span>
                   </div>
                 </div>
 
@@ -157,8 +156,8 @@ export default function WebinarPopup({
                     <CurrencyRupeeIcon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500 line-through text-sm">₹5,999</span>
-                    <span className="font-bold text-green-600 text-lg">₹2,999</span>
+                    <span className="text-gray-500 line-through text-sm">₹1,999</span>
+                    <span className="font-bold text-green-600 text-lg">₹999</span>
                     <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
                       50% OFF
                     </span>
@@ -172,26 +171,26 @@ export default function WebinarPopup({
                 <div className="grid grid-cols-1 gap-2 text-xs text-gray-600">
                   <div className="flex items-center gap-2">
                     <span className="text-green-500">✅</span>
-                    <span>Docker fundamentals & containerization</span>
+                    <span>Terraform fundamentals & state</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-green-500">✅</span>
-                    <span>Kubernetes architecture & orchestration</span>
+                    <span>Azure resources with Terraform</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-green-500">✅</span>
-                    <span>Production deployment strategies</span>
+                    <span>Modules, workspaces, best practices</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-green-500">✅</span>
-                    <span>Hands-on labs & real projects</span>
+                    <span>CI/CD pipeline + Capstone project</span>
                   </div>
                 </div>
               </div>
 
               {/* CTA Buttons */}
               <div className="space-y-3">
-                <Link href="/webinars/docker-kubernetes-bootcamp" onClick={handleRegister}>
+                <Link href="/webinars/terraform-azure-5day" onClick={handleRegister}>
                   <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold 
                                    py-3 px-6 rounded-lg transition-colors duration-200 
                                    shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">

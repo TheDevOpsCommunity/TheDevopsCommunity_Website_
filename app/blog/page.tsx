@@ -8,6 +8,7 @@ import BlogGrid from "@/components/Blog/BlogGrid";
 import BlogFilters from "@/components/Blog/BlogFilters";
 import Pagination from "@/components/Blog/Pagination";
 import BackToTop from "@/components/Blog/BackToTop";
+import WebinarPopup from "@/components/WebinarPopup/WebinarPopup";
 import ErrorMessage from "@/components/ui/error-message";
 
 export default function BlogPage() {
@@ -128,6 +129,7 @@ export default function BlogPage() {
 
   return (
     <main className="relative w-full flex flex-col items-center bg-gradient-to-b from-blue-50 to-blue-100 text-neutral-800 pt-32 pb-20 md:pt-40 md:pb-28">
+      <WebinarPopup showOnPages={["/blog", "/blog/"]} delay={2500} />
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
