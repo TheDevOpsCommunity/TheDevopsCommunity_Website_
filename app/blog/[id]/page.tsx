@@ -28,7 +28,6 @@ export default function BlogDetailPage() {
         setLoading(true);
         setError(null);
         const blogData = await getBlogById(id);
-        console.log("[BlogDetailPage] Loaded blog", { id, image_url: (blogData as any)?.image_url, title: blogData?.title });
         setBlog(blogData);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load blog post");
@@ -158,6 +157,7 @@ export default function BlogDetailPage() {
             className="lg:w-2/3"
           >
             <div className="bg-white rounded-2xl shadow-lg border border-blue-100 p-8 md:p-12">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={blog.image_url && blog.image_url.trim() !== '' ? blog.image_url : "https://placehold.co/100x40"}
                 alt={blog.title}
