@@ -19,10 +19,10 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
   
   // Enhanced sharing messages for better engagement
   const shareMessages = {
-    facebook: `${title} - ${description}`,
+    facebook: `${title}\n\n${description}`,
     twitter: `🚀 ${title}\n\n${description}\n\n#DevOps #CloudComputing #Infrastructure`,
     whatsapp: `📚 *${title}*\n\n${description}\n\nRead more: ${url}`,
-    linkedin: `${title} - ${description}`,
+    linkedin: `${title}\n\n${description}`,
     telegram: `📖 *${title}*\n\n${description}\n\n🔗 ${url}`,
   };
 

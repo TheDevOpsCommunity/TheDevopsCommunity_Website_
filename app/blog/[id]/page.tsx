@@ -89,16 +89,35 @@ export default function BlogDetailPage() {
     updateMetaTag('author', blog.authors.join(', '));
     
     // Use blog image if available, otherwise fallback to default
-    const blogImage = blog.image_url && blog.image_url.trim() !== '' 
-      ? blog.image_url 
-      : `${window.location.origin}/blue.png`;
+    let blogImage = `${window.location.origin}/blue.png`; // Default fallback
     
-    // Enhanced description for social sharing
-    const socialDescription = `${blog.summary} | Read more DevOps insights, tutorials, and best practices on DevOps Community Blog.`;
+    if (blog.image_url && blog.image_url.trim() !== '') {
+      // Ensure the image URL is absolute
+      if (blog.image_url.startsWith('http://') || blog.image_url.startsWith('https://')) {
+        blogImage = blog.image_url;
+      } else if (blog.image_url.startsWith('/')) {
+        blogImage = `${window.location.origin}${blog.image_url}`;
+      } else {
+        blogImage = `${window.location.origin}/${blog.image_url}`;
+      }
+    }
     
-    // Open Graph tags for rich link previews
+    // Debug logging for development
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔍 Blog Image Debug:', {
+        original_image_url: blog.image_url,
+        processed_blogImage: blogImage,
+        hasImage: !!(blog.image_url && blog.image_url.trim() !== ''),
+        isAbsolute: blogImage.startsWith('http')
+      });
+    }
+    
+    // Enhanced description for social sharing - just the blog summary, no extra branding
+    const socialDescription = blog.summary;
+    
+    // Open Graph tags for rich link previews - blog title as main title
     updateMetaTag('og:type', 'article');
-    updateMetaTag('og:title', `${blog.title} | DevOps Community Blog`);
+    updateMetaTag('og:title', blog.title);
     updateMetaTag('og:description', socialDescription);
     updateMetaTag('og:url', currentUrl);
     updateMetaTag('og:image', blogImage);
@@ -114,11 +133,11 @@ export default function BlogDetailPage() {
     updateMetaTag('article:section', 'DevOps');
     updateMetaTag('article:tag', blog.tags.join(', '));
     
-    // Twitter Card tags for Twitter sharing
+    // Twitter Card tags for Twitter sharing - blog title as main title
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:site', '@devops_community');
     updateMetaTag('twitter:creator', '@devops_community');
-    updateMetaTag('twitter:title', `${blog.title} | DevOps Community Blog`);
+    updateMetaTag('twitter:title', blog.title);
     updateMetaTag('twitter:description', socialDescription);
     updateMetaTag('twitter:image', blogImage);
     updateMetaTag('twitter:image:alt', blog.title);
