@@ -36,7 +36,8 @@ export default async function Head({ params }: { params: { id: string } }) {
   const description = blog?.summary || "Insights, tutorials, and best practices from the DevOps Community.";
 
   // Ensure absolute image URL
-  let image = `${baseUrl}/blue.png`;
+  // Prefer blog image; fallback to a reliable 1200x630 share image
+  let image = "https://res.cloudinary.com/dxhl3elv2/image/upload/v1759077856/Blog%20Automation/n0cxaxprsa1hlzczroyh.png";
   const raw = blog?.image_url?.trim();
   if (raw) {
     if (raw.startsWith("http://") || raw.startsWith("https://")) {
@@ -62,6 +63,8 @@ export default async function Head({ params }: { params: { id: string } }) {
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content="DevOps Community" />
       <meta property="og:image" content={image} />
+      <meta property="og:image:secure_url" content={image} />
+      <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={title} />

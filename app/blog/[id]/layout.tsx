@@ -40,7 +40,8 @@ export async function generateMetadata(
   const description = blog?.summary || "Insights, tutorials, and best practices from the DevOps Community.";
 
   // Ensure absolute image URL
-  let image = `${baseUrl}/blue.png`;
+  // Prefer blog image; fallback to a reliable 1200x630 share image
+  let image = "https://res.cloudinary.com/dxhl3elv2/image/upload/v1759077856/Blog%20Automation/n0cxaxprsa1hlzczroyh.png";
   const raw = blog?.image_url?.trim();
   if (raw) {
     if (raw.startsWith("http://") || raw.startsWith("https://")) {
@@ -69,6 +70,7 @@ export async function generateMetadata(
       images: [
         {
           url: image,
+          secureUrl: image,
           width: 1200,
           height: 630,
           alt: title,
