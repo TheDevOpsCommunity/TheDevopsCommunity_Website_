@@ -14,8 +14,6 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
   const [isOpen, setIsOpen] = useState(false);
 
   const encodedUrl = encodeURIComponent(url);
-  const encodedTitle = encodeURIComponent(title);
-  const encodedDescription = encodeURIComponent(description);
   
   // Enhanced sharing messages for better engagement
   const shareMessages = {
