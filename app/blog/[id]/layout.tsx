@@ -58,6 +58,21 @@ export async function generateMetadata(
   // Force HTTPS for share images
   image = image.replace(/^http:\/\//, 'https://');
 
+  // If Cloudinary URL, enforce a 1200x630 JPEG with smart compression
+  const transformCloudinary = (u: string): string => {
+    try {
+      const parsed = new URL(u);
+      if (parsed.hostname === 'res.cloudinary.com' && parsed.pathname.includes('/upload/')) {
+        if (!parsed.pathname.includes('/upload/f_jpg')) {
+          parsed.pathname = parsed.pathname.replace('/upload/', '/upload/f_jpg,q_auto,w_1200,h_630,c_fill/');
+        }
+        return parsed.toString().replace(/^http:\/\//, 'https://');
+      }
+    } catch {}
+    return u;
+  };
+  image = transformCloudinary(image);
+
   return {
     title,
     description,

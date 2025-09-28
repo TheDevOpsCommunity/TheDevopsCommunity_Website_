@@ -54,6 +54,21 @@ export default async function Head({ params }: { params: { id: string } }) {
   // Always prefer HTTPS for share images (WhatsApp/Facebook require secure URLs)
   image = image.replace(/^http:\/\//, 'https://');
 
+  // If Cloudinary URL, enforce a 1200x630 JPEG with smart compression for previews
+  const transformCloudinary = (u: string): string => {
+    try {
+      const parsed = new URL(u);
+      if (parsed.hostname === 'res.cloudinary.com' && parsed.pathname.includes('/upload/')) {
+        if (!parsed.pathname.includes('/upload/f_jpg')) {
+          parsed.pathname = parsed.pathname.replace('/upload/', '/upload/f_jpg,q_auto,w_1200,h_630,c_fill/');
+        }
+        return parsed.toString().replace(/^http:\/\//, 'https://');
+      }
+    } catch {}
+    return u;
+  };
+  image = transformCloudinary(image);
+
   return (
     <>
       <title>{title}</title>
