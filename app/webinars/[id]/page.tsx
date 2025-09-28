@@ -83,7 +83,7 @@ export default function WebinarDetailsPage() {
     "terraform-azure-5day": {
       title: "Terraform Webinar Series (5 Days) – Azure-Focused Hands-on",
       isLive: true,
-      date: "6th–10th October, 2025",
+        date: "13th–17th October, 2025",
       time: "7:00 PM – 8:30 PM IST (Daily)",
       duration: "5 days, 1.5 hours each day",
       fee: "₹999",

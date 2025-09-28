@@ -376,7 +376,7 @@ export function HeroSectionOne() {
                     🔥 LIMITED TIME
                   </span>
                   <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    Oct 6-10, 2025
+                    Oct 13-17, 2025
                   </span>
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight">

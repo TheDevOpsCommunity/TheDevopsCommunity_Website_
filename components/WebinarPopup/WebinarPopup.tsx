@@ -124,7 +124,7 @@ export default function WebinarPopup({
                   Terraform Webinar Series (Azure)
                 </h2>
                 <p className="text-blue-100 text-sm">
-                  6–10 Oct • 7–8:30 PM IST
+                  13–17 Oct • 7–8:30 PM IST
                 </p>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function WebinarPopup({
                     <CalendarIcon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-700">6th–10th Oct, 2025</span>
+                    <span className="font-medium text-gray-700">13th–17th Oct, 2025</span>
                   </div>
                 </div>
                 
