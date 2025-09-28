@@ -12,6 +12,7 @@ import BlogMeta from "@/components/Blog/BlogMeta";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import ErrorMessage from "@/components/ui/error-message";
 import WebinarPopup from "@/components/WebinarPopup/WebinarPopup";
+import { debugMetaTags } from "@/lib/social-sharing-utils";
 
 export default function BlogDetailPage() {
   const params = useParams();
@@ -87,15 +88,23 @@ export default function BlogDetailPage() {
     updateMetaTag('description', blog.summary);
     updateMetaTag('author', blog.authors.join(', '));
     
+    // Use blog image if available, otherwise fallback to default
+    const blogImage = blog.image_url && blog.image_url.trim() !== '' 
+      ? blog.image_url 
+      : `${window.location.origin}/blue.png`;
+    
+    // Enhanced description for social sharing
+    const socialDescription = `${blog.summary} | Read more DevOps insights, tutorials, and best practices on DevOps Community Blog.`;
+    
     // Open Graph tags for rich link previews
     updateMetaTag('og:type', 'article');
-    updateMetaTag('og:title', blog.title);
-    updateMetaTag('og:description', blog.summary);
+    updateMetaTag('og:title', `${blog.title} | DevOps Community Blog`);
+    updateMetaTag('og:description', socialDescription);
     updateMetaTag('og:url', currentUrl);
-    updateMetaTag('og:image', `${window.location.origin}/blue.png`);
+    updateMetaTag('og:image', blogImage);
     updateMetaTag('og:site_name', 'DevOps Community');
-    updateMetaTag('og:image:width', '1536');
-    updateMetaTag('og:image:height', '1024');
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
     updateMetaTag('og:image:alt', blog.title);
     updateMetaTag('og:locale', 'en_US');
     
@@ -109,14 +118,72 @@ export default function BlogDetailPage() {
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:site', '@devops_community');
     updateMetaTag('twitter:creator', '@devops_community');
-    updateMetaTag('twitter:title', blog.title);
-    updateMetaTag('twitter:description', blog.summary);
-    updateMetaTag('twitter:image', `${window.location.origin}/blue.png`);
+    updateMetaTag('twitter:title', `${blog.title} | DevOps Community Blog`);
+    updateMetaTag('twitter:description', socialDescription);
+    updateMetaTag('twitter:image', blogImage);
     updateMetaTag('twitter:image:alt', blog.title);
     
     // Additional meta tags for better SEO and sharing
     updateMetaTag('robots', 'index, follow');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
+    
+    // Additional tags for better social sharing
+    updateMetaTag('og:updated_time', new Date().toISOString());
+    updateMetaTag('article:modified_time', new Date().toISOString());
+    updateMetaTag('article:expiration_time', new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()); // 1 year from now
+    
+    // WhatsApp specific tags
+    updateMetaTag('og:image:type', 'image/jpeg');
+    updateMetaTag('og:image:secure_url', blogImage);
+    
+    // LinkedIn specific tags
+    updateMetaTag('linkedin:owner', 'devops-community');
+    
+    // Pinterest specific tags
+    updateMetaTag('pinterest:description', socialDescription);
+    updateMetaTag('pinterest:image', blogImage);
+    
+    // Add structured data (JSON-LD) for better SEO and social sharing
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": blog.title,
+      "description": socialDescription,
+      "image": blogImage,
+      "author": {
+        "@type": "Person",
+        "name": blog.authors.join(', ')
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "DevOps Community",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${window.location.origin}/logo.svg`
+        }
+      },
+      "datePublished": blog.published_at,
+      "dateModified": blog.published_at,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": currentUrl
+      },
+      "keywords": blog.tags.join(', '),
+      "articleSection": "DevOps",
+      "wordCount": blog.content?.length || 0
+    };
+    
+    // Remove existing structured data if any
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+    
+    // Add new structured data
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
   }, [blog]);
 
   if (loading) {
@@ -218,6 +285,19 @@ export default function BlogDetailPage() {
           style={{ width: '0%' }}
         />
       </div>
+      
+      {/* Debug button for development only */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <button
+            onClick={debugMetaTags}
+            className="bg-red-500 text-white px-3 py-2 rounded-lg text-xs font-mono hover:bg-red-600 transition-colors"
+            title="Debug Meta Tags (Development Only)"
+          >
+            🔍 Debug Meta
+          </button>
+        </div>
+      )}
     </main>
   );
 }
