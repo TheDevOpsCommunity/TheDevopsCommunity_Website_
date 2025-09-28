@@ -55,6 +55,9 @@ export async function generateMetadata(
 
   const url = `${baseUrl}/blog/${id}`;
 
+  // Force HTTPS for share images
+  image = image.replace(/^http:\/\//, 'https://');
+
   return {
     title,
     description,

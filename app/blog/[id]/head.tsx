@@ -51,6 +51,9 @@ export default async function Head({ params }: { params: { id: string } }) {
 
   const url = `${baseUrl}/blog/${params.id}`;
 
+  // Always prefer HTTPS for share images (WhatsApp/Facebook require secure URLs)
+  image = image.replace(/^http:\/\//, 'https://');
+
   return (
     <>
       <title>{title}</title>
