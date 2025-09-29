@@ -66,7 +66,8 @@ const PAYMENT_PAGE_IDS = {
   WEBINAR: 'pl_RMI4kw9wUDVfWG',
   AWS_DEVOPS: 'pl_Qh23UMxKat9LKQ',
   AZURE_DEVOPS: 'pl_RDakh7O49L14YT',
-  DOCKER_K8S: 'pl_QyuVjAdAPl6lAo'
+  DOCKER_K8S: 'pl_QyuVjAdAPl6lAo',
+  TEST_PAGE: 'pl_Qt5830vbPZSHbL'
 } as const;
 
 // In-memory cache to prevent duplicate processing (in production, use Redis)
@@ -549,7 +550,7 @@ export async function POST(request: Request) {
         );
       }
     } else if (paymentPageId === PAYMENT_PAGE_IDS.AZURE_DEVOPS) {
-  } else if (paymentPageId === PAYMENT_PAGE_IDS.DOCKER_K8S) {
+  } else if (paymentPageId === PAYMENT_PAGE_IDS.DOCKER_K8S || paymentPageId === PAYMENT_PAGE_IDS.TEST_PAGE) {
     // Route to Docker & Kubernetes bootcamp handler
     logEvent('ROUTING_TO_DOCKER_K8S', { requestId, paymentPageId });
     try {
