@@ -65,7 +65,8 @@ interface RazorpayWebhookPayload {
 const PAYMENT_PAGE_IDS = {
   WEBINAR: 'pl_RMI4kw9wUDVfWG',
   AWS_DEVOPS: 'pl_Qh23UMxKat9LKQ',
-  AZURE_DEVOPS: 'pl_RDakh7O49L14YT'
+  AZURE_DEVOPS: 'pl_RDakh7O49L14YT',
+  DOCKER_K8S: 'pl_QyuVjAdAPl6lAo'
 } as const;
 
 // In-memory cache to prevent duplicate processing (in production, use Redis)
@@ -548,6 +549,31 @@ export async function POST(request: Request) {
         );
       }
     } else if (paymentPageId === PAYMENT_PAGE_IDS.AZURE_DEVOPS) {
+  } else if (paymentPageId === PAYMENT_PAGE_IDS.DOCKER_K8S) {
+    // Route to Docker & Kubernetes bootcamp handler
+    logEvent('ROUTING_TO_DOCKER_K8S', { requestId, paymentPageId });
+    try {
+      const newRequest = new Request(request.url, {
+        method: request.method,
+        headers: request.headers,
+        body: rawBody
+      });
+      const { POST: dkHandler } = await import('../courses/docker-kubernetes/route');
+      const dkResponse = await Promise.race([
+        dkHandler(newRequest),
+        new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Docker K8s handler timeout')), 30000))
+      ]);
+      if (!dkResponse.ok) {
+        const errorText = await dkResponse.text();
+        logEvent('DOCKER_K8S_HANDLER_ERROR', { requestId, paymentId: payment.id, status: dkResponse.status, error: errorText });
+        throw new Error(`Docker K8s handler failed: ${dkResponse.status} - ${errorText}`);
+      }
+      logEvent('DOCKER_K8S_ROUTED', { requestId, paymentId: payment.id, status: dkResponse.status });
+      return dkResponse;
+    } catch (error) {
+      logEvent('DOCKER_K8S_ROUTING_ERROR', { requestId, error: error instanceof Error ? error.message : 'Unknown error' });
+      return NextResponse.json({ message: 'Docker K8s handler error' }, { status: 500, headers: corsHeaders });
+    }
       // Route to Azure DevOps course handler
       logEvent('ROUTING_TO_AZURE_DEVOPS', { requestId, paymentPageId });
       
@@ -592,11 +618,12 @@ export async function POST(request: Request) {
           { message: 'Payment routed to Azure DevOps handler' },
           { status: 200, headers: corsHeaders }
         );
-      } catch (routingError) {
+      } catch (e) {
+        const errMsg = (e as Error)?.message ?? 'Unknown error';
         logEvent('AZURE_DEVOPS_ROUTING_FAILED', {
           requestId,
           paymentId: payment.id,
-          error: routingError instanceof Error ? routingError.message : 'Unknown error',
+          error: errMsg,
           timestamp: new Date().toISOString()
         });
 
