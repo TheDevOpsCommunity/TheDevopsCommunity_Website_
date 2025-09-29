@@ -428,11 +428,23 @@ export async function POST(request: Request) {
     // Mark as processed immediately to prevent race conditions
     processedPayments.add(paymentId);
 
-    // Resolve payment page id from multiple possible locations
-    const resolvedPaymentPageId = (payment as any)?.payment_page
-      || (payment as any)?.notes?.payment_page
-      || (data as any)?.payload?.payment_link?.entity?.payment_page_id
-      || (data as any)?.payload?.invoice?.entity?.payment_page_id
+    // Resolve payment page id from multiple possible locations without using any
+    type PaymentLike = {
+      payment_page?: string | null;
+      notes?: { payment_page?: string | null };
+    };
+    type PayloadLike = {
+      payment_link?: { entity?: { payment_page_id?: string | null } };
+      invoice?: { entity?: { payment_page_id?: string | null } };
+    };
+
+    const p = payment as unknown as PaymentLike;
+    const payloadLike = data.payload as unknown as PayloadLike;
+
+    const resolvedPaymentPageId = p?.payment_page
+      || p?.notes?.payment_page
+      || payloadLike?.payment_link?.entity?.payment_page_id
+      || payloadLike?.invoice?.entity?.payment_page_id
       || null;
 
     // Log payment details
@@ -442,7 +454,7 @@ export async function POST(request: Request) {
       paymentEntity: payment,
       availablePaymentFields: Object.keys(payment || {}),
       availableNotesFields: Object.keys(payment.notes || {}),
-      paymentPageId: resolvedPaymentPageId ?? (payment as any)?.payment_page ?? null,
+      paymentPageId: resolvedPaymentPageId ?? p?.payment_page ?? null,
       timestamp: new Date().toISOString()
     });
     
