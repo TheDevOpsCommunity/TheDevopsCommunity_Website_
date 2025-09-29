@@ -77,9 +77,9 @@ const webinars: WebinarCard[] = [
 ✅ Hands-on Labs & Real Projects
 ✅ Industry Expert Sessions
 ✅ Certificate of Completion`,
-    date: "27th August - 9th September, 2025",
-    time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
-    duration: "2 weeks, 1 hour each day (weekdays only)",
+    date: "6th–17th October, 2025",
+    time: "7:00 PM – 8:30 PM IST (Daily)",
+    duration: "2 weeks, 1.5 hours each day",
     fee: "₹2,999",
     originalPrice: "₹5,999",
     discount: "50% OFF",
@@ -87,7 +87,7 @@ const webinars: WebinarCard[] = [
     speaker: {
       name: "Kubernetes Expert",
     },
-    isLive: false,
+    isLive: true,
     id: "docker-kubernetes-bootcamp"
   },
   {

@@ -418,6 +418,38 @@ export function HeroSectionOne() {
           </div>
         </section>
 
+        {/* Docker & Kubernetes Bootcamp strip */}
+        <section className="w-full bg-gradient-to-r from-amber-600 to-orange-700 text-white py-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -translate-y-6 translate-x-6" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full translate-y-6 -translate-x-6" />
+
+          <div className="max-w-6xl mx-auto px-4 relative z-10">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+              <div className="text-center lg:text-left flex-1">
+                <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
+                  <span className="bg-black/20 text-white px-3 py-1 rounded-full text-xs font-semibold">Oct 6-17, 2025</span>
+                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold">7:00–8:30 PM IST</span>
+                </div>
+                <h3 className="text-lg md:text-xl font-bold mb-1 leading-tight">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</h3>
+                <p className="text-white/90 text-xs md:text-sm">Hands-on containerization and Kubernetes, projects, and production strategies. Fee <span className="font-semibold">₹2,999</span> <span className="line-through opacity-80 ml-1">₹5,999</span>. 50% off.</p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 min-w-[260px]">
+                <Link href="/webinars/docker-kubernetes-bootcamp">
+                  <button className="bg-white text-orange-700 hover:bg-orange-50 font-bold px-5 py-2.5 rounded-xl text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                    Register - ₹2,999
+                  </button>
+                </Link>
+                <Link href="/webinars">
+                  <button className="bg-white/20 text-white hover:bg-white/30 border border-white/30 font-semibold px-4 py-2.5 rounded-xl text-sm transition-all duration-200">
+                    View All
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Trusted By / Featured In Section */}
         <section className="w-full bg-white border-y border-blue-100 py-10">
           <div className="max-w-5xl mx-auto px-4">

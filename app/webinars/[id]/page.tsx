@@ -177,10 +177,10 @@ export default function WebinarDetailsPage() {
     },
     "docker-kubernetes-bootcamp": {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
-      isLive: false,
-      date: "27th August - 9th September, 2025",
-      time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
-      duration: "2 weeks, 1 hour each day (weekdays only)",
+      isLive: true,
+      date: "6th–17th October, 2025",
+      time: "7:00 PM – 8:30 PM IST (Daily)",
+      duration: "2 weeks, 1.5 hours each day",
       fee: "₹2,999",
       originalPrice: "₹5,999",
       discount: "50% OFF",
@@ -189,7 +189,7 @@ export default function WebinarDetailsPage() {
       speaker: {
         name: "Kubernetes Expert",
       },
-      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects!`,
+      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects! Tip: Get a promo code on our Instagram handle and apply it at Razorpay checkout.`,
       details: [
         {
           heading: "📚 Week 1 – Docker Fundamentals & Kubernetes Basics",
@@ -255,9 +255,9 @@ export default function WebinarDetailsPage() {
           ],
         },
       ],
-      registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // User will provide this
+      registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // placeholder
       registrationText: "Pay ₹2,999 & Register Now",
-      isCompleted: true,
+      isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
       subheadingWords: "2-Week Live Bootcamp",
       descriptionWords: "Master containerization and orchestration for DevOps excellence. This comprehensive 2-week live bootcamp covers Docker fundamentals, Kubernetes architecture, and production deployment strategies with hands-on labs and real-world projects.",
