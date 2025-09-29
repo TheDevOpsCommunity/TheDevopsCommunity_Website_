@@ -428,6 +428,13 @@ export async function POST(request: Request) {
     // Mark as processed immediately to prevent race conditions
     processedPayments.add(paymentId);
 
+    // Resolve payment page id from multiple possible locations
+    const resolvedPaymentPageId = (payment as any)?.payment_page
+      || (payment as any)?.notes?.payment_page
+      || (data as any)?.payload?.payment_link?.entity?.payment_page_id
+      || (data as any)?.payload?.invoice?.entity?.payment_page_id
+      || null;
+
     // Log payment details
     logEvent('PAYMENT_DETAILED', {
       requestId,
@@ -435,7 +442,7 @@ export async function POST(request: Request) {
       paymentEntity: payment,
       availablePaymentFields: Object.keys(payment || {}),
       availableNotesFields: Object.keys(payment.notes || {}),
-      paymentPageId: payment.payment_page,
+      paymentPageId: resolvedPaymentPageId ?? (payment as any)?.payment_page ?? null,
       timestamp: new Date().toISOString()
     });
     
@@ -450,7 +457,7 @@ export async function POST(request: Request) {
     });
 
     // Route based on payment page ID
-    const paymentPageId = payment.payment_page;
+    const paymentPageId = resolvedPaymentPageId;
     
     if (paymentPageId === PAYMENT_PAGE_IDS.WEBINAR) {
       // Handle webinar payment (current handler)
