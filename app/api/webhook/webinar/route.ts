@@ -446,27 +446,27 @@ export async function POST(request: Request) {
       label: label ?? null
     });
     // Label-based routing map aligned with actual products
-    const routingMap: Record<string, (req: Request) => Promise<Response>> = {
+    const routingMap: Record<string, (req?: Request) => Promise<Response>> = {
       // Courses
-      aws_course: async (req: Request) => {
+      aws_course: async (req?: Request) => {
         const { POST } = await import('../courses/aws-devops/route');
-        return POST(req);
+        return POST(req as Request);
       },
-      azure_course: async (req: Request) => {
+      azure_course: async (req?: Request) => {
         const { POST } = await import('../courses/azure-devops/route');
-        return POST(req);
+        return POST(req as Request);
       },
       // Docker & Kubernetes Bootcamp
-      docker_kubernetes: async (req: Request) => {
+      docker_kubernetes: async (req?: Request) => {
         const { POST } = await import('../courses/docker-kubernetes/route');
-        return POST(req);
+        return POST(req as Request);
       },
-      docker_kubernetes_bootcamp: async (req: Request) => {
+      docker_kubernetes_bootcamp: async (req?: Request) => {
         const { POST } = await import('../courses/docker-kubernetes/route');
-        return POST(req);
+        return POST(req as Request);
       },
       // Terraform Webinar (inline email send)
-      terraform_webinar: async (_req: Request) => {
+      terraform_webinar: async () => {
         try {
           await sendConfirmationEmail({
             email: payment.email,
@@ -482,8 +482,80 @@ export async function POST(request: Request) {
           return NextResponse.json({ message: 'Terraform webinar payment processed but email failed' }, { status: 200, headers: corsHeaders });
         }
       },
-      // Backward-compat alias
-      webinar1: async (req: Request) => routingMap.terraform_webinar(req)
+      // Testing: run all handlers/emails
+      testing: async () => {
+        const makeReq = () => new Request(request.url, { method: request.method, headers: request.headers, body: rawBody });
+        const results: Array<{ handler: string; ok: boolean; status?: number; error?: string }> = [];
+
+        // AWS
+        try {
+          const { POST } = await import('../courses/aws-devops/route');
+          const res = await Promise.race([
+            POST(makeReq()),
+            new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('AWS handler timeout')), 30000))
+          ]);
+          if (!res.ok) {
+            const err = await res.text();
+            results.push({ handler: 'aws_course', ok: false, status: res.status, error: err });
+          } else {
+            results.push({ handler: 'aws_course', ok: true, status: res.status });
+          }
+        } catch (e) {
+          results.push({ handler: 'aws_course', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        // Azure
+        try {
+          const { POST } = await import('../courses/azure-devops/route');
+          const res = await Promise.race([
+            POST(makeReq()),
+            new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Azure handler timeout')), 30000))
+          ]);
+          if (!res.ok) {
+            const err = await res.text();
+            results.push({ handler: 'azure_course', ok: false, status: res.status, error: err });
+          } else {
+            results.push({ handler: 'azure_course', ok: true, status: res.status });
+          }
+        } catch (e) {
+          results.push({ handler: 'azure_course', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        // Docker & Kubernetes
+        try {
+          const { POST } = await import('../courses/docker-kubernetes/route');
+          const res = await Promise.race([
+            POST(makeReq()),
+            new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Docker K8s handler timeout')), 30000))
+          ]);
+          if (!res.ok) {
+            const err = await res.text();
+            results.push({ handler: 'docker_kubernetes', ok: false, status: res.status, error: err });
+          } else {
+            results.push({ handler: 'docker_kubernetes', ok: true, status: res.status });
+          }
+        } catch (e) {
+          results.push({ handler: 'docker_kubernetes', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        // Terraform email inline
+        try {
+          await sendConfirmationEmail({
+            email: payment.email,
+            amount: payment.amount,
+            id: payment.id,
+            name: payment.notes?.name,
+            contact: payment.contact
+          });
+          results.push({ handler: 'terraform_webinar', ok: true });
+        } catch (e) {
+          results.push({ handler: 'terraform_webinar', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        logEvent('TESTING_RUN_COMPLETED', { requestId, paymentId: payment.id, label: 'testing', results });
+        const allOk = results.every(r => r.ok);
+        return NextResponse.json({ message: 'Testing run executed', results }, { status: allOk ? 200 : 207, headers: corsHeaders });
+      }
     };
 
     // Route based on label
@@ -505,8 +577,10 @@ export async function POST(request: Request) {
     });
 
     try {
+      const invoke = routingMap[label];
       const response = await Promise.race([
-        routingMap[label](forwardRequest),
+        // Only pass forwardRequest to handlers that accept it
+        (invoke.length > 0 ? invoke(forwardRequest) : invoke()),
         new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Handler timeout')), 30000))
       ]);
 
