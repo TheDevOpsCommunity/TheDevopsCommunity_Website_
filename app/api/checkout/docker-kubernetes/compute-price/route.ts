@@ -16,10 +16,8 @@ type ComputePriceRequest = {
 
 const ORIGINAL_PRICE_INR = 5999;
 const PROMO_DEAL_INR = 2999;
-const FREE_PROMO_INR = 1;
 const VALID_PROMOS = {
   'KUBEDEAL': PROMO_DEAL_INR,
-  'FREETEST': FREE_PROMO_INR, // 100% off for testing
 };
 
 export async function POST(request: Request) {
