@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       },
       { headers: corsHeaders }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Invalid request' },
       { status: 400, headers: corsHeaders }

@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     // Actual authoritative status and emails remain handled by webhook.
 
     return NextResponse.json({ success: true }, { headers: corsHeaders });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400, headers: corsHeaders });
   }
 }

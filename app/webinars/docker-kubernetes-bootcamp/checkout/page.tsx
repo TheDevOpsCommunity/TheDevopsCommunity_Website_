@@ -3,7 +3,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { CalendarIcon, ClockIcon, UserIcon, CurrencyRupeeIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
 
 type PriceResponse = {
   amount: number;
@@ -30,7 +29,6 @@ export default function DockerKubernetesCheckoutPage() {
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
   const [price, setPrice] = useState<number>(5999);
-  const [original, setOriginal] = useState<number>(5999);
   const [isApplying, setIsApplying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,11 +46,10 @@ export default function DockerKubernetesCheckoutPage() {
         body: JSON.stringify({ promoCode: code || "" }),
       });
       const data = (await res.json()) as PriceResponse | { error: string };
-      if (!res.ok || (data as any).error) throw new Error((data as any).error || "Failed to compute price");
+      if (!res.ok || 'error' in data) throw new Error('error' in data ? data.error : "Failed to compute price");
       const pr = data as PriceResponse;
       setPrice(pr.amount);
       setAppliedPromo(pr.appliedPromo);
-      setOriginal(pr.originalAmount || 5999);
     } catch (e) {
       setError((e as Error)?.message || "Failed to compute price");
     } finally {
@@ -106,7 +103,18 @@ export default function DockerKubernetesCheckoutPage() {
         });
       }
 
-      const options: any = {
+      const options: {
+        key: string;
+        amount: number;
+        currency: string;
+        name: string;
+        description: string;
+        order_id: string;
+        prefill: { name: string; email: string; contact: string };
+        notes: { label: string };
+        handler: (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => Promise<void>;
+        theme: { color: string };
+      } = {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
@@ -115,7 +123,7 @@ export default function DockerKubernetesCheckoutPage() {
         order_id: orderData.orderId,
         prefill: { name, email, contact },
         notes: { label: "docker_kubernetes" },
-        handler: async function (response: any) {
+        handler: async function (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) {
           try {
             const confirmRes = await fetch("/api/checkout/docker-kubernetes/confirm", {
               method: "POST",
@@ -136,8 +144,8 @@ export default function DockerKubernetesCheckoutPage() {
         theme: { color: "#0ea5e9" },
       };
 
-      // @ts-ignore
-      const rzp = new (window as any).Razorpay(options);
+      // @ts-expect-error - Razorpay is loaded dynamically
+      const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (e) {
       setError((e as Error)?.message || "Payment failed");
@@ -203,7 +211,7 @@ export default function DockerKubernetesCheckoutPage() {
               transition={{ delay: 0.1 }}
               className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-blue-200"
             >
-              <h2 className="text-xl font-bold text-blue-900 mb-4">What You'll Learn</h2>
+              <h2 className="text-xl font-bold text-blue-900 mb-4">What You&apos;ll Learn</h2>
               <ul className="space-y-2 text-blue-900">
                 <li className="flex items-center gap-2">
                   <CheckCircleIcon className="w-5 h-5 text-green-600" />

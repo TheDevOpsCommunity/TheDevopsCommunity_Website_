@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as CreateOrderRequest;
     const promoCode = (body?.promoCode || '').trim();
-    const { name, email, contact } = body?.customer || {} as any;
+    const { name, email, contact } = body?.customer || { name: '', email: '', contact: '' };
 
     if (!name || !email || !contact) {
       return NextResponse.json({ error: 'Missing customer info' }, { status: 400, headers: corsHeaders });
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
       },
       { headers: corsHeaders }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400, headers: corsHeaders });
   }
 }
