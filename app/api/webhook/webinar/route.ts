@@ -13,6 +13,7 @@ interface RazorpayPaymentEntity {
     name?: string;
     email?: string;
     phone?: string;
+    label?: string;
   };
 }
 
@@ -61,14 +62,7 @@ interface RazorpayWebhookPayload {
   };
 }
 
-// Payment page ID mappings
-const PAYMENT_PAGE_IDS = {
-  WEBINAR: 'pl_RMI4kw9wUDVfWG',
-  AWS_DEVOPS: 'pl_Qh23UMxKat9LKQ',
-  AZURE_DEVOPS: 'pl_RDakh7O49L14YT',
-  DOCKER_K8S: 'pl_QyuVjAdAPl6lAo',
-  TEST_PAGE: 'pl_Qt5830vbPZSHbL'
-} as const;
+// Routing now handled strictly via notes.label in webhook payload
 
 // In-memory cache to prevent duplicate processing (in production, use Redis)
 const processedPayments = new Set<string>();
@@ -428,24 +422,8 @@ export async function POST(request: Request) {
     // Mark as processed immediately to prevent race conditions
     processedPayments.add(paymentId);
 
-    // Resolve payment page id from multiple possible locations without using any
-    type PaymentLike = {
-      payment_page?: string | null;
-      notes?: { payment_page?: string | null };
-    };
-    type PayloadLike = {
-      payment_link?: { entity?: { payment_page_id?: string | null } };
-      invoice?: { entity?: { payment_page_id?: string | null } };
-    };
-
-    const p = payment as unknown as PaymentLike;
-    const payloadLike = data.payload as unknown as PayloadLike;
-
-    const resolvedPaymentPageId = p?.payment_page
-      || p?.notes?.payment_page
-      || payloadLike?.payment_link?.entity?.payment_page_id
-      || payloadLike?.invoice?.entity?.payment_page_id
-      || null;
+    // Extract label for routing
+    const label: string | undefined = data?.payload?.payment?.entity?.notes?.label;
 
     // Log payment details
     logEvent('PAYMENT_DETAILED', {
@@ -454,7 +432,7 @@ export async function POST(request: Request) {
       paymentEntity: payment,
       availablePaymentFields: Object.keys(payment || {}),
       availableNotesFields: Object.keys(payment.notes || {}),
-      paymentPageId: resolvedPaymentPageId ?? p?.payment_page ?? null,
+      label: label ?? null,
       timestamp: new Date().toISOString()
     });
     
@@ -464,207 +442,86 @@ export async function POST(request: Request) {
       amount: payment.amount,
       email: payment.email,
       contact: payment.contact || 'Not provided',
-      paymentPageId: payment.payment_page,
-      notes: payment.notes
+      notes: payment.notes,
+      label: label ?? null
     });
-
-    // Route based on payment page ID
-    const paymentPageId = resolvedPaymentPageId;
-    
-    if (paymentPageId === PAYMENT_PAGE_IDS.WEBINAR) {
-      // Handle webinar payment (current handler)
-      logEvent('ROUTING_TO_WEBINAR', { requestId, paymentPageId });
-      
-      try {
-        await sendConfirmationEmail({
-          email: payment.email,
-          amount: payment.amount,
-          id: payment.id,
-          name: payment.notes?.name,
-          contact: payment.contact
-        });
-        
-        logEvent('WEBHOOK_SUCCESS', {
-          requestId,
-          paymentId: payment.id,
-          emailSent: true,
-          handler: 'webinar',
-          timestamp: new Date().toISOString()
-        });
-
-        return NextResponse.json(
-          { message: 'Webinar payment processed and email sent successfully' },
-          { status: 200, headers: corsHeaders }
-        );
-      } catch (emailError) {
-        logEvent('EMAIL_SEND_FAILED', {
-          requestId,
-          paymentId: payment.id,
-          handler: 'webinar',
-          error: emailError instanceof Error ? emailError.message : 'Unknown error',
-          timestamp: new Date().toISOString()
-        });
-
-        return NextResponse.json(
-          { message: 'Webinar payment processed but email failed' },
-          { status: 200, headers: corsHeaders }
-        );
-      }
-    } else if (paymentPageId === PAYMENT_PAGE_IDS.AWS_DEVOPS) {
-      // Route to AWS DevOps course handler
-      logEvent('ROUTING_TO_AWS_DEVOPS', { requestId, paymentPageId });
-      
-      try {
-        // Create a new Request object with the raw body for signature verification
-        const newRequest = new Request(request.url, {
-          method: request.method,
-          headers: request.headers,
-          body: rawBody
-        });
-        
-        // Import and call AWS DevOps handler directly with timeout
-        const { POST: awsHandler } = await import('../courses/aws-devops/route');
-        const awsResponse = await Promise.race([
-          awsHandler(newRequest),
-          new Promise<Response>((_, reject) => 
-            setTimeout(() => reject(new Error('AWS DevOps handler timeout')), 30000)
-          )
-        ]);
-        
-        // Check if the handler processed successfully
-        if (!awsResponse.ok) {
-          const errorText = await awsResponse.text();
-          logEvent('AWS_DEVOPS_HANDLER_ERROR', {
-            requestId,
-            paymentId: payment.id,
-            status: awsResponse.status,
-            error: errorText,
-            timestamp: new Date().toISOString()
+    // Label-based routing map aligned with actual products
+    const routingMap: Record<string, (req: Request) => Promise<Response>> = {
+      // Courses
+      aws_course: async (req: Request) => {
+        const { POST } = await import('../courses/aws-devops/route');
+        return POST(req);
+      },
+      azure_course: async (req: Request) => {
+        const { POST } = await import('../courses/azure-devops/route');
+        return POST(req);
+      },
+      // Docker & Kubernetes Bootcamp
+      docker_kubernetes: async (req: Request) => {
+        const { POST } = await import('../courses/docker-kubernetes/route');
+        return POST(req);
+      },
+      docker_kubernetes_bootcamp: async (req: Request) => {
+        const { POST } = await import('../courses/docker-kubernetes/route');
+        return POST(req);
+      },
+      // Terraform Webinar (inline email send)
+      terraform_webinar: async (_req: Request) => {
+        try {
+          await sendConfirmationEmail({
+            email: payment.email,
+            amount: payment.amount,
+            id: payment.id,
+            name: payment.notes?.name,
+            contact: payment.contact
           });
-          throw new Error(`AWS DevOps handler failed: ${awsResponse.status} - ${errorText}`);
+          logEvent('WEBHOOK_SUCCESS', { requestId, paymentId: payment.id, emailSent: true, handler: 'terraform_webinar' });
+          return NextResponse.json({ message: 'Terraform webinar payment processed and email sent successfully' }, { status: 200, headers: corsHeaders });
+        } catch (emailError) {
+          logEvent('EMAIL_SEND_FAILED', { requestId, paymentId: payment.id, handler: 'terraform_webinar', error: emailError instanceof Error ? emailError.message : 'Unknown error' });
+          return NextResponse.json({ message: 'Terraform webinar payment processed but email failed' }, { status: 200, headers: corsHeaders });
         }
-        
-        logEvent('AWS_DEVOPS_ROUTED', {
-          requestId,
-          paymentId: payment.id,
-          status: awsResponse.status,
-          timestamp: new Date().toISOString()
-        });
+      },
+      // Backward-compat alias
+      webinar1: async (req: Request) => routingMap.terraform_webinar(req)
+    };
 
-        return NextResponse.json(
-          { message: 'Payment routed to AWS DevOps handler' },
-          { status: 200, headers: corsHeaders }
-        );
-      } catch (routingError) {
-        logEvent('AWS_DEVOPS_ROUTING_FAILED', {
-          requestId,
-          paymentId: payment.id,
-          error: routingError instanceof Error ? routingError.message : 'Unknown error',
-          timestamp: new Date().toISOString()
-        });
-
-        return NextResponse.json(
-          { error: 'Failed to route to AWS DevOps handler' },
-          { status: 500, headers: corsHeaders }
-        );
-      }
-    } else if (paymentPageId === PAYMENT_PAGE_IDS.AZURE_DEVOPS) {
-  } else if (paymentPageId === PAYMENT_PAGE_IDS.DOCKER_K8S || paymentPageId === PAYMENT_PAGE_IDS.TEST_PAGE) {
-    // Route to Docker & Kubernetes bootcamp handler
-    logEvent('ROUTING_TO_DOCKER_K8S', { requestId, paymentPageId });
-    try {
-      const newRequest = new Request(request.url, {
-        method: request.method,
-        headers: request.headers,
-        body: rawBody
-      });
-      const { POST: dkHandler } = await import('../courses/docker-kubernetes/route');
-      const dkResponse = await Promise.race([
-        dkHandler(newRequest),
-        new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Docker K8s handler timeout')), 30000))
-      ]);
-      if (!dkResponse.ok) {
-        const errorText = await dkResponse.text();
-        logEvent('DOCKER_K8S_HANDLER_ERROR', { requestId, paymentId: payment.id, status: dkResponse.status, error: errorText });
-        throw new Error(`Docker K8s handler failed: ${dkResponse.status} - ${errorText}`);
-      }
-      logEvent('DOCKER_K8S_ROUTED', { requestId, paymentId: payment.id, status: dkResponse.status });
-      return dkResponse;
-    } catch (error) {
-      logEvent('DOCKER_K8S_ROUTING_ERROR', { requestId, error: error instanceof Error ? error.message : 'Unknown error' });
-      return NextResponse.json({ message: 'Docker K8s handler error' }, { status: 500, headers: corsHeaders });
-    }
-      // Route to Azure DevOps course handler
-      logEvent('ROUTING_TO_AZURE_DEVOPS', { requestId, paymentPageId });
-      
-      try {
-        // Create a new Request object with the raw body for signature verification
-        const newRequest = new Request(request.url, {
-          method: request.method,
-          headers: request.headers,
-          body: rawBody
-        });
-        
-        // Import and call Azure DevOps handler directly with timeout
-        const { POST: azureHandler } = await import('../courses/azure-devops/route');
-        const azureResponse = await Promise.race([
-          azureHandler(newRequest),
-          new Promise<Response>((_, reject) => 
-            setTimeout(() => reject(new Error('Azure DevOps handler timeout')), 30000)
-          )
-        ]);
-        
-        // Check if the handler processed successfully
-        if (!azureResponse.ok) {
-          const errorText = await azureResponse.text();
-          logEvent('AZURE_DEVOPS_HANDLER_ERROR', {
-            requestId,
-            paymentId: payment.id,
-            status: azureResponse.status,
-            error: errorText,
-            timestamp: new Date().toISOString()
-          });
-          throw new Error(`Azure DevOps handler failed: ${azureResponse.status} - ${errorText}`);
-        }
-        
-        logEvent('AZURE_DEVOPS_ROUTED', {
-          requestId,
-          paymentId: payment.id,
-          status: azureResponse.status,
-          timestamp: new Date().toISOString()
-        });
-
-        return NextResponse.json(
-          { message: 'Payment routed to Azure DevOps handler' },
-          { status: 200, headers: corsHeaders }
-        );
-      } catch (e) {
-        const errMsg = (e as Error)?.message ?? 'Unknown error';
-        logEvent('AZURE_DEVOPS_ROUTING_FAILED', {
-          requestId,
-          paymentId: payment.id,
-          error: errMsg,
-          timestamp: new Date().toISOString()
-        });
-
-        return NextResponse.json(
-          { error: 'Failed to route to Azure DevOps handler' },
-          { status: 500, headers: corsHeaders }
-        );
-      }
-    } else {
-      // Unknown payment page ID
-      logEvent('UNKNOWN_PAYMENT_PAGE', {
+    // Route based on label
+    if (!label || !routingMap[label]) {
+      logEvent('UNKNOWN_OR_MISSING_LABEL', {
         requestId,
         paymentId: payment.id,
-        paymentPageId: paymentPageId,
-        timestamp: new Date().toISOString()
+        label: label ?? null,
+        notes: payment.notes || null
       });
+      return NextResponse.json({ error: 'Unknown or missing label' }, { status: 400, headers: corsHeaders });
+    }
 
-      return NextResponse.json(
-        { error: 'Unknown payment page ID' },
-        { status: 400, headers: corsHeaders }
-      );
+    // Create a fresh Request with raw body for downstream handlers to verify signatures
+    const forwardRequest = new Request(request.url, {
+      method: request.method,
+      headers: request.headers,
+      body: rawBody
+    });
+
+    try {
+      const response = await Promise.race([
+        routingMap[label](forwardRequest),
+        new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Handler timeout')), 30000))
+      ]);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        logEvent('HANDLER_ERROR', { requestId, paymentId: payment.id, label, status: response.status, error: errorText });
+        return NextResponse.json({ error: 'Handler returned error' }, { status: 500, headers: corsHeaders });
+      }
+
+      logEvent('ROUTED_BY_LABEL', { requestId, paymentId: payment.id, label, status: response.status });
+      return response;
+    } catch (e) {
+      const errMsg = (e as Error)?.message ?? 'Unknown error';
+      logEvent('ROUTING_FAILED', { requestId, paymentId: payment.id, label, error: errMsg });
+      return NextResponse.json({ error: 'Failed to route by label' }, { status: 500, headers: corsHeaders });
     }
 
   } catch (error) {

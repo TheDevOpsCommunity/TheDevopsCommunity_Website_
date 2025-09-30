@@ -348,7 +348,7 @@ export default function AwsDevopsCurriculumPage() {
 
               {/* Razorpay Button */}
               <RazorpayButton
-                url="https://rzp.io/rzp/SAsMrhSR"
+                url="https://pages.razorpay.com/pl_Qh23UMxKat9LKQ/view?label=aws_course"
                 text="Enroll Now — ₹22,000"
                 color="#1d4ed8"
                 size="large"

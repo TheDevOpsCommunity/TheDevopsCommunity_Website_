@@ -168,7 +168,7 @@ export default function WebinarDetailsPage() {
           ]
         }
       ],
-      registrationUrl: "https://rzp.io/rzp/VmiWzf4y", // replace with real link
+      registrationUrl: "https://pages.razorpay.com/pl_RMI4kw9wUDVfWG/view?label=terraform_webinar", // replace with real link
       registrationText: "Pay ₹999 & Register Now",
       isCompleted: false,
       headingWords: "Terraform Webinar Series",
@@ -255,7 +255,7 @@ export default function WebinarDetailsPage() {
           ],
         },
       ],
-      registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // placeholder
+      registrationUrl: "https://pages.razorpay.com/pl_QyuVjAdAPl6lAo/view?label=docker_kubernetes", // placeholder
       registrationText: "Pay ₹2,999 & Register Now",
       isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
