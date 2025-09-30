@@ -88,7 +88,7 @@ export default function WebinarDetailsPage() {
       duration: "5 days, 1.5 hours each day",
       fee: "₹999",
       originalPrice: "₹1,999",
-      discount: "50% OFF",
+      discount: "Promo codes applicable",
       mode: "Live Zoom Sessions",
       subheading: "Automate Azure infra with Terraform using real projects and best practices",
       speaker: {
@@ -181,9 +181,9 @@ export default function WebinarDetailsPage() {
       date: "6th–17th October, 2025",
       time: "10:00 AM – 11:00 AM IST (Daily)",
       duration: "2 weeks, 1 hour each day",
-      fee: "₹2,999",
+      fee: "₹5,999",
       originalPrice: "₹5,999",
-      discount: "50% OFF",
+      discount: "Promo codes applicable",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
       speaker: {
@@ -243,7 +243,7 @@ export default function WebinarDetailsPage() {
           ],
         },
         {
-          heading: "💰 What You Get for ₹2,999",
+          heading: "💰 What You Get for ₹5,999",
           items: [
             "2-Week Live Training Sessions (1 hour daily)",
             "Docker & Kubernetes Complete Curriculum",
@@ -256,7 +256,7 @@ export default function WebinarDetailsPage() {
         },
       ],
       registrationUrl: "https://pages.razorpay.com/pl_QyuVjAdAPl6lAo/view?label=docker_kubernetes", // placeholder
-      registrationText: "Pay ₹2,999 & Register Now",
+      registrationText: "Pay ₹5,999 & Register Now",
       isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
       subheadingWords: "2-Week Live Bootcamp",
@@ -498,7 +498,7 @@ export default function WebinarDetailsPage() {
                     value={
                       webinar.originalPrice ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-gray-500 line-through text-sm">{webinar.originalPrice}</span>
+                          {/* original price removed per request */}
                           <span className="font-bold text-green-600">{webinar.fee}</span>
                           {webinar.discount && (
                             <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{webinar.discount}</span>
@@ -576,18 +576,44 @@ export default function WebinarDetailsPage() {
               ) : (
                 <>
                   <div className="text-center mb-3 md:mb-4">
-                    <div className="w-full [&>div]:w-full [&>div]:h-16 md:[&>div]:h-20">
-                      <RazorpayButton
-                        url={webinar.registrationUrl}
-                        text={webinar.registrationText}
-                        color="#2563eb"
-                        size="large"
-                        className="w-full h-16 md:h-20"
-                      />
-                    </div>
+                    {id === 'docker-kubernetes-bootcamp' ? (
+                      <Link href="/webinars/docker-kubernetes-bootcamp/checkout">
+                        <button className="w-full h-20 md:h-24 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-between px-5 md:px-8">
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <span className="text-xl md:text-2xl">🚀</span>
+                            <div className="text-left">
+                              <div className="text-base md:text-lg font-semibold leading-tight">Secure Checkout with Promo Codes</div>
+                              <div className="text-xs md:text-sm text-white/90">Pay securely • Apply promo at checkout</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            {/* original price removed per request */}
+                            <div className="text-lg md:text-2xl font-extrabold">{webinar.fee || '₹5,999'}</div>
+                          </div>
+                        </button>
+                      </Link>
+                    ) : (
+                      <div className="w-full [&>div]:w-full [&>div]:h-16 md:[&>div]:h-20">
+                        <RazorpayButton
+                          url={webinar.registrationUrl}
+                          text={webinar.registrationText}
+                          color="#2563eb"
+                          size="large"
+                          className="w-full h-16 md:h-20"
+                        />
+                      </div>
+                    )}
                   </div>
                   <p className="text-xs text-neutral-600 text-center leading-relaxed">
-                    After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
+                    {id === 'docker-kubernetes-bootcamp' ? (
+                      <>
+                        Use promo codes for discounts! After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
+                      </>
+                    ) : (
+                      <>
+                        After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
+                      </>
+                    )}
                   </p>
                 </>
               )}
