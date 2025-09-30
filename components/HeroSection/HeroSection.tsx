@@ -384,7 +384,7 @@ export function HeroSectionOne() {
                 </h3>
                 <p className="text-blue-100 text-sm md:text-base mb-4 max-w-2xl">
                   Master Infrastructure as Code with hands-on Azure demos, best practices, and a production-style capstone project. 
-                  <span className="font-semibold"> 7:00–8:30 PM IST Daily</span>
+                  <span className="font-semibold"> 10:00–11:00 AM IST Daily</span>
                 </p>
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-blue-100">
                   <span className="flex items-center gap-1">
@@ -428,7 +428,7 @@ export function HeroSectionOne() {
               <div className="text-center lg:text-left flex-1">
                 <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
                   <span className="bg-black/20 text-white px-3 py-1 rounded-full text-xs font-semibold">Oct 6-17, 2025</span>
-                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold">7:00–8:30 PM IST</span>
+                  <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold">10:00–11:00 AM IST</span>
                 </div>
                 <h3 className="text-lg md:text-xl font-bold mb-1 leading-tight">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</h3>
                 <p className="text-white/90 text-xs md:text-sm">Hands-on containerization and Kubernetes, projects, and production strategies. Fee <span className="font-semibold">₹2,999</span> <span className="line-through opacity-80 ml-1">₹5,999</span>. 50% off.</p>

@@ -78,8 +78,8 @@ const webinars: WebinarCard[] = [
 ✅ Industry Expert Sessions
 ✅ Certificate of Completion`,
     date: "6th–17th October, 2025",
-    time: "7:00 PM – 8:30 PM IST (Daily)",
-    duration: "2 weeks, 1.5 hours each day",
+    time: "10:00 AM – 11:00 AM IST (Daily)",
+    duration: "2 weeks, 1 hour each day",
     fee: "₹2,999",
     originalPrice: "₹5,999",
     discount: "50% OFF",
