@@ -80,21 +80,116 @@ export default function WebinarDetailsPage() {
 
   // Webinar data for both current and past webinars
   const webinars: Record<string, WebinarData> = {
+    "terraform-azure-5day": {
+      title: "Terraform Webinar Series (5 Days) – Azure-Focused Hands-on",
+      isLive: true,
+        date: "13th–17th October, 2025",
+      time: "7:00 PM – 8:30 PM IST (Daily)",
+      duration: "5 days, 1.5 hours each day",
+      fee: "₹999",
+      originalPrice: "₹1,999",
+      discount: "Promo codes applicable",
+      mode: "Live Zoom Sessions",
+      subheading: "Automate Azure infra with Terraform using real projects and best practices",
+      speaker: {
+        name: "Terraform Expert",
+      },
+      description: `A hands-on 5-day series to master Terraform for Azure with practical demos daily, AWS comparisons, enterprise best practices, and a capstone deploying production-style infra.`,
+      details: [
+        {
+          heading: "🚀 Why Join This Webinar?",
+          items: [
+            "Automate Azure infra with Terraform end-to-end",
+            "Hands-on demos, not just slides",
+            "Real-world patterns: governance, security, CI/CD",
+            "Multi-cloud mindset with Azure vs AWS comparisons",
+            "Capstone project mirroring production infra"
+          ]
+        },
+        {
+          heading: "Day 1 – Introduction to IaC & Terraform",
+          items: [
+            "Manual provisioning vs IaC, benefits and workflows",
+            "Terraform overview, architecture and providers",
+            "Setup: Terraform + Azure CLI",
+            "Azure demo: Create a Resource Group",
+            "AWS comparison: S3 bucket syntax"
+          ]
+        },
+        {
+          heading: "Day 2 – Terraform Core Concepts",
+          items: [
+            "Providers, resources, variables, outputs",
+            "Terraform state: local vs remote (Azure Storage)",
+            "Azure demo: Linux VM + VNet + NSG + Public IP + NIC",
+            "AWS comparison: EC2 + VPC"
+          ]
+        },
+        {
+          heading: "Day 3 – Modules & Workspaces",
+          items: [
+            "Why modules, local and registry modules",
+            "Workspaces for multi-environment",
+            "Azure demo: VM module, multiple VMs, dev/prod"
+          ]
+        },
+        {
+          heading: "Day 4 – Azure Resources with Terraform",
+          items: [
+            "Networking, Storage, Compute, Databases, Key Vault",
+            "Azure demo: VM Scale Set + Load Balancer + SQL DB + Key Vault"
+          ]
+        },
+        {
+          heading: "Day 5 – Advanced Concepts & CI/CD",
+          items: [
+            "Remote state locking, Terraform Cloud vs Azure backend",
+            "CI/CD with Azure DevOps",
+            "Policy-as-Code with OPA",
+            "Azure demo: Full Terraform pipeline"
+          ]
+        },
+        {
+          heading: "🎯 Capstone Project – Real-World Azure Infra",
+          items: [
+            "3-tier app: App Service, VM Scale Set, Azure Postgres",
+            "Security: Key Vault, NSGs, Managed Identity",
+            "Networking: VNet, subnets, autoscaling"
+          ]
+        },
+        {
+          heading: "🏆 Key Takeaways",
+          items: [
+            "Master fundamentals + advanced Terraform",
+            "Automate Azure with confidence",
+            "Best practices: modules, state, CI/CD",
+            "Compare Terraform across Azure & AWS",
+            "Build a production-style project"
+          ]
+        }
+      ],
+      registrationUrl: "https://pages.razorpay.com/pl_RMI4kw9wUDVfWG/view?label=terraform_webinar", // replace with real link
+      registrationText: "Pay ₹999 & Register Now",
+      isCompleted: false,
+      headingWords: "Terraform Webinar Series",
+      subheadingWords: "Azure-Focused, Hands-on (5 Days)",
+      descriptionWords: "Master Terraform for Azure with hands-on demos, best practices, AWS comparisons, and a production-style capstone project over 5 days.",
+    },
     "docker-kubernetes-bootcamp": {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
-      isLive: false,
-      date: "27th August - 9th September, 2025",
-      time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
-      duration: "2 weeks, 1 hour each day (weekdays only)",
-      fee: "₹2,999",
+      isLive: true,
+      date: "6th–17th October, 2025",
+      time: "10:00 AM – 11:00 AM IST (Daily)",
+      duration: "2 weeks, 1 hour each day",
+      fee: "₹5,999",
       originalPrice: "₹5,999",
-      discount: "50% OFF",
+      discount: "Promo codes applicable",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
       speaker: {
         name: "Kubernetes Expert",
       },
-      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects!`,
+      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects! Tip: Get a promo code on our Instagram handle and apply it at Razorpay checkout.`,
       details: [
         {
           heading: "📚 Week 1 – Docker Fundamentals & Kubernetes Basics",
@@ -148,7 +243,7 @@ export default function WebinarDetailsPage() {
           ],
         },
         {
-          heading: "💰 What You Get for ₹2,999",
+          heading: "💰 What You Get for ₹5,999",
           items: [
             "2-Week Live Training Sessions (1 hour daily)",
             "Docker & Kubernetes Complete Curriculum",
@@ -160,9 +255,9 @@ export default function WebinarDetailsPage() {
           ],
         },
       ],
-      registrationUrl: "https://rzp.io/rzp/wSGDkNRQ", // User will provide this
-      registrationText: "Pay ₹2,999 & Register Now",
-      isCompleted: true,
+      registrationUrl: "https://pages.razorpay.com/pl_QyuVjAdAPl6lAo/view?label=docker_kubernetes", // placeholder
+      registrationText: "Pay ₹5,999 & Register Now",
+      isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
       subheadingWords: "2-Week Live Bootcamp",
       descriptionWords: "Master containerization and orchestration for DevOps excellence. This comprehensive 2-week live bootcamp covers Docker fundamentals, Kubernetes architecture, and production deployment strategies with hands-on labs and real-world projects.",
@@ -403,7 +498,7 @@ export default function WebinarDetailsPage() {
                     value={
                       webinar.originalPrice ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-gray-500 line-through text-sm">{webinar.originalPrice}</span>
+                          {/* original price removed per request */}
                           <span className="font-bold text-green-600">{webinar.fee}</span>
                           {webinar.discount && (
                             <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{webinar.discount}</span>
@@ -481,18 +576,44 @@ export default function WebinarDetailsPage() {
               ) : (
                 <>
                   <div className="text-center mb-3 md:mb-4">
-                    <div className="w-full [&>div]:w-full [&>div]:h-16 md:[&>div]:h-20">
-                      <RazorpayButton
-                        url={webinar.registrationUrl}
-                        text={webinar.registrationText}
-                        color="#2563eb"
-                        size="large"
-                        className="w-full h-16 md:h-20"
-                      />
-                    </div>
+                    {id === 'docker-kubernetes-bootcamp' ? (
+                      <Link href="/webinars/docker-kubernetes-bootcamp/checkout">
+                        <button className="w-full h-20 md:h-24 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-between px-5 md:px-8">
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <span className="text-xl md:text-2xl">🚀</span>
+                            <div className="text-left">
+                              <div className="text-base md:text-lg font-semibold leading-tight">Secure Checkout with Promo Codes</div>
+                              <div className="text-xs md:text-sm text-white/90">Pay securely • Apply promo at checkout</div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            {/* original price removed per request */}
+                            <div className="text-lg md:text-2xl font-extrabold">{webinar.fee || '₹5,999'}</div>
+                          </div>
+                        </button>
+                      </Link>
+                    ) : (
+                      <div className="w-full [&>div]:w-full [&>div]:h-16 md:[&>div]:h-20">
+                        <RazorpayButton
+                          url={webinar.registrationUrl}
+                          text={webinar.registrationText}
+                          color="#2563eb"
+                          size="large"
+                          className="w-full h-16 md:h-20"
+                        />
+                      </div>
+                    )}
                   </div>
                   <p className="text-xs text-neutral-600 text-center leading-relaxed">
-                    After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
+                    {id === 'docker-kubernetes-bootcamp' ? (
+                      <>
+                        Use promo codes for discounts! After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
+                      </>
+                    ) : (
+                      <>
+                        After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
+                      </>
+                    )}
                   </p>
                 </>
               )}

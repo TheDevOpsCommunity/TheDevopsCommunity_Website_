@@ -11,6 +11,8 @@ import BlogContent from "@/components/Blog/BlogContent";
 import BlogMeta from "@/components/Blog/BlogMeta";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import ErrorMessage from "@/components/ui/error-message";
+import WebinarPopup from "@/components/WebinarPopup/WebinarPopup";
+import { debugMetaTags } from "@/lib/social-sharing-utils";
 
 export default function BlogDetailPage() {
   const params = useParams();
@@ -86,15 +88,42 @@ export default function BlogDetailPage() {
     updateMetaTag('description', blog.summary);
     updateMetaTag('author', blog.authors.join(', '));
     
-    // Open Graph tags for rich link previews
+    // Use blog image if available, otherwise fallback to default
+    let blogImage = `${window.location.origin}/blue.png`; // Default fallback
+    
+    if (blog.image_url && blog.image_url.trim() !== '') {
+      // Ensure the image URL is absolute
+      if (blog.image_url.startsWith('http://') || blog.image_url.startsWith('https://')) {
+        blogImage = blog.image_url;
+      } else if (blog.image_url.startsWith('/')) {
+        blogImage = `${window.location.origin}${blog.image_url}`;
+      } else {
+        blogImage = `${window.location.origin}/${blog.image_url}`;
+      }
+    }
+    
+    // Debug logging for development
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔍 Blog Image Debug:', {
+        original_image_url: blog.image_url,
+        processed_blogImage: blogImage,
+        hasImage: !!(blog.image_url && blog.image_url.trim() !== ''),
+        isAbsolute: blogImage.startsWith('http')
+      });
+    }
+    
+    // Enhanced description for social sharing - just the blog summary, no extra branding
+    const socialDescription = blog.summary;
+    
+    // Open Graph tags for rich link previews - blog title as main title
     updateMetaTag('og:type', 'article');
     updateMetaTag('og:title', blog.title);
-    updateMetaTag('og:description', blog.summary);
+    updateMetaTag('og:description', socialDescription);
     updateMetaTag('og:url', currentUrl);
-    updateMetaTag('og:image', `${window.location.origin}/blue.png`);
+    updateMetaTag('og:image', blogImage);
     updateMetaTag('og:site_name', 'DevOps Community');
-    updateMetaTag('og:image:width', '1536');
-    updateMetaTag('og:image:height', '1024');
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
     updateMetaTag('og:image:alt', blog.title);
     updateMetaTag('og:locale', 'en_US');
     
@@ -104,18 +133,76 @@ export default function BlogDetailPage() {
     updateMetaTag('article:section', 'DevOps');
     updateMetaTag('article:tag', blog.tags.join(', '));
     
-    // Twitter Card tags for Twitter sharing
+    // Twitter Card tags for Twitter sharing - blog title as main title
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:site', '@devops_community');
     updateMetaTag('twitter:creator', '@devops_community');
     updateMetaTag('twitter:title', blog.title);
-    updateMetaTag('twitter:description', blog.summary);
-    updateMetaTag('twitter:image', `${window.location.origin}/blue.png`);
+    updateMetaTag('twitter:description', socialDescription);
+    updateMetaTag('twitter:image', blogImage);
     updateMetaTag('twitter:image:alt', blog.title);
     
     // Additional meta tags for better SEO and sharing
     updateMetaTag('robots', 'index, follow');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
+    
+    // Additional tags for better social sharing
+    updateMetaTag('og:updated_time', new Date().toISOString());
+    updateMetaTag('article:modified_time', new Date().toISOString());
+    updateMetaTag('article:expiration_time', new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()); // 1 year from now
+    
+    // WhatsApp specific tags
+    updateMetaTag('og:image:type', 'image/jpeg');
+    updateMetaTag('og:image:secure_url', blogImage);
+    
+    // LinkedIn specific tags
+    updateMetaTag('linkedin:owner', 'devops-community');
+    
+    // Pinterest specific tags
+    updateMetaTag('pinterest:description', socialDescription);
+    updateMetaTag('pinterest:image', blogImage);
+    
+    // Add structured data (JSON-LD) for better SEO and social sharing
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": blog.title,
+      "description": socialDescription,
+      "image": blogImage,
+      "author": {
+        "@type": "Person",
+        "name": blog.authors.join(', ')
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "DevOps Community",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${window.location.origin}/logo.svg`
+        }
+      },
+      "datePublished": blog.published_at,
+      "dateModified": blog.published_at,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": currentUrl
+      },
+      "keywords": blog.tags.join(', '),
+      "articleSection": "DevOps",
+      "wordCount": blog.content?.length || 0
+    };
+    
+    // Remove existing structured data if any
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+    
+    // Add new structured data
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
   }, [blog]);
 
   if (loading) {
@@ -143,6 +230,7 @@ export default function BlogDetailPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 pt-20 md:pt-24">
+        <WebinarPopup showOnPages={["/blog", "/blog/"]} delay={2000} />
         {/* Hero Section */}
         <BlogHero blog={blog} />
 
@@ -157,6 +245,12 @@ export default function BlogDetailPage() {
             className="lg:w-2/3"
           >
             <div className="bg-white rounded-2xl shadow-lg border border-blue-100 p-8 md:p-12">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={blog.image_url && blog.image_url.trim() !== '' ? blog.image_url : "https://placehold.co/100x40"}
+                alt={blog.title}
+                className="w-full h-auto rounded-xl mb-8"
+              />
               <BlogContent content={blog.content} />
             </div>
           </motion.div>
@@ -210,6 +304,19 @@ export default function BlogDetailPage() {
           style={{ width: '0%' }}
         />
       </div>
+      
+      {/* Debug button for development only */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <button
+            onClick={debugMetaTags}
+            className="bg-red-500 text-white px-3 py-2 rounded-lg text-xs font-mono hover:bg-red-600 transition-colors"
+            title="Debug Meta Tags (Development Only)"
+          >
+            🔍 Debug Meta
+          </button>
+        </div>
+      )}
     </main>
   );
 }

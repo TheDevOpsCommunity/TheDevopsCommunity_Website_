@@ -28,6 +28,20 @@ interface WebinarCard {
 
 const webinars: WebinarCard[] = [
   {
+    title: "Terraform Webinar Series (5 Days) – Azure-Focused Hands-on",
+    subheading: "Master Terraform for Azure with real-world, production-style projects",
+    description: `Learn to automate Azure infrastructure with Terraform using best practices, modules, workspaces, and CI/CD. Includes Azure demos daily and AWS comparisons to keep you multi-cloud ready. Build a production-style capstone by the end.`,
+        date: "13th–17th October, 2025",
+    time: "7:00 PM – 8:30 PM IST (Daily)",
+    duration: "5 days, 1.5 hours each day",
+    mode: "Live Zoom Sessions",
+    speaker: {
+      name: "Terraform Expert",
+    },
+    isLive: true,
+    id: "terraform-azure-5day"
+  },
+  {
     title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
     subheading: "Master containerization and orchestration for DevOps excellence",
     description: `🔥 Why Attend This Bootcamp?
@@ -57,23 +71,23 @@ const webinars: WebinarCard[] = [
 - System Administrators transitioning to cloud-native
 - Anyone serious about modern infrastructure management
 
-💰 Registration Fee: ₹2,999 Only
+💰 Registration Fee: ₹5,999 Only
 ✅ 2-Week Live Training Sessions
 ✅ Docker & Kubernetes Complete Curriculum
 ✅ Hands-on Labs & Real Projects
 ✅ Industry Expert Sessions
 ✅ Certificate of Completion`,
-    date: "27th August - 9th September, 2025",
-    time: "10:00 AM - 11:00 AM IST (Mon-Fri)",
-    duration: "2 weeks, 1 hour each day (weekdays only)",
-    fee: "₹2,999",
+    date: "6th–17th October, 2025",
+    time: "10:00 AM – 11:00 AM IST (Daily)",
+    duration: "2 weeks, 1 hour each day",
+    fee: "₹5,999",
     originalPrice: "₹5,999",
-    discount: "50% OFF",
+    discount: "Promo codes applicable",
     mode: "Live Zoom Sessions",
     speaker: {
       name: "Kubernetes Expert",
     },
-    isLive: false,
+    isLive: true,
     id: "docker-kubernetes-bootcamp"
   },
   {

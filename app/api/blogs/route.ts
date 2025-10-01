@@ -81,6 +81,7 @@ export async function GET(request: NextRequest) {
       title: blog.title,
       slug: blog.slug,
       summary: blog.summary,
+    image_url: blog.image_url ?? null,
       category: blog.category,
       published_at: blog.published_at,
       reading_time: blog.reading_time,

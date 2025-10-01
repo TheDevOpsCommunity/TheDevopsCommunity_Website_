@@ -8,10 +8,12 @@ interface RazorpayPaymentEntity {
   amount: number;
   email: string;
   contact?: string;
+  payment_page?: string;
   notes?: {
     name?: string;
     email?: string;
     phone?: string;
+    label?: string;
   };
 }
 
@@ -59,6 +61,8 @@ interface RazorpayWebhookPayload {
     };
   };
 }
+
+// Routing now handled strictly via notes.label in webhook payload
 
 // In-memory cache to prevent duplicate processing (in production, use Redis)
 const processedPayments = new Set<string>();
@@ -151,7 +155,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Registration Confirmed - Docker & Kubernetes Bootcamp',
+    subject: 'Registration Confirmed - Terraform Webinar Series (Azure Focus)',
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh;">
         
@@ -159,9 +163,9 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
         <div style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e9ecef;">
           
           <!-- Header -->
-          <div style="background: linear-gradient(135deg, #212529 0%, #343a40 100%); padding: 32px; text-align: center; border-bottom: 3px solid #000000;">
+          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 32px; text-align: center; border-bottom: 3px solid #1e40af;">
             <h1 style="color: #ffffff; font-size: 26px; font-weight: 700; margin: 0 0 8px 0; letter-spacing: -0.01em;">Registration Confirmed</h1>
-            <p style="color: #adb5bd; font-size: 16px; margin: 0; font-weight: 400;">Hello ${userName}</p>
+            <p style="color: #dbeafe; font-size: 16px; margin: 0; font-weight: 400;">Hello ${userName}</p>
           </div>
 
           <!-- Content Container -->
@@ -169,8 +173,8 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
             
             <!-- Confirmation Details -->
             <div style="margin-bottom: 32px;">
-              <h2 style="color: #212529; font-size: 20px; font-weight: 600; margin: 0 0 8px 0; line-height: 1.3;">Docker & Kubernetes Mastery</h2>
-              <p style="color: #6c757d; font-size: 16px; margin: 0 0 4px 0; font-weight: 500;">2-Week Live Bootcamp</p>
+              <h2 style="color: #212529; font-size: 20px; font-weight: 600; margin: 0 0 8px 0; line-height: 1.3;">Terraform Webinar Series</h2>
+              <p style="color: #6c757d; font-size: 16px; margin: 0 0 4px 0; font-weight: 500;">Azure Infrastructure as Code (5 Days)</p>
               <p style="color: #495057; font-size: 14px; line-height: 1.5; margin: 0 0 24px 0;">Your registration has been successfully confirmed.</p>
               
               <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 24px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);">
@@ -193,15 +197,15 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
               <div style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Dates</div>
-                  <div style="color: #212529; font-size: 15px; font-weight: 600;">27th August - 9th September, 2025</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">6th - 10th October, 2025</div>
                 </div>
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background-color: #ffffff;">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Time</div>
-                  <div style="color: #212529; font-size: 15px; font-weight: 600;">10:00 AM - 11:00 AM IST (Mon-Fri)</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">7:00 PM - 8:30 PM IST (Daily)</div>
                 </div>
                 <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
-                  <div style="color: #212529; font-size: 15px; font-weight: 600;">2 weeks, weekdays only</div>
+                  <div style="color: #212529; font-size: 15px; font-weight: 600;">5 days, 1.5 hours each day</div>
                 </div>
                 <div style="padding: 16px 20px; background-color: #ffffff;">
                   <div style="color: #6c757d; font-size: 12px; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Format</div>
@@ -210,23 +214,37 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
               </div>
             </div>
 
-            <!-- Linux Resources -->
-            <div style="margin-bottom: 32px; border: 2px solid #212529; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);">
-              <div style="background: linear-gradient(135deg, #212529 0%, #343a40 100%); padding: 20px; border-bottom: 1px solid #000000;">
-                <h3 style="color: #ffffff; font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">Bonus: Linux for DevOps Resources</h3>
-                <p style="color: #adb5bd; font-size: 14px; line-height: 1.5; margin: 0;">Access our complete Linux for DevOps webinar recordings and materials from previous sessions.</p>
+            <!-- Course Curriculum -->
+            <div style="margin-bottom: 32px; border: 2px solid #2563eb; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(37, 99, 235, 0.08);">
+              <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 20px; border-bottom: 1px solid #1e40af;">
+                <h3 style="color: #ffffff; font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">What You'll Learn</h3>
+                <p style="color: #dbeafe; font-size: 14px; line-height: 1.5; margin: 0;">Complete Terraform mastery with Azure focus, from basics to production deployment.</p>
               </div>
               
               <div style="background-color: #ffffff; padding: 24px;">
-                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-                  <div style="color: #212529; font-size: 16px; font-weight: 600; margin-bottom: 6px;">Complete Linux Training Archive</div>
-                  <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">Recordings • Notes • VirtualBox Setup • CentOS Installation</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                  <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 16px;">
+                    <div style="color: #212529; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Day 1-2: Fundamentals</div>
+                    <div style="color: #6c757d; font-size: 12px; line-height: 1.4;">IaC concepts, Terraform basics, Azure demos</div>
+                  </div>
+                  <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 16px;">
+                    <div style="color: #212529; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Day 3-4: Advanced</div>
+                    <div style="color: #6c757d; font-size: 12px; line-height: 1.4;">Modules, workspaces, Azure resources</div>
+                  </div>
+                  <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 16px;">
+                    <div style="color: #212529; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Day 5: CI/CD</div>
+                    <div style="color: #6c757d; font-size: 12px; line-height: 1.4;">Azure DevOps, pipelines, best practices</div>
+                  </div>
+                  <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 16px;">
+                    <div style="color: #212529; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Capstone Project</div>
+                    <div style="color: #6c757d; font-size: 12px; line-height: 1.4;">3-tier Azure app deployment</div>
+                  </div>
                 </div>
                 
-                <a href="https://drive.google.com/drive/folders/1c75JeihmFQdP1Pd48XdKzli9hFu2FR_G?usp=sharing" 
-                   style="display: inline-block; background: linear-gradient(135deg, #212529 0%, #343a40 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 6px; box-shadow: 0 2px 8px rgba(33, 37, 41, 0.2); transition: all 0.3s ease; border: 1px solid #000000;">
-                  Access Resources
-                </a>
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #0ea5e9; border-radius: 8px; padding: 16px; text-align: center;">
+                  <div style="color: #0c4a6e; font-size: 14px; font-weight: 600; margin-bottom: 4px;">Certificate of Completion Included</div>
+                  <div style="color: #0369a1; font-size: 12px;">Lifetime access to recordings and materials</div>
+                </div>
               </div>
             </div>
 
@@ -234,14 +252,14 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
             <div style="margin-bottom: 32px;">
               <h3 style="color: #212529; font-size: 18px; font-weight: 600; margin: 0 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">Next Steps</h3>
               
-              <div style="margin-bottom: 16px; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; border-left: 4px solid #212529; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
+              <div style="margin-bottom: 16px; background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; border-left: 4px solid #2563eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
                 <div style="color: #212529; font-size: 15px; font-weight: 600; margin-bottom: 6px;">Zoom Meeting Link</div>
-                <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">Will be shared 24 hours before the bootcamp starts</div>
+                <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">Will be shared 24 hours before the webinar series starts</div>
               </div>
               
-              <div style="background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; border-left: 4px solid #212529; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
+              <div style="background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; border-left: 4px solid #2563eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);">
                 <div style="color: #212529; font-size: 15px; font-weight: 600; margin-bottom: 6px;">WhatsApp Community</div>
-                <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">You will be added to our learners group soon</div>
+                <div style="color: #6c757d; font-size: 13px; line-height: 1.4;">You will be added to our Terraform learners group soon</div>
               </div>
             </div>
 
@@ -401,8 +419,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Mark as processed immediately
+    // Mark as processed immediately to prevent race conditions
     processedPayments.add(paymentId);
+
+    // Extract label for routing
+    const label: string | undefined = data?.payload?.payment?.entity?.notes?.label;
 
     // Log payment details
     logEvent('PAYMENT_DETAILED', {
@@ -411,6 +432,7 @@ export async function POST(request: Request) {
       paymentEntity: payment,
       availablePaymentFields: Object.keys(payment || {}),
       availableNotesFields: Object.keys(payment.notes || {}),
+      label: label ?? null,
       timestamp: new Date().toISOString()
     });
     
@@ -420,43 +442,160 @@ export async function POST(request: Request) {
       amount: payment.amount,
       email: payment.email,
       contact: payment.contact || 'Not provided',
-      notes: payment.notes
+      notes: payment.notes,
+      label: label ?? null
     });
+    // Label-based routing map aligned with actual products
+    const routingMap: Record<string, (req?: Request) => Promise<Response>> = {
+      // Courses
+      aws_course: async (req?: Request) => {
+        const { POST } = await import('../courses/aws-devops/route');
+        return POST(req as Request);
+      },
+      azure_course: async (req?: Request) => {
+        const { POST } = await import('../courses/azure-devops/route');
+        return POST(req as Request);
+      },
+      // Docker & Kubernetes Bootcamp
+      docker_kubernetes: async (req?: Request) => {
+        const { POST } = await import('../courses/docker-kubernetes/route');
+        return POST(req as Request);
+      },
+      docker_kubernetes_bootcamp: async (req?: Request) => {
+        const { POST } = await import('../courses/docker-kubernetes/route');
+        return POST(req as Request);
+      },
+      // Terraform Webinar (inline email send)
+      terraform_webinar: async () => {
+        try {
+          await sendConfirmationEmail({
+            email: payment.email,
+            amount: payment.amount,
+            id: payment.id,
+            name: payment.notes?.name,
+            contact: payment.contact
+          });
+          logEvent('WEBHOOK_SUCCESS', { requestId, paymentId: payment.id, emailSent: true, handler: 'terraform_webinar' });
+          return NextResponse.json({ message: 'Terraform webinar payment processed and email sent successfully' }, { status: 200, headers: corsHeaders });
+        } catch (emailError) {
+          logEvent('EMAIL_SEND_FAILED', { requestId, paymentId: payment.id, handler: 'terraform_webinar', error: emailError instanceof Error ? emailError.message : 'Unknown error' });
+          return NextResponse.json({ message: 'Terraform webinar payment processed but email failed' }, { status: 200, headers: corsHeaders });
+        }
+      },
+      // Testing: run all handlers/emails
+      testing: async () => {
+        const makeReq = () => new Request(request.url, { method: request.method, headers: request.headers, body: rawBody });
+        const results: Array<{ handler: string; ok: boolean; status?: number; error?: string }> = [];
 
-    // Send confirmation email using payment data
-    try {
-      await sendConfirmationEmail({
-        email: payment.email,
-        amount: payment.amount,
-        id: payment.id,
-        name: payment.notes?.name,
-        contact: payment.contact
-      });
-      
-      logEvent('WEBHOOK_SUCCESS', {
+        // AWS
+        try {
+          const { POST } = await import('../courses/aws-devops/route');
+          const res = await Promise.race([
+            POST(makeReq()),
+            new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('AWS handler timeout')), 30000))
+          ]);
+          if (!res.ok) {
+            const err = await res.text();
+            results.push({ handler: 'aws_course', ok: false, status: res.status, error: err });
+          } else {
+            results.push({ handler: 'aws_course', ok: true, status: res.status });
+          }
+        } catch (e) {
+          results.push({ handler: 'aws_course', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        // Azure
+        try {
+          const { POST } = await import('../courses/azure-devops/route');
+          const res = await Promise.race([
+            POST(makeReq()),
+            new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Azure handler timeout')), 30000))
+          ]);
+          if (!res.ok) {
+            const err = await res.text();
+            results.push({ handler: 'azure_course', ok: false, status: res.status, error: err });
+          } else {
+            results.push({ handler: 'azure_course', ok: true, status: res.status });
+          }
+        } catch (e) {
+          results.push({ handler: 'azure_course', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        // Docker & Kubernetes
+        try {
+          const { POST } = await import('../courses/docker-kubernetes/route');
+          const res = await Promise.race([
+            POST(makeReq()),
+            new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Docker K8s handler timeout')), 30000))
+          ]);
+          if (!res.ok) {
+            const err = await res.text();
+            results.push({ handler: 'docker_kubernetes', ok: false, status: res.status, error: err });
+          } else {
+            results.push({ handler: 'docker_kubernetes', ok: true, status: res.status });
+          }
+        } catch (e) {
+          results.push({ handler: 'docker_kubernetes', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        // Terraform email inline
+        try {
+          await sendConfirmationEmail({
+            email: payment.email,
+            amount: payment.amount,
+            id: payment.id,
+            name: payment.notes?.name,
+            contact: payment.contact
+          });
+          results.push({ handler: 'terraform_webinar', ok: true });
+        } catch (e) {
+          results.push({ handler: 'terraform_webinar', ok: false, error: (e as Error)?.message || 'Unknown error' });
+        }
+
+        logEvent('TESTING_RUN_COMPLETED', { requestId, paymentId: payment.id, label: 'testing', results });
+        const allOk = results.every(r => r.ok);
+        return NextResponse.json({ message: 'Testing run executed', results }, { status: allOk ? 200 : 207, headers: corsHeaders });
+      }
+    };
+
+    // Route based on label
+    if (!label || !routingMap[label]) {
+      logEvent('UNKNOWN_OR_MISSING_LABEL', {
         requestId,
         paymentId: payment.id,
-        emailSent: true,
-        timestamp: new Date().toISOString()
+        label: label ?? null,
+        notes: payment.notes || null
       });
+      return NextResponse.json({ error: 'Unknown or missing label' }, { status: 400, headers: corsHeaders });
+    }
 
-      return NextResponse.json(
-        { message: 'Payment processed and email sent successfully' },
-        { status: 200, headers: corsHeaders }
-      );
-    } catch (emailError) {
-      logEvent('EMAIL_SEND_FAILED', {
-      requestId,
-        paymentId: payment.id,
-        error: emailError instanceof Error ? emailError.message : 'Unknown error',
-        timestamp: new Date().toISOString()
+    // Create a fresh Request with raw body for downstream handlers to verify signatures
+    const forwardRequest = new Request(request.url, {
+      method: request.method,
+      headers: request.headers,
+      body: rawBody
     });
 
-      // Still return success to prevent Razorpay retries
-    return NextResponse.json(
-        { message: 'Payment processed but email failed' },
-      { status: 200, headers: corsHeaders }
-    );
+    try {
+      const invoke = routingMap[label];
+      const response = await Promise.race([
+        // Only pass forwardRequest to handlers that accept it
+        (invoke.length > 0 ? invoke(forwardRequest) : invoke()),
+        new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Handler timeout')), 30000))
+      ]);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        logEvent('HANDLER_ERROR', { requestId, paymentId: payment.id, label, status: response.status, error: errorText });
+        return NextResponse.json({ error: 'Handler returned error' }, { status: 500, headers: corsHeaders });
+      }
+
+      logEvent('ROUTED_BY_LABEL', { requestId, paymentId: payment.id, label, status: response.status });
+      return response;
+    } catch (e) {
+      const errMsg = (e as Error)?.message ?? 'Unknown error';
+      logEvent('ROUTING_FAILED', { requestId, paymentId: payment.id, label, error: errMsg });
+      return NextResponse.json({ error: 'Failed to route by label' }, { status: 500, headers: corsHeaders });
     }
 
   } catch (error) {
