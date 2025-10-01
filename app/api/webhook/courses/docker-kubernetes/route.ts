@@ -1,16 +1,20 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import { createClient } from '@supabase/supabase-js';
 
 interface RazorpayPaymentEntity {
   id: string;
   amount: number;
   email: string;
   contact?: string;
+  order_id?: string;
   notes?: {
     name?: string;
     email?: string;
     phone?: string;
+    promo?: string;
+    label?: string;
   };
 }
 
@@ -29,6 +33,12 @@ setInterval(() => {
   processedPayments.clear();
   logEvent('CACHE_CLEANED', { timestamp: new Date().toISOString() });
 }, 60 * 60 * 1000);
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 const transporter = nodemailer.createTransport({
   host: 'smtpout.secureserver.net',
@@ -78,6 +88,54 @@ function verifyWebhookSignature(body: string, signature: string, secret: string)
       error: error instanceof Error ? error.message : 'Unknown error'
     });
     return false;
+  }
+}
+
+async function storePaymentInDatabase(paymentData: {
+  name: string;
+  email: string;
+  phone?: string;
+  amount: number;
+  razorpay_payment_id: string;
+  razorpay_order_id?: string;
+  promo_code?: string;
+}) {
+  try {
+    const { data, error } = await supabase
+      .from('docker_kubernetes_payments')
+      .insert([{
+        name: paymentData.name,
+        email: paymentData.email,
+        phone: paymentData.phone,
+        amount: paymentData.amount,
+        razorpay_payment_id: paymentData.razorpay_payment_id,
+        razorpay_order_id: paymentData.razorpay_order_id,
+        promo_code: paymentData.promo_code,
+        product_type: 'docker_kubernetes_bootcamp',
+        status: 'completed'
+      }])
+      .select();
+
+    if (error) {
+      logEvent('DATABASE_INSERT_ERROR', { 
+        error: error.message, 
+        paymentId: paymentData.razorpay_payment_id 
+      });
+      throw error;
+    }
+
+    logEvent('DATABASE_INSERT_SUCCESS', { 
+      paymentId: paymentData.razorpay_payment_id,
+      recordId: data?.[0]?.id 
+    });
+
+    return data?.[0];
+  } catch (error) {
+    logEvent('DATABASE_ERROR', { 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      paymentId: paymentData.razorpay_payment_id 
+    });
+    throw error;
   }
 }
 
@@ -230,13 +288,47 @@ export async function POST(request: Request) {
 
     processedPayments.add(paymentId);
 
-    await sendConfirmationEmail({
-      email: payment.email,
-      amount: payment.amount,
-      id: payment.id,
-      name: payment.notes?.name,
-      contact: payment.contact,
-    });
+    // Store payment in database
+    const customerName = payment.notes?.name || 'Unknown';
+    const customerPhone = payment.notes?.phone || payment.contact;
+    const promoCode = payment.notes?.promo;
+
+    try {
+      await storePaymentInDatabase({
+        name: customerName,
+        email: payment.email,
+        phone: customerPhone,
+        amount: payment.amount,
+        razorpay_payment_id: payment.id,
+        razorpay_order_id: payment.order_id,
+        promo_code: promoCode
+      });
+    } catch (dbError) {
+      logEvent('DATABASE_STORE_FAILED', { 
+        requestId, 
+        paymentId, 
+        error: dbError instanceof Error ? dbError.message : 'Unknown error' 
+      });
+      // Continue with email even if database fails
+    }
+
+    // Send confirmation email
+    try {
+      await sendConfirmationEmail({
+        email: payment.email,
+        amount: payment.amount,
+        id: payment.id,
+        name: customerName,
+        contact: customerPhone,
+      });
+    } catch (emailError) {
+      logEvent('EMAIL_SEND_FAILED', { 
+        requestId, 
+        paymentId, 
+        error: emailError instanceof Error ? emailError.message : 'Unknown error' 
+      });
+      // Continue even if email fails
+    }
 
     logEvent('WEBHOOK_SUCCESS', { requestId, paymentId });
     return NextResponse.json({ message: 'Processed' }, { status: 200, headers: corsHeaders });
