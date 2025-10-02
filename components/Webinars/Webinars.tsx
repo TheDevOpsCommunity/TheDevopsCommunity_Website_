@@ -71,7 +71,7 @@ const webinars: WebinarCard[] = [
 - System Administrators transitioning to cloud-native
 - Anyone serious about modern infrastructure management
 
-💰 Registration Fee: ₹5,999 Only
+💰 Registration Fee: ₹2,999 Only
 ✅ 2-Week Live Training Sessions
 ✅ Docker & Kubernetes Complete Curriculum
 ✅ Hands-on Labs & Real Projects
@@ -80,9 +80,9 @@ const webinars: WebinarCard[] = [
     date: "6th–17th October, 2025",
     time: "10:00 AM – 11:00 AM IST (Daily)",
     duration: "2 weeks, 1 hour each day",
-    fee: "₹5,999",
-    originalPrice: "₹5,999",
-    discount: "Promo codes applicable",
+    fee: "₹2,999",
+    originalPrice: "₹2,999",
+    discount: "Limited seats • Register soon",
     mode: "Live Zoom Sessions",
     speaker: {
       name: "Kubernetes Expert",

@@ -159,7 +159,7 @@ export default function WebinarPopup({
                     <span className="text-gray-500 line-through text-sm">₹1,999</span>
                     <span className="font-bold text-green-600 text-lg">₹999</span>
                     <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                      Promo codes applicable
+                      Limited seats • Register soon
                     </span>
                   </div>
                 </div>

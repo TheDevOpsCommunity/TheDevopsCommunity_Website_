@@ -14,10 +14,12 @@ type ComputePriceRequest = {
   promoCode?: string;
 };
 
-const ORIGINAL_PRICE_INR = 5999;
-const PROMO_DEAL_INR = 2999;
+const ORIGINAL_PRICE_INR = 2999;
+// Single internal testing promo (hard to guess) → treated as ₹1 for Razorpay
+// Store in uppercase so that validation is case-insensitive
+const SECRET_FREE_PROMO = 'DKB2025_INTERNAL_FREE_TEST_X9H4QP';
 const VALID_PROMOS = {
-  'KUBEDEAL': PROMO_DEAL_INR,
+  [SECRET_FREE_PROMO]: 1,
 };
 
 export async function POST(request: Request) {

@@ -269,17 +269,17 @@ export default function DockerKubernetesCheckoutPage() {
 
               {/* Promo Code */}
               <div className="mb-6">
-                <div className="text-sm font-semibold text-blue-900/70 mb-2">Promo Code</div>
+                <div className="text-sm font-semibold text-blue-900/70 mb-2">Limited-Time Offer</div>
                 <div className="flex gap-2">
                   <input 
                     id="promo" 
                     value={promoCode} 
                     onChange={(e) => setPromoCode(e.target.value)} 
-                    placeholder="Enter promo code" 
+                    placeholder="Have a code? (optional)"
                     className="flex-1 rounded-lg border border-blue-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
                   />
                   <button 
-                    onClick={handleApplyPromo} 
+                    onClick={handleApplyPromo}
                     disabled={isApplying} 
                     className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
                   >
@@ -287,7 +287,7 @@ export default function DockerKubernetesCheckoutPage() {
                   </button>
                 </div>
                 <div className="mt-2 text-xs text-neutral-500">
-                  Go to our <a href="https://www.instagram.com/devops__community/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-700 hover:text-blue-800 underline">Instagram handle</a> and find promo codes.
+                  Hurry — very few seats left. Complete your registration now to secure your slot.
                 </div>
               </div>
 
