@@ -15,6 +15,9 @@ interface RazorpayPaymentEntity {
     phone?: string;
     promo?: string;
     label?: string;
+    customer_name?: string;
+    customer_email?: string;
+    customer_contact?: string;
   };
 }
 
@@ -289,8 +292,8 @@ export async function POST(request: Request) {
     processedPayments.add(paymentId);
 
     // Store payment in database
-    const customerName = payment.notes?.name || 'Unknown';
-    const customerPhone = payment.notes?.phone || payment.contact;
+    const customerName = payment.notes?.customer_name || payment.notes?.name || 'Unknown';
+    const customerPhone = payment.notes?.customer_contact || payment.notes?.phone || payment.contact;
     const promoCode = payment.notes?.promo;
 
     try {
