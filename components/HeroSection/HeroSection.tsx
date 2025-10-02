@@ -431,13 +431,13 @@ export function HeroSectionOne() {
                   <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-semibold">10:00–11:00 AM IST</span>
                 </div>
                 <h3 className="text-lg md:text-xl font-bold mb-1 leading-tight">Docker & Kubernetes Mastery – 2-Week Live Bootcamp</h3>
-                <p className="text-white/90 text-xs md:text-sm">Hands-on containerization and Kubernetes, projects, and production strategies. Fee <span className="font-semibold">₹5,999</span>.</p>
+                <p className="text-white/90 text-xs md:text-sm">Hands-on containerization and Kubernetes, projects, and production strategies. Fee <span className="font-semibold">₹2,999</span>.</p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 min-w-[260px]">
                 <Link href="/webinars/docker-kubernetes-bootcamp">
                   <button className="bg-white text-orange-700 hover:bg-orange-50 font-bold px-5 py-2.5 rounded-xl text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-                    Register - ₹5,999
+                    Register - ₹2,999
                   </button>
                 </Link>
                 <Link href="/webinars">

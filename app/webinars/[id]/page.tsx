@@ -88,7 +88,7 @@ export default function WebinarDetailsPage() {
       duration: "5 days, 1.5 hours each day",
       fee: "₹999",
       originalPrice: "₹1,999",
-      discount: "Promo codes applicable",
+      discount: "Limited seats • Register soon",
       mode: "Live Zoom Sessions",
       subheading: "Automate Azure infra with Terraform using real projects and best practices",
       speaker: {
@@ -181,15 +181,15 @@ export default function WebinarDetailsPage() {
       date: "6th–17th October, 2025",
       time: "10:00 AM – 11:00 AM IST (Daily)",
       duration: "2 weeks, 1 hour each day",
-      fee: "₹5,999",
-      originalPrice: "₹5,999",
-      discount: "Promo codes applicable",
+      fee: "₹2,999",
+      originalPrice: "₹2,999",
+      discount: "Limited seats • Register soon",
       mode: "Live Zoom Sessions",
       subheading: "Master containerization and orchestration for DevOps excellence",
       speaker: {
         name: "Kubernetes Expert",
       },
-      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects! Tip: Get a promo code on our Instagram handle and apply it at Razorpay checkout.`,
+      description: `Master Docker and Kubernetes from basics to production deployment. Comprehensive 2-week bootcamp with hands-on labs and real-world projects! Very limited seats — secure your spot now.`,
       details: [
         {
           heading: "📚 Week 1 – Docker Fundamentals & Kubernetes Basics",
@@ -243,7 +243,7 @@ export default function WebinarDetailsPage() {
           ],
         },
         {
-          heading: "💰 What You Get for ₹5,999",
+          heading: "💰 What You Get for ₹2,999",
           items: [
             "2-Week Live Training Sessions (1 hour daily)",
             "Docker & Kubernetes Complete Curriculum",
@@ -256,7 +256,7 @@ export default function WebinarDetailsPage() {
         },
       ],
       registrationUrl: "https://pages.razorpay.com/pl_QyuVjAdAPl6lAo/view?label=docker_kubernetes", // placeholder
-      registrationText: "Pay ₹5,999 & Register Now",
+      registrationText: "Pay ₹2,999 & Register Now",
       isCompleted: false,
       headingWords: "Docker & Kubernetes Mastery",
       subheadingWords: "2-Week Live Bootcamp",
@@ -582,13 +582,13 @@ export default function WebinarDetailsPage() {
                           <div className="flex items-center gap-2 md:gap-3">
                             <span className="text-xl md:text-2xl">🚀</span>
                             <div className="text-left">
-                              <div className="text-base md:text-lg font-semibold leading-tight">Secure Checkout with Promo Codes</div>
-                              <div className="text-xs md:text-sm text-white/90">Pay securely • Apply promo at checkout</div>
+                              <div className="text-base md:text-lg font-semibold leading-tight">Secure Checkout</div>
+                              <div className="text-xs md:text-sm text-white/90">Few seats left • Confirm now</div>
                             </div>
                           </div>
                           <div className="text-right">
                             {/* original price removed per request */}
-                            <div className="text-lg md:text-2xl font-extrabold">{webinar.fee || '₹5,999'}</div>
+                            <div className="text-lg md:text-2xl font-extrabold">{webinar.fee || '₹2,999'}</div>
                           </div>
                         </button>
                       </Link>
@@ -606,9 +606,7 @@ export default function WebinarDetailsPage() {
                   </div>
                   <p className="text-xs text-neutral-600 text-center leading-relaxed">
                     {id === 'docker-kubernetes-bootcamp' ? (
-                      <>
-                        Use promo codes for discounts! After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
-                      </>
+                      <>Limited seats remaining — registration closes soon. After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.</>
                     ) : (
                       <>
                         After payment, you will receive a confirmation email, joining link, schedule, and free DevOps career PDF.
