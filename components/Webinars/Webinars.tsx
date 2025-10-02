@@ -81,7 +81,7 @@ const webinars: WebinarCard[] = [
     time: "10:00 AM – 11:00 AM IST (Daily)",
     duration: "2 weeks, 1 hour each day",
     fee: "₹2,999",
-    originalPrice: "₹2,999",
+    originalPrice: "₹5,999",
     discount: "Limited seats • Register soon",
     mode: "Live Zoom Sessions",
     speaker: {
