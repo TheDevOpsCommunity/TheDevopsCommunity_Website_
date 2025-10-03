@@ -184,7 +184,7 @@ export default function DockerKubernetesCheckoutPage() {
                 <InfoCard 
                   icon={<CalendarIcon className="w-5 h-5" />}
                   title="Dates"
-                  value="6th–17th October, 2025"
+                  value="13th–24th October, 2025"
                 />
                 <InfoCard 
                   icon={<ClockIcon className="w-5 h-5" />}

@@ -184,7 +184,7 @@ async function sendConfirmationEmail(emailData: { email: string; amount: number;
                         <td style="font-family:Arial,Helvetica,sans-serif; font-size:15px; color:#374151; line-height:1.6;">
                           <p style="margin:0 0 12px 0;">Hi <strong style="color:#111827;">${firstName}</strong>,</p>
                           <p style="margin:0 0 12px 0;">Thank you for registering for our <strong style="color:#0f766e;">Docker & Kubernetes Mastery – 2-Week Bootcamp</strong>.</p>
-                          <p style="margin:0 0 16px 0;">Dates: <strong>6th–17th October, 2025</strong> • Time: <strong>10:00 AM – 11:00 AM IST (Daily)</strong></p>
+                          <p style="margin:0 0 16px 0;">Dates: <strong>13th–24th October, 2025</strong> • Time: <strong>10:00 AM – 11:00 AM IST (Daily)</strong></p>
                         </td>
                       </tr>
                       <tr>
