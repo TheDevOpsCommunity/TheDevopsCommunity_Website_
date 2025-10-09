@@ -178,7 +178,7 @@ export default function WebinarDetailsPage() {
     "docker-kubernetes-bootcamp": {
       title: "Docker & Kubernetes Mastery – 2-Week Live Bootcamp",
       isLive: true,
-      date: "6th–17th October, 2025",
+      date: "13th–24th October, 2025",
       time: "10:00 AM – 11:00 AM IST (Daily)",
       duration: "2 weeks, 1 hour each day",
       fee: "₹2,999",
