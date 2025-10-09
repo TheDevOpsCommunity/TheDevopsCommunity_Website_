@@ -53,7 +53,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
       }}
       className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden group cursor-pointer"
     >
-      <Link href={`/blog/${blog._id}`} className="block h-full">
+      <Link href={`/blog/${blog.slug}`} className="block h-full">
         {/* Cover Image */}
         <div className="relative w-full h-48 overflow-hidden">
           <Image
